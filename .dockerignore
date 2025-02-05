@@ -13,7 +13,6 @@ build/
 deploy/
 example/
 schema/
-script/
 testdata/
 tool/
 website/

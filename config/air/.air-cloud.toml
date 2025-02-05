@@ -28,7 +28,6 @@ exclude_dir = [
   "dist",
   "vendor",
   "deploy",
-  "script",
   "example",
   "schema",
   "tool",

@@ -73,7 +73,6 @@ issues:
     - "deploy"
     - "example"
     - "schema"
-    - "script"
     - "testdata"
     - "tool"
 
