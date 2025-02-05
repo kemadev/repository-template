@@ -1,0 +1,17 @@
+name: PR - Check title
+
+on:
+  pull_request_target:
+    types:
+      - opened
+      - edited
+      - reopened
+      - synchronize
+      - unlocked
+
+jobs:
+  check-pr-title:
+    name: Check PR title
+    permissions:
+      contents: none
+    uses: kemadev/workflows-and-actions/.github/workflows/pr-check-title.yaml@main
