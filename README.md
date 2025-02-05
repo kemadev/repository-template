@@ -24,7 +24,7 @@
 
 ### Global Guidelines
 
-- You can find contributing guidelines in [CONTRIBUTING.md](/../../kemadev/.github/blob/main/.github/CONTRIBUTING.md).
+- You can find contributing guidelines in [CONTRIBUTING.md](/../../../../kemadev/.github/blob/main/.github/CONTRIBUTING.md).
 - Feeling like something could be improved? Let's do it! From code to documentation, services to use, or linter rules, everything is discussable and improvable. Let's move forward together!
 
 ### Concepts
