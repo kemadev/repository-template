@@ -1,0 +1,156 @@
+version: "3"
+
+vars:
+  dockerComposeCli: "docker compose --file {{ .toolsDir }}/docker/docker-compose.yaml"
+  dockerComposeProfileCloud: "cloud"
+  dockerComposeCliProfileCloud: "{{ .dockerComposeCli }} --profile {{ .dockerComposeProfileCloud }}"
+  dockerComposeProfileLocal: "local"
+  dockerComposeCliProfileLocal: "{{ .dockerComposeCli }} --profile {{ .dockerComposeProfileLocal }}"
+  dockerComposeUpArg: "up --build --detach"
+  dockerComposeLogsArg: "logs --follow"
+  dockerComposeDownArg: "down"
+  dockerComposeStartArg: "start"
+  dockerComposeStopArg: "stop"
+  dockerComposeRestartArg: "restart"
+  dockerComposeKillArg: "kill"
+
+  containerShellCmd: "sh -c 'if [ -e /bin/bash ]; then exec /bin/bash; elif [ -e /usr/bin/bash ]; then exec /usr/bin/bash; elif [ -e /usr/local/bin/bash ]; then exec /usr/local/bin/bash; else exec sh; fi'"
+
+run: once
+
+includes:
+  cloud:
+    taskfile: "cloud"
+    flatten: true
+  local:
+    taskfile: "local"
+    flatten: true
+
+tasks:
+  # Docker Compose Up
+  template-up-without-logs:
+    internal: true
+    desc: Up given profile's development
+    requires:
+      vars:
+        - dockerComposeProfile
+    cmds:
+      - '{{ .dockerComposeCli }} --profile {{ .dockerComposeProfile }} {{ .dockerComposeUpArg }} {{ .CLI_ARGS | default "" }}'
+
+  template-up:
+    internal: true
+    desc: Up given profile's development
+    cmds:
+      - task: template-up-without-logs
+        vars:
+          dockerComposeProfile: "{{ .dockerComposeProfile }}"
+      - task: template-logs
+        vars:
+          dockerComposeProfile: "{{ .dockerComposeProfile }}"
+
+  # Docker Compose Down
+  template-down:
+    internal: true
+    desc: Down given profile's development
+    requires:
+      vars:
+        - dockerComposeProfile
+    cmds:
+      - '{{ .dockerComposeCli }} --profile {{ .dockerComposeProfile }} {{ .dockerComposeDownArg }} {{ .CLI_ARGS | default "" }}'
+
+  # Docker Compose Kill
+  template-kill:
+    internal: true
+    desc: Kill given profile's development
+    requires:
+      vars:
+        - dockerComposeProfile
+    cmds:
+      - '{{ .dockerComposeCli }} --profile {{ .dockerComposeProfile }} {{ .dockerComposeKillArg }} {{ .CLI_ARGS | default "" }}'
+
+  # Docker Compose Restart
+  template-restart-without-logs:
+    internal: true
+    desc: Restart given profile's development
+    requires:
+      vars:
+        - dockerComposeProfile
+    cmds:
+      - '{{ .dockerComposeCli }} --profile {{ .dockerComposeProfile }} {{ .dockerComposeRestartArg }} {{ .CLI_ARGS | default "" }}'
+
+  template-restart:
+    internal: true
+    desc: Restart given profile's development
+    cmds:
+      - task: template-restart-without-logs
+        vars:
+          dockerComposeProfile: "{{ .dockerComposeProfile }}"
+      - task: template-logs
+        vars:
+          dockerComposeProfile: "{{ .dockerComposeProfile }}"
+
+  # Docker Compose Rebuild
+  template-rebuild:
+    internal: true
+    desc: Rebuild given profile's development
+    requires:
+      vars:
+        - dockerComposeProfile
+    cmds:
+      - task: template-down
+        vars:
+          dockerComposeProfile: "{{ .dockerComposeProfile }}"
+      - task: template-up
+        vars:
+          dockerComposeProfile: "{{ .dockerComposeProfile }}"
+
+  # Docker Compose Start
+  template-start:
+    internal: true
+    desc: Start given profile's development
+    requires:
+      vars:
+        - dockerComposeProfile
+    cmds:
+      - '{{ .dockerComposeCli }} --profile {{ .dockerComposeProfile }} {{ .dockerComposeStartArg }} {{ .CLI_ARGS | default "" }}'
+
+  # Docker Compose Stop
+  template-stop:
+    internal: true
+    desc: Stop given profile's development
+    requires:
+      vars:
+        - dockerComposeProfile
+    cmds:
+      - '{{ .dockerComposeCli }} --profile {{ .dockerComposeProfile }} {{ .dockerComposeStopArg }} {{ .CLI_ARGS | default "" }}'
+
+  # Docker Compose Logs
+  template-logs:
+    internal: true
+    desc: Show logs for given profile's development
+    requires:
+      vars:
+        - dockerComposeProfile
+    cmds:
+      - '{{ .dockerComposeCli }} --profile {{ .dockerComposeProfile }} {{ .dockerComposeLogsArg }} {{ .CLI_ARGS | default "" }}'
+
+  # Docker Compose Shell
+  template-shell:
+    internal: true
+    interactive: true
+    desc: Open shell for given profile's development and given service
+    requires:
+      vars:
+        - dockerComposeProfile
+    cmds:
+      - '{{ .dockerComposeCli }} --profile {{ .dockerComposeProfile }} exec {{ .CLI_ARGS | default "rtfm-you-forgot-to-pass-service-name" }} {{ .containerShellCmd }}'
+
+  # Docker Compose Arbitrary Command
+  template-arbitrary-compose-command:
+    internal: true
+    desc: Execute arbitrary Docker Compose command in given profile's development
+    requires:
+      vars:
+        - dockerComposeProfile
+    cmds:
+      - '{{ .dockerComposeCli }} --profile {{ .dockerComposeProfile }} {{ .dockerComposeCmd }} {{ .CLI_ARGS | default "rtfm-you-forgot-to-pass-service-name" }}'

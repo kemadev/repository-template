@@ -1,0 +1,6 @@
+version: "3"
+
+includes:
+  dev:
+    taskfile: "./tool/task"
+    flatten: true

@@ -1,0 +1,86 @@
+version: "3"
+
+vars:
+  goCli: "go"
+  goLinter: "golangci-lint"
+  goLinterConfig: "{{ .configDir }}/lint/.golangci.yml"
+  goCoverageReport: "{{ .distDir }}/cover.out"
+  goCoverageHtml: "{{ .distDir }}/coverage.html"
+  goBuildOutputDistSubdir: "task"
+  goCmdDir: "cmd"
+  goreleaserCli: "goreleaser"
+  goreleaserConfig: "{{ .configDir }}/release/.goreleaser.yaml"
+
+run: once
+
+tasks:
+  # Go
+  format:
+    desc: Format all packages
+    cmds:
+      - "{{ .goCli }} fmt ./..."
+
+  tidy:
+    desc: Tidy go modules
+    cmds:
+      - "{{ .goCli }} mod tidy"
+
+  lint:
+    desc: Lint all packages
+    deps:
+      - format
+    cmds:
+      - "{{ .goLinter }} run ./... --config {{ .goLinterConfig }}"
+
+  test:
+    desc: Run tests on all packages
+    deps:
+      - format
+    cmds:
+      - "{{ .goCli }} test ./..."
+
+  test-full:
+    desc: Run tests on all packages, including coverage and benchmarks
+    deps:
+      - format
+    cmds:
+      - "{{ .goCli }} test -bench=. -benchmem -covermode=atomic -coverprofile={{ .goCoverageReport }} ./..."
+
+  test-coverage:
+    desc: Report coverage
+    deps:
+      - test_full
+    cmds:
+      - "{{ .goCli }} tool cover -html={{ .goCoverageReport }} -o={{ .goCoverageHtml }}"
+
+  prepare:
+    desc: Format, tidy, lint and test
+    cmds:
+      - task: format
+      - task: tidy
+      - task: lint
+      - task: test
+
+  ensure-service-exists:
+    desc: Ensure that sample file exists
+    internal: true
+    silent: true
+    cmds:
+      - cmd: if [ ! -d ./{{ .goCmdDir }}/{{ .service | default "rtfm-you-forgot-to-pass-service-name" }} ]; then echo "Service dir '{{ .goCmdDir }}/{{ .service | default "rtfm-you-forgot-to-pass-service-name" }}' not found"; exit 1; fi
+
+  build_dev:
+    desc: Build the project for development
+    vars:
+      service: "{{ .CLI_ARGS }}"
+    cmds:
+      - task: ensure-service-exists
+        vars:
+          # Propagate sampleName
+          service: "{{ .service }}"
+        silent: true
+      - '{{ .goCli }} build -tags lambda.norpc -o {{ .distDir }}/{{ .goBuildOutputDistSubdir }}/{{ .service | default "rtfm-you-forgot-to-pass-service-name"  }} ./{{ .goCmdDir }}/{{ .service | default "rtfm-you-forgot-to-pass-service-name"  }}'
+
+  build_prod:
+    desc: Build the project for production, same way as production workflows would
+    cmds:
+      - "{{ .goreleaserCli }} build --config {{ .goreleaserConfig }} --snapshot --clean"

@@ -1,0 +1,74 @@
+version: "3"
+
+vars:
+  samCli: "sam"
+  awsCli: "aws"
+  curlCli: "curl"
+  lambdaLocalInvokeUrl: "http://localhost:9000/2015-03-31/functions/function/invocations"
+  runSamplesDir: "testdata/invocation-samples"
+
+  # Just messing with quotes in YAML
+  awsCliEmptyQueryHack: '""'
+  awsCliEmptyQuery: "'{{ .awsCliEmptyQueryHack }}'"
+
+  sampleApiGateway: "api-gateway-request.sample.json"
+
+run: once
+
+tasks:
+  generate-event:
+    desc: Generate sample events for local testing using SAM CLI, necessarily append `-- <event-parameters>` to your command in order to specify event parameters
+    cmds:
+      - '{{ .samCli }} local generate-event {{ .CLI_ARGS | default "rtfm-you-forgot-to-pass-event-name" }}'
+
+  ensure-template-exists:
+    desc: Ensure that sample file exists
+    internal: true
+    silent: true
+    cmds:
+      - cmd: if [ ! -f {{ .runSamplesDir }}/{{ .sampleName | default "rtfm-you-forgot-to-pass-sample-name" }} ]; then echo "Sample file '{{ .runSamplesDir }}/{{ .sampleName | default "rtfm-you-forgot-to-pass-sample-name" }}' not found"; exit 1; fi
+
+  local-sample-template:
+    desc: Wrap curl command with sample request for local testing
+    internal: true
+    silent: true
+    cmds:
+      - task: ensure-template-exists
+        vars:
+          # Propagate sampleName
+          sampleName: "{{ .sampleName }}"
+        silent: true
+      - cmd: '{{ .curlCli }} --silent -X POST "{{ .lambdaLocalInvokeUrl }}" -d @{{ .runSamplesDir }}/{{ .sampleName | default "rtfm-you-forgot-to-pass-sample-name" }}'
+        silent: true
+      - cmd: echo ""
+        silent: true
+
+  local-sample:
+    desc: Run local sample request, necessarily append `-- <sample-name>` to your command in order to specify sample to use. Samples are located in {{ .runSamplesDir }}
+    cmds:
+      - task: local-sample-template
+        vars:
+          sampleName: "{{ .CLI_ARGS }}"
+
+  cloud-sample-template:
+    desc: Wrap AWS CLI command with sample request for cloud testing
+    internal: true
+    silent: true
+    cmds:
+      - task: ensure-template-exists
+        vars:
+          # Propagate sampleName
+          sampleName: "{{ .sampleName }}"
+        silent: true
+      - cmd: '{{ .awsCli }} lambda invoke --function-name {{ .functionName }} --payload fileb://{{ .runSamplesDir }}/{{ .sampleName | default "rtfm-you-forgot-to-pass-sample-name" }} --query {{ .awsCliEmptyQuery }} /dev/stdout'
+        silent: true
+      - cmd: echo ""
+        silent: true
+
+  cloud-sample:
+    desc: Run cloud sample request, necessarily append `-- <function-name> <sample-name>` to your command in order to specify sample to use. Samples are located in {{ .runSamplesDir }}
+    cmds:
+      - task: cloud-sample-template
+        vars:
+          functionName: '{{ (split " " .CLI_ARGS)._0 }}'
+          sampleName: '{{ (split " " .CLI_ARGS)._1 }}'

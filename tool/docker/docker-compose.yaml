@@ -1,0 +1,98 @@
+name: app
+
+networks:
+  app-main:
+    driver: bridge
+
+services:
+  # Template service for app-cloud and app-local
+  template-base:
+    profiles:
+      - never
+    # Enable colorized output for air
+    tty: true
+    build:
+      context: ../../
+      dockerfile: build/package/Dockerfile
+    networks:
+      - app-main
+    env_file:
+      - ../../config/env/aws/dev.env
+    environment:
+      # Emulate AWS Lambda environment log level during local development
+      AWS_LAMBDA_LOG_LEVEL: "DEBUG"
+      # Emulate AWS Lambda environment function version during local development. $$ is escaped to $.
+      AWS_LAMBDA_FUNCTION_VERSION: "$$LATEST"
+    volumes:
+      # App source code
+      - type: bind
+        source: ../../
+        target: /app
+        read_only: false
+      # Go pkg
+      - type: bind
+        source: ${GOPATH:-${HOME}/go}/pkg
+        target: /root/go/pkg
+        read_only: false
+      # Go build cache
+      - type: bind
+        source: ${GOCACHE:-${HOME}/.cache/go-build}
+        target: /root/.cache/go-build
+        read_only: false
+    restart: always
+
+  template-cloud:
+    extends:
+      service: template-base
+    profiles:
+      - never
+    build:
+      target: dev-cloud-arm64
+    environment:
+      # Default AWS CLI output to human-readable table
+      AWS_DEFAULT_OUTPUT: "table"
+      # Disable AWS CLI pagination in order to get update-function-code results nicely when running live-deploy
+      AWS_PAGER: ""
+    volumes:
+      # AWS CLI config
+      - type: bind
+        source: ${AWS_CONFIG_FILE:-${HOME}/.aws/config}
+        target: /root/.aws/config
+        read_only: true
+      # AWS CLI credentials cache
+      - type: bind
+        source: ${HOME}/.aws/sso/cache
+        target: /root/.aws/sso/cache
+        # Cache is modified when running commands, thus needs to be read-write
+        read_only: false
+
+  template-local:
+    extends:
+      service: template-base
+    profiles:
+      - never
+    build:
+      target: dev-local
+
+  app-cloud:
+    profiles:
+      - cloud
+    extends:
+      service: template-cloud
+    environment:
+      # Lambda function to be live-deployed
+      LAMBDA_FUNCTION_NAME: manual-debug
+      # Directory containing entrypoint for this function
+      GO_MAIN_FILE_DIR: main
+
+  app-local:
+    profiles:
+      - local
+    extends:
+      service: template-local
+    environment:
+      # Directory containing entrypoint for this function
+      GO_MAIN_FILE_DIR: main
+    ports:
+      # [Lambda RIE](https://github.com/aws/aws-lambda-runtime-interface-emulator/)
+      - "9000:8080"
