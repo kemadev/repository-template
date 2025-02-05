@@ -3,6 +3,7 @@ name: Go - CD
 on:
   push:
     branches:
+      - main
       - env/prod
       - env/next
       # env/dev is deployed manually by developers on their local machines
