@@ -1,0 +1,12 @@
+name: PR - Add labels
+
+on:
+  pull_request_target: {}
+
+jobs:
+  add-label:
+    name: Add labels to PR
+    permissions:
+      contents: read
+      pull-requests: write
+    uses: kemadev/workflows-and-actions/.github/workflows/pr-add-label.yaml@main

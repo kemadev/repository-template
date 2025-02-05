@@ -1,0 +1,28 @@
+name: Go - CD
+
+on:
+  push:
+    branches:
+      - env/prod
+      - env/next
+      # env/dev is deployed manually by developers on their local machines
+  workflow_dispatch:
+    inputs:
+      force-patch:
+        description: Force new patch version, creating a new tag and release
+        type: boolean
+        default: false
+        required: false
+      force-rollback:
+        description: Force rollback to specified git reference (use `latest` for latest successful deploy)
+        type: string
+        default: ""
+        required: false
+
+jobs:
+  go-cd:
+    name: Go - CD
+    uses: kemadev/workflows-and-actions/.github/workflows/go-cd.yaml@main
+    permissions:
+      contents: write
+      packages: write
