@@ -1,0 +1,14 @@
+name: Global - CI
+
+on:
+  pull_request: {}
+  workflow_dispatch: {}
+
+defaults:
+  run:
+    shell: bash
+
+jobs:
+  global-ci:
+    name: Global - CI
+    uses: kemadev/workflows-and-actions/.github/workflows/global-ci.yaml@main
