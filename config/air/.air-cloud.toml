@@ -1,0 +1,73 @@
+# Project root directory (in container)
+root = "."
+# Testdata directory
+testdata_dir = "testdata"
+# Tmp directory
+tmp_dir = "air"
+
+[build]
+# Build command, `bootstrap` as only binary in zip is required for AWS Lambda provided runtime
+cmd = "echo 'Building binary...' && CGO_ENABLED=0 go build -ldflags='-s -w' -tags lambda.norpc -o ./dist/dev/${GO_MAIN_FILE_DIR}/bootstrap ./cmd/${GO_MAIN_FILE_DIR} && echo 'Zipping package...' && zip -j ./dist/dev/${GO_MAIN_FILE_DIR}.zip ./dist/dev/${GO_MAIN_FILE_DIR}/bootstrap && chmod -R 777 ./dist/dev && echo 'Updating code...'"
+# Bin to run and reload
+full_bin = "aws"
+# Bin args
+args_bin = [
+  "lambda",
+  "update-function-code",
+  "--zip-file",
+  "fileb://./dist/dev/${GO_MAIN_FILE_DIR}.zip",
+  "--query",
+  "'{Name: FunctionName, Description: Description, ARN: FunctionArn, Role: Role, Handler: Handler, Memory: MemorySize, Timeout: Timeout, Modified: LastModified}'",
+  "--function-name",
+  "${LAMBDA_FUNCTION_NAME}",
+]
+# Directories to exclude
+exclude_dir = [
+  "testdata",
+  "build",
+  "dist",
+  "vendor",
+  "deploy",
+  "script",
+  "example",
+  "schema",
+  "tool",
+]
+# File extensions to include
+include_ext = ["go", "tpl", "tmpl", "html"]
+# Regex to exclude
+exclude_regex = ["_test.go"]
+# Log file (located in tmp_dir)
+log = "air.log"
+# Send interrupt before kill
+send_interrupt = true
+# Stop running old binary when build error
+stop_on_error = false
+# Restart on exit
+rerun = false
+
+[color]
+# App log color
+main = "magenta"
+# Watcher log color
+watcher = "cyan"
+# Builder log color
+build = "yellow"
+# Runner log color
+runner = "green"
+
+[log]
+# Show only main log (not watcher, builder, runner)
+main_only = true
+# Log timestamps
+time = false
+
+[misc]
+# Delete tmp directory on exit
+clean_on_exit = false
+
+[screen]
+# Clear screen on reload
+clear_on_rebuild = true
+# Keep scroll on reload
+keep_scroll = true
