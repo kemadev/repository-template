@@ -13,5 +13,6 @@ jobs:
     name: Global - CI
     uses: kemadev/workflows-and-actions/.github/workflows/global-ci.yaml@main
     permissions:
+      contents: read
       issues: write
       pull-requests: write
