@@ -13,7 +13,7 @@ services:
     tty: true
     build:
       context: ../../
-      dockerfile: build/package/Dockerfile
+      dockerfile: build/Dockerfile
     networks:
       - app-main
     env_file:

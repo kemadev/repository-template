@@ -1,6 +1,8 @@
 # Intermediate image providing go dependencies
 FROM --platform=${BUILDPLATFORM} public.ecr.aws/amazonlinux/amazonlinux:2023 AS go-deps
 
+SHELL ["/bin/bash", "-uo", "pipefail", "-c"]
+
 # Docker buildx ARGs
 ARG TARGETOS
 ARG TARGETARCH
@@ -8,14 +10,15 @@ ARG TARGETARCH
 WORKDIR /deps
 
 # Install packages required for go installation
-RUN dnf install --assumeyes tar gzip zip
+# hadolint ignore=DL3041
+RUN dnf install --assumeyes tar gzip zip && dnf clean all
 
 # Set build environment
 ENV GOOS=${TARGETOS} GOARCH=${TARGETARCH}
 
 # Install go version specified in go.mod
 COPY go.mod /tmp/go.mod
-RUN curl -sSL https://go.dev/dl/go$(cat /tmp/go.mod | grep -oP 'go\s+\K([0-9.]+)').${GOOS}-${GOARCH}.tar.gz | tar -C /usr/local -xz
+RUN curl -sSL "https://go.dev/dl/go$(grep -oP 'go\s+\K([0-9.]+)' < /tmp/go.mod).${GOOS}-${GOARCH}.tar.gz" | tar -C /usr/local -xz
 
 # Ensure GOPATH exists, even if no Go command has been run
 RUN mkdir -p /root/go
@@ -69,8 +72,8 @@ RUN case ${TARGETARCH} in \
 	esac
 
 # Install packages required for cloud deployment (provided awscli is obsolete, see https://docs.aws.amazon.com/cli/latest/userguide/getting-started-install.html#getting-started-install-instructions)
-RUN dnf remove --assumeyes awscli
-RUN dnf install --assumeyes zip
+# hadolint ignore=DL3041
+RUN dnf remove --assumeyes awscli && dnf install --assumeyes zip && dnf clean all
 RUN curl -sSL "https://awscli.amazonaws.com/awscli-exe-${TARGETOS}-$(cat /tmp/aws_cli_arch).zip" -o /tmp/awscliv2.zip && unzip /tmp/awscliv2.zip -d /tmp && /tmp/aws/install
 
 # Set environment variables defined in docker compose definition, default to nonexistent to avoid accidental use
@@ -164,10 +167,8 @@ FROM build AS archive
 WORKDIR /app
 
 # Install zip
-RUN dnf install --assumeyes zip
-
-# Create archive
-RUN zip -j /usr/bin/app.zip /usr/bin/app
+# hadolint ignore=DL3041
+RUN dnf install --assumeyes zip && dnf clean all && zip -j /usr/bin/app.zip /usr/bin/app
 
 
 
