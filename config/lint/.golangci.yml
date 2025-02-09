@@ -6,45 +6,47 @@ run:
 linters:
   disable-all: true
   enable:
-    - forbidigo
-    - ginkgolinter
-    - gocritic
-    - revive
-    - exhaustruct
-    - testifylint
-    - depguard
-    - errorlint
-    - err113
-    - gofmt
-    - goimports
-    - govet
-    - ineffassign
-    - misspell
-    - staticcheck
-    - stylecheck
-    - unused
-    - goheader
-    - gosec
-    - gomodguard
-    - gosimple
-    - sloglint
-    - recvcheck
-    - nonamedreturns
-    - dupword
-    - goconst
-    - dogsled
-    - funlen
-    - godot
-    - godox
-    - durationcheck
-    - errname
-    - predeclared
-    - forcetypeassert
-    - makezero
-    - mnd
     - asciicheck
     - containedctx
+    - depguard
+    - dogsled
+    - dupword
+    - durationcheck
+    - err113
+    - errname
+    - errorlint
+    - exhaustruct
+    - forbidigo
+    - forcetypeassert
+    - funlen
+    - ginkgolinter
+    - goconst
+    - gocritic
+    - gocyclo
+    - godot
+    - godox
+    - gofmt
+    - goheader
+    - goimports
+    - gomodguard
+    - gosec
+    - gosimple
+    - govet
     - importas
+    - ineffassign
+    - makezero
+    - misspell
+    - mnd
+    - nonamedreturns
+    - predeclared
+    - recvcheck
+    - revive
+    - sloglint
+    - staticcheck
+    - stylecheck
+    - testifylint
+    - unconvert
+    - unused
 
 linters-settings:
   depguard:
@@ -56,6 +58,11 @@ linters-settings:
           - "!$test"
         allow:
           - $gostd
+  errcheck:
+    check-blank: true
+    check-type-assertions: true
+  gocyclo:
+    min-complexity: 15
 
 issues:
   exclude-use-default: true
