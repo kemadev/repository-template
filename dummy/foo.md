@@ -1,6 +1,6 @@
 ## Dummy
 
-- bumpsu
+- bumps
 
 0. fii
 9. foo
