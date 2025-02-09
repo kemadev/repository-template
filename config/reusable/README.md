@@ -1,4 +1,4 @@
-# `.github/script/reusable`
+# `config/reusable`
 
 ## Files in this directory
 
