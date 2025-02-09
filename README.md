@@ -79,3 +79,4 @@
 - **[golang-standards/project-layout](https://github.com/golang-standards/project-layout)** broadly inspired the project structure and conventions
 - **[Pulumi](https://github.com/pulumi)** inspired the full usage of GitHub's features and the need for a complete GitOps approach with full automation
 - **[oh-my-posh](https://github.com/jandedobbeleer/oh-my-posh)** inspired some conventions and the sharing way of thinking, and provides a wonderful shell prompt!
+- **[super-linter](https://github.com/super-linter/super-linter)** inspired some of the CI/CD pipeline conventions and the need for a full-fledged linting solution
