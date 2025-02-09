@@ -3,8 +3,8 @@ name: Go - CI
 on:
   pull_request:
     paths:
-      - "go.mod"
-      - "go.sum"
+      - go.mod
+      - go.sum
       - "**/*.go"
   workflow_dispatch: {}
 

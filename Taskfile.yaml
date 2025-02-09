@@ -1,6 +1,6 @@
-version: "3"
+version: 3
 
 includes:
   dev:
-    taskfile: "./tool/task"
+    taskfile: ./tool/task
     flatten: true
