@@ -1,0 +1,20 @@
+name: YAML - CI
+
+on:
+  pull_request:
+    paths:
+      - "**/*.yaml"
+      - "**/*.yml"
+  workflow_dispatch: {}
+
+defaults:
+  run:
+    shell: bash
+
+jobs:
+  yaml-ci:
+    name: YAML - CI
+    uses: kemadev/workflows-and-actions/.github/workflows/yaml-ci.yaml@main
+    permissions:
+      contents: read
+      checks: write

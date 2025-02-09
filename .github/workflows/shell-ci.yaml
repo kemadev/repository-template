@@ -1,0 +1,19 @@
+name: Shell - CI
+
+on:
+  pull_request:
+    paths:
+      - "**/*.sh"
+  workflow_dispatch: {}
+
+defaults:
+  run:
+    shell: bash
+
+jobs:
+  shell-ci:
+    name: Shell - CI
+    uses: kemadev/workflows-and-actions/.github/workflows/shell-ci.yaml@main
+    permissions:
+      contents: read
+      checks: write

@@ -1,0 +1,19 @@
+name: GitHub Actions - CI
+
+on:
+  pull_request:
+    paths:
+      - ".github/workflows/*"
+  workflow_dispatch: {}
+
+defaults:
+  run:
+    shell: bash
+
+jobs:
+  github-actions-ci:
+    name: GitHub Actions - CI
+    uses: kemadev/workflows-and-actions/.github/workflows/gh-actions-ci.yaml@main
+    permissions:
+      contents: read
+      checks: write

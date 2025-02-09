@@ -1,0 +1,19 @@
+name: Markdown - CI
+
+on:
+  pull_request:
+    paths:
+      - "**/*.md"
+  workflow_dispatch: {}
+
+defaults:
+  run:
+    shell: bash
+
+jobs:
+  markdown-ci:
+    name: Markdown - CI
+    uses: kemadev/workflows-and-actions/.github/workflows/markdown-ci.yaml@main
+    permissions:
+      contents: read
+      checks: write
