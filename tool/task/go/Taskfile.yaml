@@ -1,14 +1,14 @@
-version: "3"
+version: 3
 
 vars:
-  goCli: "go"
-  goLinter: "golangci-lint"
+  goCli: go
+  goLinter: golangci-lint
   goLinterConfig: "{{ .configDir }}/lint/.golangci.yml"
   goCoverageReport: "{{ .distDir }}/cover.out"
   goCoverageHtml: "{{ .distDir }}/coverage.html"
-  goBuildOutputDistSubdir: "task"
-  goCmdDir: "cmd"
-  goreleaserCli: "goreleaser"
+  goBuildOutputDistSubdir: task
+  goCmdDir: cmd
+  goreleaserCli: goreleaser
   goreleaserConfig: "{{ .configDir }}/release/.goreleaser.yaml"
 
 run: once

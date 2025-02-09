@@ -1,29 +1,29 @@
-version: "3"
+version: 3
 
 vars:
-  dockerComposeCli: "docker compose --file {{ .toolsDir }}/docker/docker-compose.yaml"
-  dockerComposeProfileCloud: "cloud"
+  dockerComposeCli: docker compose --file {{ .toolsDir }}/docker/docker-compose.yaml
+  dockerComposeProfileCloud: cloud
   dockerComposeCliProfileCloud: "{{ .dockerComposeCli }} --profile {{ .dockerComposeProfileCloud }}"
-  dockerComposeProfileLocal: "local"
+  dockerComposeProfileLocal: local
   dockerComposeCliProfileLocal: "{{ .dockerComposeCli }} --profile {{ .dockerComposeProfileLocal }}"
-  dockerComposeUpArg: "up --build --detach"
-  dockerComposeLogsArg: "logs --follow"
-  dockerComposeDownArg: "down"
-  dockerComposeStartArg: "start"
-  dockerComposeStopArg: "stop"
-  dockerComposeRestartArg: "restart"
-  dockerComposeKillArg: "kill"
+  dockerComposeUpArg: up --build --detach
+  dockerComposeLogsArg: logs --follow
+  dockerComposeDownArg: down
+  dockerComposeStartArg: start
+  dockerComposeStopArg: stop
+  dockerComposeRestartArg: restart
+  dockerComposeKillArg: kill
 
-  containerShellCmd: "sh -c 'if [ -e /bin/bash ]; then exec /bin/bash; elif [ -e /usr/bin/bash ]; then exec /usr/bin/bash; elif [ -e /usr/local/bin/bash ]; then exec /usr/local/bin/bash; else exec sh; fi'"
+  containerShellCmd: sh -c 'if [ -e /bin/bash ]; then exec /bin/bash; elif [ -e /usr/bin/bash ]; then exec /usr/bin/bash; elif [ -e /usr/local/bin/bash ]; then exec /usr/local/bin/bash; else exec sh; fi'
 
 run: once
 
 includes:
   cloud:
-    taskfile: "cloud"
+    taskfile: cloud
     flatten: true
   local:
-    taskfile: "local"
+    taskfile: local
     flatten: true
 
 tasks:

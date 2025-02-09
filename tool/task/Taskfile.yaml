@@ -1,24 +1,24 @@
-version: "3"
+version: 3
 
 vars:
-  baseDir: "../.."
-  configDir: "config"
-  toolsDir: "tool"
-  distDir: "dist"
+  baseDir: ../..
+  configDir: config
+  toolsDir: tool
+  distDir: dist
 
 run: once
 
 includes:
   custom:
-    taskfile: "custom"
+    taskfile: custom
     dir: "{{ .baseDir }}"
     optional: true
   dev:
-    taskfile: "dev"
+    taskfile: dev
     dir: "{{ .baseDir }}"
   go:
-    taskfile: "go"
+    taskfile: go
     dir: "{{ .baseDir }}"
   run:
-    taskfile: "run"
+    taskfile: run
     dir: "{{ .baseDir }}"

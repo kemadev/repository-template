@@ -1,17 +1,17 @@
-version: "3"
+version: 3
 
 vars:
-  samCli: "sam"
-  awsCli: "aws"
-  curlCli: "curl"
-  lambdaLocalInvokeUrl: "http://localhost:9000/2015-03-31/functions/function/invocations"
-  runSamplesDir: "testdata/invocation-samples"
+  samCli: sam
+  awsCli: aws
+  curlCli: curl
+  lambdaLocalInvokeUrl: http://localhost:9000/2015-03-31/functions/function/invocations
+  runSamplesDir: testdata/invocation-samples
 
   # Just messing with quotes in YAML
   awsCliEmptyQueryHack: '""'
   awsCliEmptyQuery: "'{{ .awsCliEmptyQueryHack }}'"
 
-  sampleApiGateway: "api-gateway-request.sample.json"
+  sampleApiGateway: api-gateway-request.sample.json
 
 run: once
 

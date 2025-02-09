@@ -3,7 +3,7 @@ name: GitHub Actions - CI
 on:
   pull_request:
     paths:
-      - ".github/workflows/*"
+      - .github/workflows/*
   workflow_dispatch: {}
 
 defaults:

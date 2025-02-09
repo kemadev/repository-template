@@ -20,9 +20,9 @@ services:
       - ../../config/env/aws/dev.env
     environment:
       # Emulate AWS Lambda environment log level during local development
-      AWS_LAMBDA_LOG_LEVEL: "DEBUG"
+      AWS_LAMBDA_LOG_LEVEL: DEBUG
       # Emulate AWS Lambda environment function version during local development. $$ is escaped to $.
-      AWS_LAMBDA_FUNCTION_VERSION: "$$LATEST"
+      AWS_LAMBDA_FUNCTION_VERSION: $$LATEST
     volumes:
       # App source code
       - type: bind
@@ -50,7 +50,7 @@ services:
       target: dev-cloud-arm64
     environment:
       # Default AWS CLI output to human-readable table
-      AWS_DEFAULT_OUTPUT: "table"
+      AWS_DEFAULT_OUTPUT: table
       # Disable AWS CLI pagination in order to get update-function-code results nicely when running live-deploy
       AWS_PAGER: ""
     volumes:
@@ -95,4 +95,4 @@ services:
       GO_MAIN_FILE_DIR: main
     ports:
       # [Lambda RIE](https://github.com/aws/aws-lambda-runtime-interface-emulator/)
-      - "9000:8080"
+      - 9000:8080
