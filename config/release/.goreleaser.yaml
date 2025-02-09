@@ -45,7 +45,7 @@ archives:
       - main
     # Make the archive name unique
     name_template: "main_{{ .Target }}"
-    format: zip
+    formats: ["zip"]
     # Exclude all files from the archive, see https://goreleaser.com/customization/archive/#packaging-only-the-binaries
     files:
       - none*
