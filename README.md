@@ -66,12 +66,12 @@
 - However, they can sometime report false positives. Here is what you can do to remediate (be as specific as possible on silences to avoid shadowing real issues):
   - `golangci-lint`: Add a `nolint:<linter>[,<linter>]` comment. See [this doc](https://golangci-lint.run/usage/false-positives/)
   - `semgrep`: Add a `nosemgrep: <rule-id>` comment. See [this doc](https://semgrep.dev/docs/ignoring-files-folders-code)
-  - `trufflehog`: Add a `trufflehog:ignore` comment. See [this doc](https://github.com/trufflesecurity/trufflehog/tree/main/?tab=readme-ov-file#question-faq). Please note that **any leaked secret should be revoked and replaced as soon as possible**
-  - `yamllint`: Add a `yamllint disable[-line] rule:<rule>` comment. See [this doc](https://yamllint.readthedocs.io/en/stable/disable_with_comments.html)
-  - `markdownlint`: Add a `<!-- markdownlint-disable <rule> -->` comment. See [this doc](https://github.com/DavidAnson/markdownlint?tab=readme-ov-file#configuration)
-  - `shellcheck`: Add a `# shellcheck disable=<rule>` comment. See [this doc](https://github.com/koalaman/shellcheck/wiki/Ignore)
-  - `hadolint`: Add a `# hadolint ignore=<rule>` comment. See [this doc](https://github.com/hadolint/hadolint?tab=readme-ov-file#ignoring-rules)
-  - `actionlint`: You can pass arguments to the linting action to ignore specific rules. See [this doc](https://github.com/rhysd/actionlint/blob/v1.7.7/docs/usage.md#ignore-some-errors)
+  - `trufflehog`: Add a `trufflehog:ignore` comment. See [this doc](https://github.com/trufflesecurity/trufflehog/blob/main/README.md#question-faq). Please note that **any leaked secret should be revoked and replaced as soon as possible**
+  - `yamllint`: Add a `yamllint disable-line rule:<rule>` comment. See [this doc](https://yamllint.readthedocs.io/en/stable/disable_with_comments.html)
+  - `markdownlint`: Add a `markdownlint-disable <rule>` comment. See [this doc](https://github.com/DavidAnson/markdownlint/blob/main/README.md#configuration)
+  - `shellcheck`: Add a `shellcheck disable=<rule>` comment. See [this doc](https://github.com/koalaman/shellcheck/wiki/Ignore)
+  - `hadolint`: Add a `hadolint ignore=<rule>` comment. See [this doc](https://github.com/hadolint/hadolint/blob/master/README.md#ignoring-rules)
+  - `actionlint`: You can pass arguments to the linting action to ignore specific rules. See [this doc](https://github.com/rhysd/actionlint/blob/main/docs/usage.md#ignore-some-errors)
 
 ## Acknowledgments
 
