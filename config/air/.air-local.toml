@@ -3,7 +3,7 @@ root = "."
 # Testdata directory
 testdata_dir = "testdata"
 # Tmp directory
-tmp_dir = "air"
+tmp_dir = "/tmp"
 
 [build]
 # Build command, `bootstrap` as only binary is required for AWS Lambda provided runtime
