@@ -3,48 +3,48 @@
 version: 2
 
 updates:
-  - package-ecosystem: "github-actions"
-    directory: "/"
+  - package-ecosystem: 'github-actions'
+    directory: '/'
     commit-message:
-      prefix: "chore(deps): dependabot - actions "
+      prefix: 'chore(deps): dependabot - actions '
     schedule:
-      interval: "daily"
-      timezone: "Etc/UTC"
-      time: "03:00"
+      interval: 'daily'
+      timezone: 'Etc/UTC'
+      time: '03:00'
     # assignees: [""]
     # reviewers: [""]
-    labels: ["area/dependencies", "status/needs-triage", "complexity/low"]
+    labels: ['area/dependencies', 'status/needs-triage', 'complexity/low']
     pull-request-branch-name:
-      separator: "-"
-  - package-ecosystem: "docker"
+      separator: '-'
+  - package-ecosystem: 'docker'
     directories:
-      - "/build"
-      - "/build/*"
+      - '/build'
+      - '/build/*'
     commit-message:
-      prefix: "chore(deps): dependabot - docker "
+      prefix: 'chore(deps): dependabot - docker '
     schedule:
-      interval: "daily"
-      timezone: "Etc/UTC"
-      time: "03:00"
+      interval: 'daily'
+      timezone: 'Etc/UTC'
+      time: '03:00'
     # assignees: [""]
     # reviewers: [""]
-    labels: ["area/dependencies", "status/needs-triage", "complexity/low"]
+    labels: ['area/dependencies', 'status/needs-triage', 'complexity/low']
     pull-request-branch-name:
-      separator: "-"
-  - package-ecosystem: "gomod"
+      separator: '-'
+  - package-ecosystem: 'gomod'
     directories:
-      - "/"
-      - "/.github/script/*"
-      - "/.github/script/reusable*"
-      - "/deploy/*"
+      - '/'
+      - '/.github/script/*'
+      - '/.github/script/reusable*'
+      - '/deploy/*'
     commit-message:
-      prefix: "chore(deps): dependabot - go "
+      prefix: 'chore(deps): dependabot - go '
     schedule:
-      interval: "daily"
-      timezone: "Etc/UTC"
-      time: "03:00"
+      interval: 'daily'
+      timezone: 'Etc/UTC'
+      time: '03:00'
     # assignees: [""]
     # reviewers: [""]
-    labels: ["area/dependencies", "status/needs-triage", "complexity/low"]
+    labels: ['area/dependencies', 'status/needs-triage', 'complexity/low']
     pull-request-branch-name:
-      separator: "-"
+      separator: '-'

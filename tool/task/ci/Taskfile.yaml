@@ -8,6 +8,7 @@ vars:
   goCoverageHtml: "{{ .distDir }}/coverage.html"
   goBuildOutputDistSubdir: task
   goCmdDir: cmd
+  goreleaserCli: goreleaser
 
 run: once
 
@@ -66,8 +67,8 @@ tasks:
     cmds:
       - cmd: if [ ! -d ./{{ .goCmdDir }}/{{ .service | default "rtfm-you-forgot-to-pass-service-name" }} ]; then echo "Service dir '{{ .goCmdDir }}/{{ .service | default "rtfm-you-forgot-to-pass-service-name" }}' not found"; exit 1; fi
 
-  build_de:
-    desc: Build the project
+  build:
+    desc: Build the project for development
     vars:
       service: "{{ .CLI_ARGS }}"
     cmds:
