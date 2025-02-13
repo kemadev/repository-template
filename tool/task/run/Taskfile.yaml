@@ -9,7 +9,7 @@ vars:
 
   # Just messing with quotes in YAML
   awsCliEmptyQueryHack: '""'
-  awsCliEmptyQuery: "'{{ .awsCliEmptyQueryHack }}'"
+  awsCliEmptyQuery: "'{{ .awsCliEmptyQueryHack }}'" # yamllint disable-line rule:quoted-strings
 
   sampleApiGateway: api-gateway-request.sample.json
 
@@ -36,7 +36,7 @@ tasks:
       - task: ensure-template-exists
         vars:
           # Propagate sampleName
-          sampleName: "{{ .sampleName }}"
+          sampleName: '{{ .sampleName }}'
         silent: true
       - cmd: '{{ .curlCli }} --silent -X POST "{{ .lambdaLocalInvokeUrl }}" -d @{{ .runSamplesDir }}/{{ .sampleName | default "rtfm-you-forgot-to-pass-sample-name" }}'
         silent: true
@@ -48,7 +48,7 @@ tasks:
     cmds:
       - task: local-sample-template
         vars:
-          sampleName: "{{ .CLI_ARGS }}"
+          sampleName: '{{ .CLI_ARGS }}'
 
   cloud-sample-template:
     desc: Wrap AWS CLI command with sample request for cloud testing
@@ -58,7 +58,7 @@ tasks:
       - task: ensure-template-exists
         vars:
           # Propagate sampleName
-          sampleName: "{{ .sampleName }}"
+          sampleName: '{{ .sampleName }}'
         silent: true
       - cmd: '{{ .awsCli }} lambda invoke --function-name {{ .functionName }} --payload fileb://{{ .runSamplesDir }}/{{ .sampleName | default "rtfm-you-forgot-to-pass-sample-name" }} --query {{ .awsCliEmptyQuery }} /dev/stdout'
         silent: true

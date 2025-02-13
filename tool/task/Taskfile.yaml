@@ -11,14 +11,14 @@ run: once
 includes:
   custom:
     taskfile: custom
-    dir: "{{ .baseDir }}"
+    dir: '{{ .baseDir }}'
     optional: true
   dev:
     taskfile: dev
-    dir: "{{ .baseDir }}"
+    dir: '{{ .baseDir }}'
   go:
     taskfile: go
-    dir: "{{ .baseDir }}"
+    dir: '{{ .baseDir }}'
   run:
     taskfile: run
-    dir: "{{ .baseDir }}"
+    dir: '{{ .baseDir }}'

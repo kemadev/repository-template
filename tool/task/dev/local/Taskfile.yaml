@@ -7,98 +7,98 @@ tasks:
   local-up:
     desc: Up {{ .dockerComposeProfileLocal }} development, optionally append `-- <service>` to your command in order to specify service
     vars:
-      dockerComposeProfile: "{{ .dockerComposeProfileLocal }}"
+      dockerComposeProfile: '{{ .dockerComposeProfileLocal }}'
     cmds:
       - task: template-up
         vars:
-          dockerComposeProfile: "{{ .dockerComposeProfileLocal }}"
+          dockerComposeProfile: '{{ .dockerComposeProfileLocal }}'
 
   # Docker Compose Down
   local-down:
     desc: Down {{ .dockerComposeProfileLocal }} development, optionally append `-- <service>` to your command in order to specify service
     vars:
-      dockerComposeProfile: "{{ .dockerComposeProfileLocal }}"
+      dockerComposeProfile: '{{ .dockerComposeProfileLocal }}'
     cmds:
       - task: template-down
         vars:
-          dockerComposeProfile: "{{ .dockerComposeProfileLocal }}"
+          dockerComposeProfile: '{{ .dockerComposeProfileLocal }}'
 
   # Docker Compose Kill
   local-kill:
     desc: Kill {{ .dockerComposeProfileLocal }} development, optionally append `-- <service>` to your command in order to specify service
     vars:
-      dockerComposeProfile: "{{ .dockerComposeProfileLocal }}"
+      dockerComposeProfile: '{{ .dockerComposeProfileLocal }}'
     cmds:
       - task: template-kill
         vars:
-          dockerComposeProfile: "{{ .dockerComposeProfileLocal }}"
+          dockerComposeProfile: '{{ .dockerComposeProfileLocal }}'
 
   # Docker Compose Restart
   local-restart:
     desc: Restart {{ .dockerComposeProfileLocal }} development, optionally append `-- <service>` to your command in order to specify service
     vars:
-      dockerComposeProfile: "{{ .dockerComposeProfileLocal }}"
+      dockerComposeProfile: '{{ .dockerComposeProfileLocal }}'
     cmds:
       - task: template-restart
         vars:
-          dockerComposeProfile: "{{ .dockerComposeProfileLocal }}"
+          dockerComposeProfile: '{{ .dockerComposeProfileLocal }}'
 
   # Docker Compose Rebuild
   local-rebuild:
     desc: Rebuild {{ .dockerComposeProfileLocal }} development, optionally append `-- <service>` to your command in order to specify service
     vars:
-      dockerComposeProfile: "{{ .dockerComposeProfileLocal }}"
+      dockerComposeProfile: '{{ .dockerComposeProfileLocal }}'
     cmds:
       - task: template-rebuild
         vars:
-          dockerComposeProfile: "{{ .dockerComposeProfileLocal }}"
+          dockerComposeProfile: '{{ .dockerComposeProfileLocal }}'
 
   # Docker Compose Start
   local-start:
     desc: Start {{ .dockerComposeProfileLocal }} development, optionally append `-- <service>` to your command in order to specify service
     vars:
-      dockerComposeProfile: "{{ .dockerComposeProfileLocal }}"
+      dockerComposeProfile: '{{ .dockerComposeProfileLocal }}'
     cmds:
       - task: template-start
         vars:
-          dockerComposeProfile: "{{ .dockerComposeProfileLocal }}"
+          dockerComposeProfile: '{{ .dockerComposeProfileLocal }}'
 
   # Docker Compose Stop
   local-stop:
     desc: Stop {{ .dockerComposeProfileLocal }} development, optionally append `-- <service>` to your command in order to specify service
     vars:
-      dockerComposeProfile: "{{ .dockerComposeProfileLocal }}"
+      dockerComposeProfile: '{{ .dockerComposeProfileLocal }}'
     cmds:
       - task: template-stop
         vars:
-          dockerComposeProfile: "{{ .dockerComposeProfileLocal }}"
+          dockerComposeProfile: '{{ .dockerComposeProfileLocal }}'
 
   # Docker Compose Logs
   local-logs:
     desc: Show logs for {{ .dockerComposeProfileLocal }} development, optionally append `-- <service>` to your command in order to specify service
     vars:
-      dockerComposeProfile: "{{ .dockerComposeProfileLocal }}"
+      dockerComposeProfile: '{{ .dockerComposeProfileLocal }}'
     cmds:
       - task: template-logs
         vars:
-          dockerComposeProfile: "{{ .dockerComposeProfileLocal }}"
+          dockerComposeProfile: '{{ .dockerComposeProfileLocal }}'
 
   # Docker Compose Shell
   local-shell:
     desc: Open shell for {{ .dockerComposeProfileLocal }} development, necessarily append `-- <service>` to your command in order to specify service
     vars:
-      dockerComposeProfile: "{{ .dockerComposeProfileLocal }}"
+      dockerComposeProfile: '{{ .dockerComposeProfileLocal }}'
     cmds:
       - task: template-shell
         vars:
-          dockerComposeProfile: "{{ .dockerComposeProfileLocal }}"
+          dockerComposeProfile: '{{ .dockerComposeProfileLocal }}'
 
   # Docker Compose Arbitrary Command
   local-arbitrary-compose-command:
     desc: Execute arbitrary Docker Compose command in {{ .dockerComposeProfileLocal }} development, necessarily append `-- <args>` to your command in order to specify args
     vars:
-      dockerComposeProfile: "{{ .dockerComposeProfileLocal }}"
+      dockerComposeProfile: '{{ .dockerComposeProfileLocal }}'
     cmds:
       - task: template-arbitrary-compose-command
         vars:
-          dockerComposeProfile: "{{ .dockerComposeProfileLocal }}"
+          dockerComposeProfile: '{{ .dockerComposeProfileLocal }}'

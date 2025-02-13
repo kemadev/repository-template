@@ -3,8 +3,8 @@ name: YAML - CI
 on:
   pull_request:
     paths:
-      - "**/*.yaml"
-      - "**/*.yml"
+      - '**/*.yaml'
+      - '**/*.yml'
   workflow_dispatch: {}
 
 defaults:

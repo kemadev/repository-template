@@ -7,98 +7,98 @@ tasks:
   cloud-up:
     desc: Up {{ .dockerComposeProfileCloud }} development, optionally append `-- <service>` to your command in order to specify service
     vars:
-      dockerComposeProfile: "{{ .dockerComposeProfileCloud }}"
+      dockerComposeProfile: '{{ .dockerComposeProfileCloud }}'
     cmds:
       - task: template-up
         vars:
-          dockerComposeProfile: "{{ .dockerComposeProfileCloud }}"
+          dockerComposeProfile: '{{ .dockerComposeProfileCloud }}'
 
   # Docker Compose Down
   cloud-down:
     desc: Down {{ .dockerComposeProfileCloud }} development, optionally append `-- <service>` to your command in order to specify service
     vars:
-      dockerComposeProfile: "{{ .dockerComposeProfileCloud }}"
+      dockerComposeProfile: '{{ .dockerComposeProfileCloud }}'
     cmds:
       - task: template-down
         vars:
-          dockerComposeProfile: "{{ .dockerComposeProfileCloud }}"
+          dockerComposeProfile: '{{ .dockerComposeProfileCloud }}'
 
   # Docker Compose Kill
   cloud-kill:
     desc: Kill {{ .dockerComposeProfileCloud }} development, optionally append `-- <service>` to your command in order to specify service
     vars:
-      dockerComposeProfile: "{{ .dockerComposeProfileCloud }}"
+      dockerComposeProfile: '{{ .dockerComposeProfileCloud }}'
     cmds:
       - task: template-kill
         vars:
-          dockerComposeProfile: "{{ .dockerComposeProfileCloud }}"
+          dockerComposeProfile: '{{ .dockerComposeProfileCloud }}'
 
   # Docker Compose Restart
   cloud-restart:
     desc: Restart {{ .dockerComposeProfileCloud }} development, optionally append `-- <service>` to your command in order to specify service
     vars:
-      dockerComposeProfile: "{{ .dockerComposeProfileCloud }}"
+      dockerComposeProfile: '{{ .dockerComposeProfileCloud }}'
     cmds:
       - task: template-restart
         vars:
-          dockerComposeProfile: "{{ .dockerComposeProfileCloud }}"
+          dockerComposeProfile: '{{ .dockerComposeProfileCloud }}'
 
   # Docker Compose Rebuild
   cloud-rebuild:
     desc: Rebuild {{ .dockerComposeProfileCloud }} development, optionally append `-- <service>` to your command in order to specify service
     vars:
-      dockerComposeProfile: "{{ .dockerComposeProfileCloud }}"
+      dockerComposeProfile: '{{ .dockerComposeProfileCloud }}'
     cmds:
       - task: template-rebuild
         vars:
-          dockerComposeProfile: "{{ .dockerComposeProfileCloud }}"
+          dockerComposeProfile: '{{ .dockerComposeProfileCloud }}'
 
   # Docker Compose Start
   cloud-start:
     desc: Start {{ .dockerComposeProfileCloud }} development, optionally append `-- <service>` to your command in order to specify service
     vars:
-      dockerComposeProfile: "{{ .dockerComposeProfileCloud }}"
+      dockerComposeProfile: '{{ .dockerComposeProfileCloud }}'
     cmds:
       - task: template-start
         vars:
-          dockerComposeProfile: "{{ .dockerComposeProfileCloud }}"
+          dockerComposeProfile: '{{ .dockerComposeProfileCloud }}'
 
   # Docker Compose Stop
   cloud-stop:
     desc: Stop {{ .dockerComposeProfileCloud }} development, optionally append `-- <service>` to your command in order to specify service
     vars:
-      dockerComposeProfile: "{{ .dockerComposeProfileCloud }}"
+      dockerComposeProfile: '{{ .dockerComposeProfileCloud }}'
     cmds:
       - task: template-stop
         vars:
-          dockerComposeProfile: "{{ .dockerComposeProfileCloud }}"
+          dockerComposeProfile: '{{ .dockerComposeProfileCloud }}'
 
   # Docker Compose Logs
   cloud-logs:
     desc: Show logs for {{ .dockerComposeProfileCloud }} development, optionally append `-- <service>` to your command in order to specify service
     vars:
-      dockerComposeProfile: "{{ .dockerComposeProfileCloud }}"
+      dockerComposeProfile: '{{ .dockerComposeProfileCloud }}'
     cmds:
       - task: template-logs
         vars:
-          dockerComposeProfile: "{{ .dockerComposeProfileCloud }}"
+          dockerComposeProfile: '{{ .dockerComposeProfileCloud }}'
 
   # Docker Compose Shell
   cloud-shell:
     desc: Open shell for {{ .dockerComposeProfileCloud }} development, necessarily append `-- <service>` to your command in order to specify service
     vars:
-      dockerComposeProfile: "{{ .dockerComposeProfileCloud }}"
+      dockerComposeProfile: '{{ .dockerComposeProfileCloud }}'
     cmds:
       - task: template-shell
         vars:
-          dockerComposeProfile: "{{ .dockerComposeProfileCloud }}"
+          dockerComposeProfile: '{{ .dockerComposeProfileCloud }}'
 
   # Docker Compose Arbitrary Command
   cloud-arbitrary-compose-command:
     desc: Execute arbitrary Docker Compose command in {{ .dockerComposeProfileCloud }} development, necessarily append `-- <args>` to your command in order to specify args
     vars:
-      dockerComposeProfile: "{{ .dockerComposeProfileCloud }}"
+      dockerComposeProfile: '{{ .dockerComposeProfileCloud }}'
     cmds:
       - task: template-arbitrary-compose-command
         vars:
-          dockerComposeProfile: "{{ .dockerComposeProfileCloud }}"
+          dockerComposeProfile: '{{ .dockerComposeProfileCloud }}'

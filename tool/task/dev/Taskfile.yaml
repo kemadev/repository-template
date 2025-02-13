@@ -3,9 +3,9 @@ version: 3
 vars:
   dockerComposeCli: docker compose --file {{ .toolsDir }}/docker/docker-compose.yaml
   dockerComposeProfileCloud: cloud
-  dockerComposeCliProfileCloud: "{{ .dockerComposeCli }} --profile {{ .dockerComposeProfileCloud }}"
+  dockerComposeCliProfileCloud: '{{ .dockerComposeCli }} --profile {{ .dockerComposeProfileCloud }}'
   dockerComposeProfileLocal: local
-  dockerComposeCliProfileLocal: "{{ .dockerComposeCli }} --profile {{ .dockerComposeProfileLocal }}"
+  dockerComposeCliProfileLocal: '{{ .dockerComposeCli }} --profile {{ .dockerComposeProfileLocal }}'
   dockerComposeUpArg: up --build --detach
   dockerComposeLogsArg: logs --follow
   dockerComposeDownArg: down
@@ -43,10 +43,10 @@ tasks:
     cmds:
       - task: template-up-without-logs
         vars:
-          dockerComposeProfile: "{{ .dockerComposeProfile }}"
+          dockerComposeProfile: '{{ .dockerComposeProfile }}'
       - task: template-logs
         vars:
-          dockerComposeProfile: "{{ .dockerComposeProfile }}"
+          dockerComposeProfile: '{{ .dockerComposeProfile }}'
 
   # Docker Compose Down
   template-down:
@@ -84,10 +84,10 @@ tasks:
     cmds:
       - task: template-restart-without-logs
         vars:
-          dockerComposeProfile: "{{ .dockerComposeProfile }}"
+          dockerComposeProfile: '{{ .dockerComposeProfile }}'
       - task: template-logs
         vars:
-          dockerComposeProfile: "{{ .dockerComposeProfile }}"
+          dockerComposeProfile: '{{ .dockerComposeProfile }}'
 
   # Docker Compose Rebuild
   template-rebuild:
@@ -99,10 +99,10 @@ tasks:
     cmds:
       - task: template-down
         vars:
-          dockerComposeProfile: "{{ .dockerComposeProfile }}"
+          dockerComposeProfile: '{{ .dockerComposeProfile }}'
       - task: template-up
         vars:
-          dockerComposeProfile: "{{ .dockerComposeProfile }}"
+          dockerComposeProfile: '{{ .dockerComposeProfile }}'
 
   # Docker Compose Start
   template-start:

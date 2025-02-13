@@ -3,7 +3,7 @@ name: Shell - CI
 on:
   pull_request:
     paths:
-      - "**/*.sh"
+      - '**/*.sh'
   workflow_dispatch: {}
 
 defaults:

@@ -52,7 +52,7 @@ services:
       # Default AWS CLI output to human-readable table
       AWS_DEFAULT_OUTPUT: table
       # Disable AWS CLI pagination in order to get update-function-code results nicely when running live-deploy
-      AWS_PAGER: ""
+      AWS_PAGER: ''
     volumes:
       # AWS CLI config
       - type: bind
