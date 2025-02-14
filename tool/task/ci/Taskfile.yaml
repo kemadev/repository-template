@@ -2,19 +2,22 @@ version: 3
 
 vars:
   tmpDir: /tmp
-  taskSuccessMarker: task-checkout-reusable-config-files-configs-success
 
   gitCli: git
   reusableConfigsRepoPrefix: https://github.com
   reusableConfigsRepoOrgAndName: kemadev/workflows-and-actions
+  reusableConfigsRepoFqdn: '{{ .reusableConfigsRepoPrefix }}/{{ .reusableConfigsRepoOrgAndName }}'
   reusableConfigsSubdir: config/reusable
+  reusableConfigsCloneDir: '{{ .reusableConfigsCloneDir }}'
+  reusableConfigsCheckoutSuccessMarker: task-checkout-reusable-config-files-configs-success
+  reusableConfigsCheckoutSuccessMarkerLocation: '{{ .reusableConfigsCheckoutSuccessMarkerLocation }}'
 
   dockerRunBase: docker run --rm -it
 
   dockerLinter: '{{ .dockerRunBase }} ghcr.io/hadolint/hadolint'
   ghaLinter: '{{ .dockerRunBase }} -v "$(pwd):/repo" --workdir /repo rhysd/actionlint:latest -color'
-  secretsLinter: '{{ .dockerRunBase }} -v "$(pwd):/pwd" trufflesecurity/trufflehog:latest git "file:///pwd" --since-commit HEAD'
-  sastLinter: '{{ .dockerRunBase }} -v "$(pwd):/src" semgrep/semgrep:latest semgrep scan --config auto'
+  secretsLinter: '{{ .dockerRunBase }} -v "$(pwd):/pwd" trufflesecurity/trufflehog:latest git "file:///pwd" --since-commit HEAD --fail'
+  sastLinter: '{{ .dockerRunBase }} -v "$(pwd):/src" semgrep/semgrep:latest semgrep scan --config auto --error'
   goLinter: '{{ .dockerRunBase }} -v $(pwd):/app -v ~/.cache/golangci-lint:/root/.cache --workdir /app golangci/golangci-lint:latest golangci-lint run --config /app/{{ .reusableConfigsSubdir }}/.golangci.yaml'
   yamlLinter: yamllint
   markdownLinter: '{{ .dockerRunBase }} -v "$(pwd):/workdir" davidanson/markdownlint-cli2:latest --config {{ .reusableConfigsSubdir }}/.markdownlint.yaml "**/*.md"'
@@ -27,18 +30,27 @@ tasks:
   checkout-reusable-config-files:
     desc: Checkout reusable configs, only subdirectory
     internal: true
+    silent: true
     status:
-      - '[ -f {{ .reusableConfigsSubdir }}/{{ .taskSuccessMarker }} ]'
+      - '[ -f {{ .reusableConfigsCheckoutSuccessMarkerLocation }} ]'
     cmds:
-      - '{{ .gitCli }} clone --depth 1 {{ .reusableConfigsRepoPrefix }}/{{ .reusableConfigsRepoOrgAndName }} {{ .tmpDir }}/{{ .reusableConfigsRepoOrgAndName }}'
-      - find {{ .tmpDir }}/{{ .reusableConfigsRepoOrgAndName }}/{{ .reusableConfigsSubdir }} -maxdepth 1 -mindepth 1 -name '*' ! -name '*.md' ! -name '.gitignore' -exec cp {} {{ .reusableConfigsSubdir }} \;
-      - touch {{ .reusableConfigsSubdir }}/{{ .taskSuccessMarker }}
+      - '{{ .gitCli }} clone --depth 1 {{ .reusableConfigsRepoFqdn }} {{ .reusableConfigsCloneDir }}'
+      - find {{ .reusableConfigsCloneDir }}/{{ .reusableConfigsSubdir }} -maxdepth 1 -mindepth 1 -name '*' ! -name '*.md' ! -name '.gitignore' -exec cp {} {{ .reusableConfigsSubdir }} \;
+      - touch {{ .reusableConfigsCheckoutSuccessMarkerLocation }}
 
+  # Reset reusable configs checkout task so it can be run again
   reset-reusable-checkout:
     desc: Reset reusable configs
+    internal: true
     cmds:
-      - rm -rf {{ .reusableConfigsSubdir }}/{{ .taskSuccessMarker }}
-      - rm -rf {{ .tmpDir }}/{{ .reusableConfigsRepoOrgAndName }}
+      - rm -rf {{ .reusableConfigsCheckoutSuccessMarkerLocation }}
+      - rm -rf {{ .reusableConfigsCloneDir }}
+
+  # Stage all files
+  stage-all:
+    desc: Stage all files
+    cmds:
+      - '{{ .gitCli }} add .'
 
   # Docker
   docker-lint:
@@ -61,8 +73,8 @@ tasks:
     desc: Lint secrets
     deps:
       - checkout-reusable-config-files
+      - stage-all
     cmds:
-      # TODO git add before running otherwise no scan
       - '{{ .secretsLinter }}'
 
   # Static Application Security Testing (SAST)
@@ -104,3 +116,16 @@ tasks:
       - checkout-reusable-config-files
     cmds:
       - find . -name '*.yaml' -print0 | xargs -0 -I {} sh -c '{{ .yamlLinter }} {}'
+
+  # Lint all
+  lint-all:
+    desc: Lint all
+    cmds:
+      - task: docker-lint
+      # - task: gha-lint
+      # - task: secrets-lint
+      # - task: sast-lint
+      # - task: go-lint
+      # - task: markdown-lint
+      # - task: shell-lint
+      - task: yaml-lint
