@@ -9,6 +9,9 @@ vars:
 run: once
 
 includes:
+  ci:
+    taskfile: ci
+    dir: '{{ .baseDir }}'
   custom:
     taskfile: custom
     dir: '{{ .baseDir }}'

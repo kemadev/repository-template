@@ -1,80 +1,108 @@
 version: 3
 
 vars:
-  goCli: go
-  goLinter: golangci-lint
-  goLinterConfig: '{{ .configDir }}/lint/.golangci.yml'
-  goCoverageReport: '{{ .distDir }}/cover.out'
-  goCoverageHtml: '{{ .distDir }}/coverage.html'
-  goBuildOutputDistSubdir: task
-  goCmdDir: cmd
-  goreleaserCli: goreleaser
+  tmpDir: /tmp
+  taskSuccessMarker: task-success
+
+  gitCli: git
+  reusableConfigsRepoPrefix: https://github.com
+  reusableConfigsRepoOrgAndName: kemadev/workflows-and-actions
+  reusableConfigsSubdir: config/reusable
+
+  dockerRunBase: docker run --rm -it
+
+  dockerLinter: '{{ .dockerRunBase }} ghcr.io/hadolint/hadolint'
+  ghaLinter: '{{ .dockerRunBase }} -v "$(pwd):/repo" --workdir /repo rhysd/actionlint:latest -color'
+  secretsLinter: '{{ .dockerRunBase }} -v "$(pwd):/pwd" trufflesecurity/trufflehog:latest git "file:///pwd" --since-commit HEAD'
+  sastLinter: '{{ .dockerRunBase }} -v "$(pwd):/src" semgrep/semgrep:latest semgrep scan --config auto'
+  goLinter: '{{ .dockerRunBase }} -v $(pwd):/app -v ~/.cache/golangci-lint:/root/.cache --workdir /app golangci/golangci-lint:latest golangci-lint run --config /app/{{ .reusableConfigsSubdir }}/.golangci.yaml'
+  yamlLinter: yamllint
+  markdownLinter: '{{ .dockerRunBase }} -v "$(pwd):/workdir" davidanson/markdownlint-cli2:latest --config {{ .reusableConfigsSubdir }}/.markdownlint.yaml "**/*.md"'
+  shellLinter: '{{ .dockerRunBase }} -v "$(pwd):/mnt" koalaman/shellcheck:latest $(find . -name "*.sh" | tr "\n" " ")'
 
 run: once
 
+# TODO checkout reusable configs at first for all tasks
+
 tasks:
-  # Go
-  format:
-    desc: Format all packages
-    cmds:
-      - '{{ .goCli }} fmt ./...'
-
-  tidy:
-    desc: Tidy go modules
-    cmds:
-      - '{{ .goCli }} mod tidy'
-
-  lint:
-    desc: Lint all packages
-    deps:
-      - format
-    cmds:
-      - '{{ .goLinter }} run ./... --config {{ .goLinterConfig }}'
-
-  test:
-    desc: Run tests on all packages
-    deps:
-      - format
-    cmds:
-      - '{{ .goCli }} test ./...'
-
-  test-full:
-    desc: Run tests on all packages, including coverage and benchmarks
-    deps:
-      - format
-    cmds:
-      - '{{ .goCli }} test -bench=. -benchmem -covermode=atomic -coverprofile={{ .goCoverageReport }} ./...'
-
-  test-coverage:
-    desc: Report coverage
-    deps:
-      - test_full
-    cmds:
-      - '{{ .goCli }} tool cover -html={{ .goCoverageReport }} -o={{ .goCoverageHtml }}'
-
-  prepare:
-    desc: Format, tidy, lint and test
-    cmds:
-      - task: format
-      - task: tidy
-      - task: lint
-      - task: test
-
-  ensure-service-exists:
-    desc: Ensure that sample file exists
+  # Checkout reusable configs
+  checkout-reusable:
+    desc: Checkout reusable configs, only subdirectory
     internal: true
-    silent: true
+    status:
+      - '[ -f {{ .reusableConfigsSubdir }}/{{ .taskSuccessMarker }} ]'
     cmds:
-      - cmd: if [ ! -d ./{{ .goCmdDir }}/{{ .service | default "rtfm-you-forgot-to-pass-service-name" }} ]; then echo "Service dir '{{ .goCmdDir }}/{{ .service | default "rtfm-you-forgot-to-pass-service-name" }}' not found"; exit 1; fi
+      - '{{ .gitCli }} clone --depth 1 {{ .reusableConfigsRepoPrefix }}/{{ .reusableConfigsRepoOrgAndName }} {{ .tmpDir }}/{{ .reusableConfigsRepoOrgAndName }}'
+      - find {{ .tmpDir }}/{{ .reusableConfigsRepoOrgAndName }}/{{ .reusableConfigsSubdir }} -maxdepth 1 -mindepth 1 -name '*' ! -name '*.md' ! -name '.gitignore' -exec cp {} {{ .reusableConfigsSubdir }} \;
+      - touch {{ .reusableConfigsSubdir }}/{{ .taskSuccessMarker }}
 
-  build:
-    desc: Build the project for development
-    vars:
-      service: '{{ .CLI_ARGS }}'
+  reset-reusable:
+    desc: Reset reusable configs
     cmds:
-      - task: ensure-service-exists
-        vars:
-          # Propagate sampleName
-          service: '{{ .service }}'
-        silent: true
-      - '{{ .goCli }} build -tags lambda.norpc -o {{ .distDir }}/{{ .goBuildOutputDistSubdir }}/{{ .service | default "rtfm-you-forgot-to-pass-service-name"  }} ./{{ .goCmdDir }}/{{ .service | default "rtfm-you-forgot-to-pass-service-name"  }}'
+      - rm -rf {{ .reusableConfigsSubdir }}/{{ .taskSuccessMarker }}
+      - rm -rf {{ .tmpDir }}/{{ .reusableConfigsRepoOrgAndName }}
+
+  # Docker
+  docker-lint:
+    desc: Lint Dockerfiles
+    deps:
+      - checkout-reusable
+    cmds:
+      - find . -name '*Dockerfile*' -print0 | xargs -0 -I {} sh -c 'cat {} | {{ .dockerLinter }}'
+
+  # GitHub Actions
+  gha-lint:
+    desc: Lint GitHub Actions workflows
+    deps:
+      - checkout-reusable
+    cmds:
+      - '{{ .ghaLinter }}'
+
+  # Secrets
+  secrets-lint:
+    desc: Lint secrets
+    deps:
+      - checkout-reusable
+    cmds:
+      # TODO git add before running otherwise no scan
+      - '{{ .secretsLinter }}'
+
+  # Static Application Security Testing (SAST)
+  sast-lint:
+    desc: Lint source code
+    deps:
+      - checkout-reusable
+    cmds:
+      - '{{ .sastLinter }}'
+
+  # Go
+  go-lint:
+    desc: Lint Go source code
+    deps:
+      - checkout-reusable
+    cmds:
+      - '{{ .goLinter }}'
+
+  # Markdown
+  markdown-lint:
+    desc: Lint Markdown files
+    deps:
+      - checkout-reusable
+    cmds:
+      - '{{ .markdownLinter }}'
+
+  # Shell
+  shell-lint:
+    desc: Lint shell scripts
+    deps:
+      - checkout-reusable
+    cmds:
+      - '{{ .shellLinter }}'
+
+  # YAML
+  yaml-lint:
+    desc: Lint YAML files
+    deps:
+      - checkout-reusable
+    cmds:
+      - find . -name '*.yaml' -print0 | xargs -0 -I {} sh -c '{{ .yamlLinter }} {}'
