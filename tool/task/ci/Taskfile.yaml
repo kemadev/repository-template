@@ -19,7 +19,7 @@ vars:
   secretsLinter: '{{ .dockerRunBase }} -v "$(pwd):/pwd" trufflesecurity/trufflehog:latest git "file:///pwd" --since-commit HEAD --fail'
   sastLinter: '{{ .dockerRunBase }} -v "$(pwd):/src" semgrep/semgrep:latest semgrep scan --config auto --error'
   goLinter: '{{ .dockerRunBase }} -v $(pwd):/app -v ~/.cache/golangci-lint:/root/.cache --workdir /app golangci/golangci-lint:latest golangci-lint run --config /app/{{ .reusableConfigsSubdir }}/.golangci.yaml'
-  yamlLinter: yamllint
+  yamlLinter: '{{ .dockerRunBase }} -v "$(pwd):/code" pipelinecomponents/yamllint:latest -c {{ .reusableConfigsSubdir }}/.yamllint.yaml .'
   markdownLinter: '{{ .dockerRunBase }} -v "$(pwd):/workdir" davidanson/markdownlint-cli2:latest --config {{ .reusableConfigsSubdir }}/.markdownlint.yaml "**/*.md"'
   shellLinter: '{{ .dockerRunBase }} -v "$(pwd):/mnt" koalaman/shellcheck:latest $(find . -name "*.sh" | tr "\n" " ")'
 
@@ -115,17 +115,17 @@ tasks:
     deps:
       - checkout-reusable-config-files
     cmds:
-      - find . -name '*.yaml' -print0 | xargs -0 -I {} sh -c '{{ .yamlLinter }} {}'
+      - '{{ .yamlLinter }}'
 
   # Lint all
   lint-all:
     desc: Lint all
     cmds:
       - task: docker-lint
-      # - task: gha-lint
-      # - task: secrets-lint
-      # - task: sast-lint
-      # - task: go-lint
-      # - task: markdown-lint
-      # - task: shell-lint
+      - task: gha-lint
+      - task: secrets-lint
+      - task: sast-lint
+      - task: go-lint
+      - task: markdown-lint
+      - task: shell-lint
       - task: yaml-lint
