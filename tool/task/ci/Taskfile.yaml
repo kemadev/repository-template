@@ -22,8 +22,6 @@ vars:
 
 run: once
 
-# TODO checkout reusable configs at first for all tasks
-
 tasks:
   # Checkout reusable configs
   checkout-reusable-config-files:
