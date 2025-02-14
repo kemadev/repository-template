@@ -53,7 +53,7 @@ tasks:
       - '{{ .gitCli }} add .'
 
   # Docker
-  docker-lint:
+  lint-docker:
     desc: Lint Dockerfiles
     deps:
       - checkout-reusable-config-files
@@ -61,7 +61,7 @@ tasks:
       - find . -name '*Dockerfile*' -print0 | xargs -0 -I {} sh -c 'cat {} | {{ .dockerLinter }}'
 
   # GitHub Actions
-  gha-lint:
+  lint-gha:
     desc: Lint GitHub Actions workflows
     deps:
       - checkout-reusable-config-files
@@ -69,7 +69,7 @@ tasks:
       - '{{ .ghaLinter }}'
 
   # Secrets
-  secrets-lint:
+  lint-secrets:
     desc: Lint secrets
     deps:
       - checkout-reusable-config-files
@@ -78,7 +78,7 @@ tasks:
       - '{{ .secretsLinter }}'
 
   # Static Application Security Testing (SAST)
-  sast-lint:
+  lint-sast:
     desc: Lint source code
     deps:
       - checkout-reusable-config-files
@@ -86,7 +86,7 @@ tasks:
       - '{{ .sastLinter }}'
 
   # Go
-  go-lint:
+  lint-go:
     desc: Lint Go source code
     deps:
       - checkout-reusable-config-files
@@ -94,7 +94,7 @@ tasks:
       - '{{ .goLinter }}'
 
   # Markdown
-  markdown-lint:
+  lint-markdown:
     desc: Lint Markdown files
     deps:
       - checkout-reusable-config-files
@@ -102,7 +102,7 @@ tasks:
       - '{{ .markdownLinter }}'
 
   # Shell
-  shell-lint:
+  lint-shell:
     desc: Lint shell scripts
     deps:
       - checkout-reusable-config-files
@@ -110,7 +110,7 @@ tasks:
       - '{{ .shellLinter }}'
 
   # YAML
-  yaml-lint:
+  lint-yaml:
     desc: Lint YAML files
     deps:
       - checkout-reusable-config-files
@@ -121,11 +121,11 @@ tasks:
   lint-all:
     desc: Lint all
     cmds:
-      - task: docker-lint
-      - task: gha-lint
-      - task: secrets-lint
-      - task: sast-lint
-      - task: go-lint
-      - task: markdown-lint
-      - task: shell-lint
-      - task: yaml-lint
+      - task: lint-docker
+      - task: lint-gha
+      - task: lint-secrets
+      - task: lint-sast
+      - task: lint-go
+      - task: lint-markdown
+      - task: lint-shell
+      - task: lint-yaml
