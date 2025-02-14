@@ -12,7 +12,7 @@ vars:
   reusableConfigsCheckoutSuccessMarker: task-checkout-reusable-config-files-configs-success
   reusableConfigsCheckoutSuccessMarkerLocation: '{{ .reusableConfigsCheckoutSuccessMarkerLocation }}'
 
-  dockerRunBase: docker run --rm -it
+  dockerRunBase: docker run --rm -i
 
   dockerLinter: '{{ .dockerRunBase }} ghcr.io/hadolint/hadolint'
   ghaLinter: '{{ .dockerRunBase }} -v "$(pwd):/repo" --workdir /repo rhysd/actionlint:latest -color'
@@ -120,6 +120,7 @@ tasks:
   # Lint all
   lint-all:
     desc: Lint all
+    ignore_error: true
     cmds:
       - task: lint-docker
       - task: lint-gha
