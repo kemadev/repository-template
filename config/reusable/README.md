@@ -2,5 +2,5 @@
 
 ## Files in this directory
 
-- Should actually not even exist in git, do not put any files in this directory
-- Are copied from reusable workflows repository in the CI/CD pipeline
+- Should actually not even exist in git, do not try to track any files in this directory
+- Are copied from reusable workflows repository in the CI/CD pipeline, as well as in local tasks
