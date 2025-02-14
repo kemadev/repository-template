@@ -13,15 +13,19 @@ vars:
   reusableConfigsCheckoutSuccessMarkerLocation: '{{ .reusableConfigsCheckoutSuccessMarkerLocation }}'
 
   dockerRunBase: docker run --rm -i
+  dockerRunBaseTTY: '{{ .dockerRunBase }} -t'
 
   dockerLinter: '{{ .dockerRunBase }} ghcr.io/hadolint/hadolint'
-  ghaLinter: '{{ .dockerRunBase }} -v "$(pwd):/repo" --workdir /repo rhysd/actionlint:latest -color'
-  secretsLinter: '{{ .dockerRunBase }} -v "$(pwd):/pwd" trufflesecurity/trufflehog:latest git "file:///pwd" --since-commit HEAD --fail'
-  sastLinter: '{{ .dockerRunBase }} -v "$(pwd):/src" semgrep/semgrep:latest semgrep scan --config auto --error'
-  goLinter: '{{ .dockerRunBase }} -v $(pwd):/app -v ~/.cache/golangci-lint:/root/.cache --workdir /app golangci/golangci-lint:latest golangci-lint run --config /app/{{ .reusableConfigsSubdir }}/.golangci.yaml'
-  yamlLinter: '{{ .dockerRunBase }} -v "$(pwd):/code" pipelinecomponents/yamllint:latest -c {{ .reusableConfigsSubdir }}/.yamllint.yaml .'
-  markdownLinter: '{{ .dockerRunBase }} -v "$(pwd):/workdir" davidanson/markdownlint-cli2:latest --config {{ .reusableConfigsSubdir }}/.markdownlint.yaml "**/*.md"'
-  shellLinter: '{{ .dockerRunBase }} -v "$(pwd):/mnt" koalaman/shellcheck:latest $(find . -name "*.sh" | tr "\n" " ")'
+  ghaLinter: '{{ .dockerRunBaseTTY }} -v "$(pwd):/repo" --workdir /repo rhysd/actionlint:latest -color'
+  secretsLinter: '{{ .dockerRunBaseTTY }} -v "$(pwd):/pwd" trufflesecurity/trufflehog:latest git "file:///pwd" --since-commit HEAD --log-level=-1 --fail'
+  sastLinter: '{{ .dockerRunBaseTTY }} -v "$(pwd):/src" semgrep/semgrep:latest semgrep scan --config auto --error'
+  goLinter: '{{ .dockerRunBaseTTY }} -v $(pwd):/app -v ~/.cache/golangci-lint:/root/.cache --workdir /app golangci/golangci-lint:latest golangci-lint run --show-stats=false --config /app/{{ .reusableConfigsSubdir }}/.golangci.yaml'
+  yamlLinter: '{{ .dockerRunBaseTTY }} -v "$(pwd):/code" pipelinecomponents/yamllint:latest -c {{ .reusableConfigsSubdir }}/.yamllint.yaml .'
+  markdownLinter: '{{ .dockerRunBaseTTY }} -v "$(pwd):/workdir" davidanson/markdownlint-cli2:latest --config {{ .reusableConfigsSubdir }}/.markdownlint.yaml "**/*.md"'
+  shellLinter: '{{ .dockerRunBaseTTY }} -v "$(pwd):/mnt" koalaman/shellcheck:latest $(find . -name "*.sh" | tr "\n" " ")'
+
+  runId:
+    sh: mktemp -p '{{ .tmpDir }}' -t task-lint-XXXXXX
 
 run: once
 
@@ -55,17 +59,25 @@ tasks:
   # Docker
   lint-docker:
     desc: Lint Dockerfiles
+    status:
+      - '[ -z "$(find . -name "*Dockerfile*") ]'
     deps:
       - checkout-reusable-config-files
     cmds:
+      - defer: '{{ if not .EXIT_CODE }}exit 0{{ else }}echo docker failed with code {{ .EXIT_CODE }} >> {{ .runId }}{{ end }}'
+        silent: true
       - find . -name '*Dockerfile*' -print0 | xargs -0 -I {} sh -c 'cat {} | {{ .dockerLinter }}'
 
   # GitHub Actions
   lint-gha:
     desc: Lint GitHub Actions workflows
+    status:
+      - '[ -z "$(find .github -name "*.yaml" -o -name "*.yml")" ]'
     deps:
       - checkout-reusable-config-files
     cmds:
+      - defer: '{{ if not .EXIT_CODE }}exit 0{{ else }}echo gha failed with code {{ .EXIT_CODE }} >> {{ .runId }}{{ end }}'
+        silent: true
       - '{{ .ghaLinter }}'
 
   # Secrets
@@ -75,7 +87,10 @@ tasks:
       - checkout-reusable-config-files
       - stage-all
     cmds:
-      - '{{ .secretsLinter }}'
+      - defer: '{{ if not .EXIT_CODE }}exit 0{{ else }}echo secrets failed with code {{ .EXIT_CODE }} >> {{ .runId }}{{ end }}'
+        silent: true
+      # Redirect stderr to /dev/null to avoid printing the headers
+      - '{{ .secretsLinter }} 2>/dev/null'
 
   # Static Application Security Testing (SAST)
   lint-sast:
@@ -83,45 +98,69 @@ tasks:
     deps:
       - checkout-reusable-config-files
     cmds:
-      - '{{ .sastLinter }}'
-
-  # Go
-  lint-go:
-    desc: Lint Go source code
-    deps:
-      - checkout-reusable-config-files
-    cmds:
-      - '{{ .goLinter }}'
+      - defer: '{{ if not .EXIT_CODE }}exit 0{{ else }}echo sast failed with code {{ .EXIT_CODE }} >> {{ .runId }}{{ end }}'
+        silent: true
+      # Redirect stderr to /dev/null to avoid printing the headers
+      - '{{ .sastLinter }} 2>/dev/null'
 
   # Markdown
   lint-markdown:
     desc: Lint Markdown files
+    status:
+      - '[ -z "$(find . -name "*.md")" ]'
     deps:
       - checkout-reusable-config-files
     cmds:
+      - defer: '{{ if not .EXIT_CODE }}exit 0{{ else }}echo markdown failed with code {{ .EXIT_CODE }} >> {{ .runId }}{{ end }}'
+        silent: true
       - '{{ .markdownLinter }}'
+
+  # Go
+  lint-go:
+    desc: Lint Go source code
+    status:
+      - '[ -z "$(find . -name "*.go")" ]'
+    deps:
+      - checkout-reusable-config-files
+    cmds:
+      - defer: '{{ if not .EXIT_CODE }}exit 0{{ else }}echo go failed with code {{ .EXIT_CODE }} >> {{ .runId }}{{ end }}'
+        silent: true
+      - '{{ .goLinter }}'
 
   # Shell
   lint-shell:
     desc: Lint shell scripts
+    status:
+      - '[ -z "$(find . -name "*.sh")" ]'
     deps:
       - checkout-reusable-config-files
     cmds:
+      - defer: '{{ if not .EXIT_CODE }}exit 0{{ else }}echo shell failed with code {{ .EXIT_CODE }} >> {{ .runId }}{{ end }}'
+        silent: true
       - '{{ .shellLinter }}'
 
   # YAML
   lint-yaml:
     desc: Lint YAML files
+    status:
+      - '[ -z "$(find . -name "*.yaml" -o -name "*.yml")" ]'
     deps:
       - checkout-reusable-config-files
     cmds:
+      - defer: '{{ if not .EXIT_CODE }}exit 0{{ else }}echo yaml failed with code {{ .EXIT_CODE }} >> {{ .runId }}{{ end }}'
+        silent: true
       - '{{ .yamlLinter }}'
 
   # Lint all
   lint-all:
     desc: Lint all
     ignore_error: true
+    vars:
+      runId:
+        sh: mktemp -p '{{ .tmpDir }}' -t task-lint-XXXXXX
     cmds:
+      - defer:
+          task: report-results
       - task: lint-docker
       - task: lint-gha
       - task: lint-secrets
@@ -130,3 +169,10 @@ tasks:
       - task: lint-markdown
       - task: lint-shell
       - task: lint-yaml
+
+  # Report results
+  report-results:
+    desc: Report results
+    internal: true
+    cmds:
+      - cat '{{ .runId }}'
