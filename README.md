@@ -56,7 +56,7 @@
 
 #### Running the project
 
-- Common tasks such as running, formatting, linting, testing, ... are done via [Task](https://github.com/go-task/task). [Taskfile.yaml](Taskfile.yaml) is the root Taskfile, and include other taskfiles located in sub-directories. Please note that these tasks are meant to be run in a development environment, and might not be on-par with CI/CD pipelines.
+- Common tasks such as running, formatting, linting, testing, ... are done via [Task](https://github.com/go-task/task). [Taskfile.yaml](Taskfile.yaml) is the root Taskfile, and include other taskfiles located in sub-directories. Please note that these tasks are meant to be run in a development environment, and might not be on-par with CI/CD pipelines. However, you should run `task ci` before pushing your changes to ensure your changes are expected to pass the CI pipelines
 - You can create your own (non git-tracked) taskfiles in [tool/task/custom](tool/task/custom) directory to extend the project's tasks for your personal needs. Tasks defined in such custom taskfiles will be available in the root Taskfile thanks to the [`includes` directive](tool/task/Taskfile.yaml#L10).
 - For specific application setup such as debugging and full-fledged development mode, please refer to `tool/docker-compose.yaml` and its profiles with associated comments
 

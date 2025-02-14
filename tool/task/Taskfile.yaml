@@ -25,3 +25,12 @@ includes:
   run:
     taskfile: run
     dir: '{{ .baseDir }}'
+
+tasks:
+  ci:
+    desc: Run CI tasks
+    cmds:
+      - task: go:format
+      - task: go:tidy
+      - task: go:test
+      - task: ci:lint-all

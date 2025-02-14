@@ -153,11 +153,11 @@ tasks:
     cmds:
       - defer:
           task: report-results
+      - task: lint-go
       - task: lint-secrets
       - task: lint-docker
       - task: lint-gha
       - task: lint-markdown
-      - task: lint-go
       - task: lint-shell
       - task: lint-yaml
       - task: lint-sast
