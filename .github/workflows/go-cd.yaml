@@ -26,7 +26,7 @@ jobs:
     uses: kemadev/workflows-and-actions/.github/workflows/go-cd.yaml@main
     with:
       force-patch: ${{ github.event.inputs.force-patch || false }}
-      force-rollback: ${{ github.event.inputs.force-rollback }}
+      force-rollback: ${{ github.event.inputs.force-rollback || '' }}
     permissions:
       contents: write
       packages: write
