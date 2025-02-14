@@ -17,7 +17,7 @@ on:
       force-rollback:
         description: Force rollback to specified git reference (use `latest` for latest successful deploy)
         type: string
-        default: ''
+        default: ""
         required: false
 
 jobs:
@@ -31,3 +31,4 @@ jobs:
       contents: write
       packages: write
       pull-requests: write
+      attestations: write
