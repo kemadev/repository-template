@@ -65,7 +65,6 @@ tasks:
       - checkout-reusable-config-files
     cmds:
       - defer: '{{ if not .EXIT_CODE }}exit 0{{ else }}echo docker failed with code {{ .EXIT_CODE }} >> {{ .runId }}{{ end }}'
-        silent: true
       - find . -name '*Dockerfile*' -print0 | xargs -0 -I {} sh -c 'cat {} | {{ .dockerLinter }}'
 
   # GitHub Actions
@@ -77,7 +76,6 @@ tasks:
       - checkout-reusable-config-files
     cmds:
       - defer: '{{ if not .EXIT_CODE }}exit 0{{ else }}echo gha failed with code {{ .EXIT_CODE }} >> {{ .runId }}{{ end }}'
-        silent: true
       - '{{ .ghaLinter }}'
 
   # Secrets
@@ -88,7 +86,6 @@ tasks:
       - stage-all
     cmds:
       - defer: '{{ if not .EXIT_CODE }}exit 0{{ else }}echo secrets failed with code {{ .EXIT_CODE }} >> {{ .runId }}{{ end }}'
-        silent: true
       # Redirect stderr to /dev/null to avoid printing the headers
       - '{{ .secretsLinter }} 2>/dev/null'
 
@@ -99,21 +96,8 @@ tasks:
       - checkout-reusable-config-files
     cmds:
       - defer: '{{ if not .EXIT_CODE }}exit 0{{ else }}echo sast failed with code {{ .EXIT_CODE }} >> {{ .runId }}{{ end }}'
-        silent: true
       # Redirect stderr to /dev/null to avoid printing the headers
       - '{{ .sastLinter }} 2>/dev/null'
-
-  # Markdown
-  lint-markdown:
-    desc: Lint Markdown files
-    status:
-      - '[ -z "$(find . -name "*.md")" ]'
-    deps:
-      - checkout-reusable-config-files
-    cmds:
-      - defer: '{{ if not .EXIT_CODE }}exit 0{{ else }}echo markdown failed with code {{ .EXIT_CODE }} >> {{ .runId }}{{ end }}'
-        silent: true
-      - '{{ .markdownLinter }}'
 
   # Go
   lint-go:
@@ -124,8 +108,18 @@ tasks:
       - checkout-reusable-config-files
     cmds:
       - defer: '{{ if not .EXIT_CODE }}exit 0{{ else }}echo go failed with code {{ .EXIT_CODE }} >> {{ .runId }}{{ end }}'
-        silent: true
       - '{{ .goLinter }}'
+
+  # Markdown
+  lint-markdown:
+    desc: Lint Markdown files
+    status:
+      - '[ -z "$(find . -name "*.md")" ]'
+    deps:
+      - checkout-reusable-config-files
+    cmds:
+      - defer: '{{ if not .EXIT_CODE }}exit 0{{ else }}echo markdown failed with code {{ .EXIT_CODE }} >> {{ .runId }}{{ end }}'
+      - '{{ .markdownLinter }}'
 
   # Shell
   lint-shell:
@@ -136,7 +130,6 @@ tasks:
       - checkout-reusable-config-files
     cmds:
       - defer: '{{ if not .EXIT_CODE }}exit 0{{ else }}echo shell failed with code {{ .EXIT_CODE }} >> {{ .runId }}{{ end }}'
-        silent: true
       - '{{ .shellLinter }}'
 
   # YAML
@@ -148,31 +141,41 @@ tasks:
       - checkout-reusable-config-files
     cmds:
       - defer: '{{ if not .EXIT_CODE }}exit 0{{ else }}echo yaml failed with code {{ .EXIT_CODE }} >> {{ .runId }}{{ end }}'
-        silent: true
       - '{{ .yamlLinter }}'
 
   # Lint all
   lint-all:
     desc: Lint all
-    ignore_error: true
     vars:
       runId:
         sh: mktemp -p '{{ .tmpDir }}' -t task-lint-XXXXXX
+    ignore_error: true
     cmds:
       - defer:
           task: report-results
+      - task: lint-secrets
       - task: lint-docker
       - task: lint-gha
-      - task: lint-secrets
-      - task: lint-sast
-      - task: lint-go
       - task: lint-markdown
+      - task: lint-go
       - task: lint-shell
       - task: lint-yaml
+      - task: lint-sast
 
   # Report results
   report-results:
     desc: Report results
     internal: true
+    silent: true
+    vars:
+      colorBlack: \033[0;30m
+      colorYellow: \033[0;33m
+      colorRed: \033[0;31m
+      colorGreen: \033[0;32m
     cmds:
-      - cat '{{ .runId }}'
+      - echo -e "\n\n"
+      - echo -n -e "{{ .colorBlack }}"
+      - echo "Results:"
+      - echo -n -e "{{ .colorYellow }}"
+      - cat {{ .runId }}
+      - if [ -s {{ .runId }} ]; then echo -n -e "{{ .colorRed }}"; echo "Linting failed"; exit 1; else echo -n -e "{{ .colorGreen }}"; echo "Linting passed"; fi
