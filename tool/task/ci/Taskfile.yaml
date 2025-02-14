@@ -2,7 +2,7 @@ version: 3
 
 vars:
   tmpDir: /tmp
-  taskSuccessMarker: task-success
+  taskSuccessMarker: task-checkout-reusable-config-files-configs-success
 
   gitCli: git
   reusableConfigsRepoPrefix: https://github.com
@@ -26,7 +26,7 @@ run: once
 
 tasks:
   # Checkout reusable configs
-  checkout-reusable:
+  checkout-reusable-config-files:
     desc: Checkout reusable configs, only subdirectory
     internal: true
     status:
@@ -36,7 +36,7 @@ tasks:
       - find {{ .tmpDir }}/{{ .reusableConfigsRepoOrgAndName }}/{{ .reusableConfigsSubdir }} -maxdepth 1 -mindepth 1 -name '*' ! -name '*.md' ! -name '.gitignore' -exec cp {} {{ .reusableConfigsSubdir }} \;
       - touch {{ .reusableConfigsSubdir }}/{{ .taskSuccessMarker }}
 
-  reset-reusable:
+  reset-reusable-checkout:
     desc: Reset reusable configs
     cmds:
       - rm -rf {{ .reusableConfigsSubdir }}/{{ .taskSuccessMarker }}
@@ -46,7 +46,7 @@ tasks:
   docker-lint:
     desc: Lint Dockerfiles
     deps:
-      - checkout-reusable
+      - checkout-reusable-config-files
     cmds:
       - find . -name '*Dockerfile*' -print0 | xargs -0 -I {} sh -c 'cat {} | {{ .dockerLinter }}'
 
@@ -54,7 +54,7 @@ tasks:
   gha-lint:
     desc: Lint GitHub Actions workflows
     deps:
-      - checkout-reusable
+      - checkout-reusable-config-files
     cmds:
       - '{{ .ghaLinter }}'
 
@@ -62,7 +62,7 @@ tasks:
   secrets-lint:
     desc: Lint secrets
     deps:
-      - checkout-reusable
+      - checkout-reusable-config-files
     cmds:
       # TODO git add before running otherwise no scan
       - '{{ .secretsLinter }}'
@@ -71,7 +71,7 @@ tasks:
   sast-lint:
     desc: Lint source code
     deps:
-      - checkout-reusable
+      - checkout-reusable-config-files
     cmds:
       - '{{ .sastLinter }}'
 
@@ -79,7 +79,7 @@ tasks:
   go-lint:
     desc: Lint Go source code
     deps:
-      - checkout-reusable
+      - checkout-reusable-config-files
     cmds:
       - '{{ .goLinter }}'
 
@@ -87,7 +87,7 @@ tasks:
   markdown-lint:
     desc: Lint Markdown files
     deps:
-      - checkout-reusable
+      - checkout-reusable-config-files
     cmds:
       - '{{ .markdownLinter }}'
 
@@ -95,7 +95,7 @@ tasks:
   shell-lint:
     desc: Lint shell scripts
     deps:
-      - checkout-reusable
+      - checkout-reusable-config-files
     cmds:
       - '{{ .shellLinter }}'
 
@@ -103,6 +103,6 @@ tasks:
   yaml-lint:
     desc: Lint YAML files
     deps:
-      - checkout-reusable
+      - checkout-reusable-config-files
     cmds:
       - find . -name '*.yaml' -print0 | xargs -0 -I {} sh -c '{{ .yamlLinter }} {}'
