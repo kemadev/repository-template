@@ -84,7 +84,7 @@ tasks:
       GORELEASER_CONFIG_TEMPLATE_FILENAME: .goreleaser.yaml.go.tmpl
       GORELEASER_CONFIG_OUTPUT_FILE: '{{ .BUILDS_DIR_PARENT }}/{{ .reusableConfigDir }}/.goreleaser.yaml'
       BUILDS_DIR_PARENT: '{{ .BUILDS_DIR_PARENT }}'
-      BUILDS_DIR: 'cmd'
+      BUILDS_DIR: cmd
     cmds:
       - '{{ .goCli }} run render-goreleaser-config.go'
 
