@@ -122,13 +122,13 @@ tasks:
           task: report-results
       - echo -n > {{ .resultsOutputFile }}
       - task: lint-go
-      # - task: lint-secrets
+      - task: lint-secrets
       - task: lint-docker
       - task: lint-gha
       - task: lint-markdown
       - task: lint-shell
       - task: lint-yaml
-      # - task: lint-sast
+      - task: lint-sast
 
   # Report results
   report-results:
