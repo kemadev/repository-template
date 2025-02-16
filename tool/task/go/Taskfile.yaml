@@ -97,7 +97,7 @@ tasks:
     cmds:
       - task: ensure-service-exists
         vars:
-          # Propagate sampleName
+          # Propagate service
           service: '{{ .service }}'
       - task: render-goreleaser-config
       - '{{ .goreleaserCli }} --config {{ .goreleaserConfig }} build --clean --snapshot'
