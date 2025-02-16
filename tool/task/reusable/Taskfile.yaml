@@ -1,0 +1,43 @@
+version: 3
+
+vars:
+  tmpDir: /tmp
+
+  gitCli: git
+  reusableRepoPrefix: https://github.com
+  reusableRepoOrgAndName: kemadev/workflows-and-actions
+  reusableRepoFqdn: '{{ .reusableRepoPrefix }}/{{ .reusableRepoOrgAndName }}'
+  reusableConfigSubdir: config/reusable
+  reusableScriptsSubdir: .github/script/reusable
+  reusableCloneDir: '{{ .tmpDir }}/task-reusable-workflows-and-actions'
+  reusableCheckoutSuccessMarker: task-checkout-reusable-files-configs-success
+  reusableCheckoutSuccessMarkerLocation: '{{ .tmpDir }}/{{ .reusableCheckoutSuccessMarker }}'
+
+run: once
+
+tasks:
+  # Checkout reusable configs
+  checkout-reusable-files:
+    desc: Checkout reusable configs, only subdirectory
+    internal: true
+    status:
+      - '[ -f {{ .reusableCheckoutSuccessMarkerLocation }} ]'
+    cmds:
+      - '{{ .gitCli }} clone --depth 1 {{ .reusableRepoFqdn }} {{ .reusableCloneDir }}'
+      - find {{ .reusableCloneDir }}/{{ .reusableConfigSubdir }} -maxdepth 1 -mindepth 1 -name '*' ! -name '*.md' ! -name '.gitignore' -exec cp -r {} {{ .reusableConfigSubdir }} \;
+      - find {{ .reusableCloneDir }}/{{ .reusableScriptsSubdir }} -maxdepth 1 -mindepth 1 -name '*' ! -name '*.md' ! -name '.gitignore' -exec cp -r {} {{ .reusableScriptsSubdir }} \;
+      - touch {{ .reusableCheckoutSuccessMarkerLocation }}
+
+  # Reset reusable configs checkout task so it can be run again
+  reset-reusable-checkout:
+    desc: Reset reusable configs
+    cmds:
+      - rm -rf {{ .reusableCheckoutSuccessMarkerLocation }}
+      - rm -rf {{ .reusableCloneDir }}
+
+  # Update reusable configs
+  update-reusable-files:
+    desc: Update reusable configs
+    cmds:
+      - task: reset-reusable-checkout
+      - task: checkout-reusable-files

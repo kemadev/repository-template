@@ -3,11 +3,18 @@ version: 3
 vars:
   goCli: go
   goLinter: golangci-lint
-  goLinterConfig: '{{ .configDir }}/lint/.golangci.yml'
+  configDir: config
+  reusableConfigDir: config/reusable
+  distDir: dist
+
+  goLinterConfig: '{{ .reusableConfigDir }}/.golangci.yaml'
   goCoverageReport: '{{ .distDir }}/cover.out'
   goCoverageHtml: '{{ .distDir }}/coverage.html'
   goBuildOutputDistSubdir: task
   goCmdDir: cmd
+
+  goreleaserCli: goreleaser
+  goreleaserConfig: '{{ .reusableConfigDir }}/.goreleaser.yaml'
 
 run: once
 
@@ -66,8 +73,25 @@ tasks:
     cmds:
       - cmd: if [ ! -d ./{{ .goCmdDir }}/{{ .service | default "rtfm-you-forgot-to-pass-service-name" }} ]; then echo "Service dir '{{ .goCmdDir }}/{{ .service | default "rtfm-you-forgot-to-pass-service-name" }}' not found"; exit 1; fi
 
+  render-goreleaser-config:
+    desc: Render goreleaser config
+    dir: .github/script/reusable/render-goreleaser-config
+    vars:
+      BUILDS_DIR_PARENT:
+        sh: git rev-parse --show-toplevel
+    env:
+      GORELEASER_CONFIG_TEMPLATE_DIR: '{{ .BUILDS_DIR_PARENT }}/{{ .reusableConfigDir }}'
+      GORELEASER_CONFIG_TEMPLATE_FILENAME: .goreleaser.yaml.go.tmpl
+      GORELEASER_CONFIG_OUTPUT_FILE: '{{ .BUILDS_DIR_PARENT }}/{{ .reusableConfigDir }}/.goreleaser.yaml'
+      BUILDS_DIR_PARENT: '{{ .BUILDS_DIR_PARENT }}'
+      BUILDS_DIR: 'cmd'
+    cmds:
+      - '{{ .goCli }} run render-goreleaser-config.go'
+
   build:
     desc: Build the project
+    deps:
+      - checkout-reusable-files
     vars:
       service: '{{ .CLI_ARGS }}'
     cmds:
@@ -75,5 +99,5 @@ tasks:
         vars:
           # Propagate sampleName
           service: '{{ .service }}'
-        silent: true
-      - '{{ .goCli }} build -tags lambda.norpc -o {{ .distDir }}/{{ .goBuildOutputDistSubdir }}/{{ .service | default "rtfm-you-forgot-to-pass-service-name"  }} ./{{ .goCmdDir }}/{{ .service | default "rtfm-you-forgot-to-pass-service-name"  }}'
+      - task: render-goreleaser-config
+      - '{{ .goreleaserCli }} --config {{ .goreleaserConfig }} build --clean --snapshot'
