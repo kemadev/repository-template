@@ -18,15 +18,19 @@ run: once
 tasks:
   generate-event:
     desc: Generate sample events for local testing using SAM CLI, necessarily append `-- <event-parameters>` to your command in order to specify event parameters
+    vars:
+      CLI_ARGS: '{{ .CLI_ARGS | default "rtfm-you-forgot-to-pass-event-name" }}'
     cmds:
-      - '{{ .samCli }} local generate-event {{ .CLI_ARGS | default "rtfm-you-forgot-to-pass-event-name" }}'
+      - '{{ .samCli }} local generate-event {{ .CLI_ARGS }}'
 
   ensure-template-exists:
     desc: Ensure that sample file exists
+    vars:
+      sampleName: '{{ .sampleName | default "rtfm-you-forgot-to-pass-sample-name" }}'
     internal: true
     silent: true
     cmds:
-      - cmd: if [ ! -f {{ .runSamplesDir }}/{{ .sampleName | default "rtfm-you-forgot-to-pass-sample-name" }} ]; then echo "Sample file '{{ .runSamplesDir }}/{{ .sampleName | default "rtfm-you-forgot-to-pass-sample-name" }}' not found"; exit 1; fi
+      - cmd: if [ ! -f {{ .runSamplesDir }}/{{ .sampleName }} ]; then echo "Sample file '{{ .runSamplesDir }}/{{ .sampleName }}' not found"; exit 1; fi
 
   local-sample-template:
     desc: Wrap curl command with sample request for local testing
@@ -38,7 +42,7 @@ tasks:
           # Propagate sampleName
           sampleName: '{{ .sampleName }}'
         silent: true
-      - cmd: '{{ .curlCli }} --silent -X POST "{{ .lambdaLocalInvokeUrl }}" -d @{{ .runSamplesDir }}/{{ .sampleName | default "rtfm-you-forgot-to-pass-sample-name" }}'
+      - cmd: '{{ .curlCli }} --silent -X POST "{{ .lambdaLocalInvokeUrl }}" -d @{{ .runSamplesDir }}/{{ .sampleName }}'
         silent: true
       - cmd: echo ""
         silent: true
@@ -60,7 +64,7 @@ tasks:
           # Propagate sampleName
           sampleName: '{{ .sampleName }}'
         silent: true
-      - cmd: '{{ .awsCli }} lambda invoke --function-name {{ .functionName }} --payload fileb://{{ .runSamplesDir }}/{{ .sampleName | default "rtfm-you-forgot-to-pass-sample-name" }} --query {{ .awsCliEmptyQuery }} /dev/stdout'
+      - cmd: '{{ .awsCli }} lambda invoke --function-name {{ .functionName }} --payload fileb://{{ .runSamplesDir }}/{{ .sampleName }} --query {{ .awsCliEmptyQuery }} /dev/stdout'
         silent: true
       - cmd: echo ""
         silent: true
