@@ -1,9 +1,7 @@
 # `deploy`
 
-## Note
-
 > [!NOTE]
-> Just use `task` to manage components creation and deployments, it handles everything for you!
+> Just use `task` to manage components initialization, it handles everything for you!
 
 ## Directories in this directory
 
