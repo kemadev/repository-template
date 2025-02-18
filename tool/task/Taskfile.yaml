@@ -22,6 +22,9 @@ includes:
   go:
     taskfile: go
     dir: '{{ .baseDir }}'
+  infra:
+    taskfile: infra
+    dir: '{{ .baseDir }}'
   reusable:
     taskfile: reusable
     dir: '{{ .baseDir }}'

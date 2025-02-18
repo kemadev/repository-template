@@ -1,0 +1,70 @@
+version: 3
+
+vars:
+  pulumiCli: pulumi
+
+  infraBaseDir: deploy
+  pulumiDefaultStack: dev
+
+run: once
+
+tasks:
+  # Ensure
+  ensure-component-exists:
+    desc: Ensure that component directory exists
+    vars:
+      componentName: '{{ .componentName | default "rtfm-you-forgot-to-pass-component-name" }}'
+    internal: true
+    silent: true
+    cmds:
+      - cmd: if [ ! -d {{ .infraBaseDir }}/{{ .componentName }} ]; then echo "Component directory '{{ .infraBaseDir }}/{{ .componentName }}' not found"; exit 1; fi
+
+  # Pulumi infrastructure for a given stack (template)
+  pulumi-infra-template:
+    desc: Run pulumi command for a given stack
+    internal: true
+    vars:
+      pulumiCommand: '{{ .pulumiCommand | default "up" }}'
+      componentName: '{{ .componentName | default "rtfm-you-forgot-to-pass-component-name" }}'
+      stackName: '{{ .stackName | default .pulumiDefaultStack }}'
+      refresh: '{{ .refresh | default "" }}'
+    cmds:
+      - task: ensure-component-exists
+        vars:
+          # Propagate componentName
+          componentName: '{{ .componentName }}'
+        silent: true
+      - cmd: '{{ .pulumiCli }} {{ .pulumiCommand }} --fully-qualify-stack-names {{ .refresh }} --cwd {{ .infraBaseDir }}/{{ .componentName }} --stack {{ .stackName }}'
+
+  # Update infrastructure for a given stack
+  update-infra:
+    desc: Update infrastructure for a given stack
+    cmds:
+      - task: update-infra-template
+        vars:
+          pulumiCommand: up
+          componentName: '{{ (split " " .CLI_ARGS)._0 }}'
+          stackName: '{{ (split " " .CLI_ARGS)._1 }}'
+          refresh: '{{ if eq (split " " .CLI_ARGS)._2 "--refresh" }}--refresh{{ end }}'
+
+  # Destroy infrastructure for a given stack
+  destroy-infra:
+    desc: Destroy infrastructure for a given stack
+    cmds:
+      - task: update-infra-template
+        vars:
+          pulumiCommand: destroy
+          componentName: '{{ (split " " .CLI_ARGS)._0 }}'
+          stackName: '{{ (split " " .CLI_ARGS)._1 }}'
+          refresh: '{{ if eq (split " " .CLI_ARGS)._2 "--refresh" }}--refresh{{ end }}'
+
+  # Create a new infrastructure stack
+  create-infra:
+    desc: Create a new infrastructure stack
+    cmds:
+      - task: update-infra-template
+        vars:
+          pulumiCommand: stack init
+          componentName: '{{ (split " " .CLI_ARGS)._0 }}'
+          stackName: '{{ (split " " .CLI_ARGS)._1 }}'
+          refresh: '{{ if eq (split " " .CLI_ARGS)._2 "--refresh" }}--refresh{{ end }}'
