@@ -35,7 +35,7 @@ tasks:
       vars:
         - dockerComposeProfile
     cmds:
-      - '{{ .dockerComposeCli }} --profile {{ .dockerComposeProfile }} {{ .dockerComposeUpArg }} {{ .CLI_ARGS | default "" }}'
+      - cmd: '{{ .dockerComposeCli }} --profile {{ .dockerComposeProfile }} {{ .dockerComposeUpArg }} {{ .CLI_ARGS | default "" }}'
 
   template-up:
     internal: true
@@ -56,7 +56,7 @@ tasks:
       vars:
         - dockerComposeProfile
     cmds:
-      - '{{ .dockerComposeCli }} --profile {{ .dockerComposeProfile }} {{ .dockerComposeDownArg }} {{ .CLI_ARGS | default "" }}'
+      - cmd: '{{ .dockerComposeCli }} --profile {{ .dockerComposeProfile }} {{ .dockerComposeDownArg }} {{ .CLI_ARGS | default "" }}'
 
   # Docker Compose Kill
   template-kill:
@@ -66,7 +66,7 @@ tasks:
       vars:
         - dockerComposeProfile
     cmds:
-      - '{{ .dockerComposeCli }} --profile {{ .dockerComposeProfile }} {{ .dockerComposeKillArg }} {{ .CLI_ARGS | default "" }}'
+      - cmd: '{{ .dockerComposeCli }} --profile {{ .dockerComposeProfile }} {{ .dockerComposeKillArg }} {{ .CLI_ARGS | default "" }}'
 
   # Docker Compose Restart
   template-restart-without-logs:
@@ -76,7 +76,7 @@ tasks:
       vars:
         - dockerComposeProfile
     cmds:
-      - '{{ .dockerComposeCli }} --profile {{ .dockerComposeProfile }} {{ .dockerComposeRestartArg }} {{ .CLI_ARGS | default "" }}'
+      - cmd: '{{ .dockerComposeCli }} --profile {{ .dockerComposeProfile }} {{ .dockerComposeRestartArg }} {{ .CLI_ARGS | default "" }}'
 
   template-restart:
     internal: true
@@ -112,7 +112,7 @@ tasks:
       vars:
         - dockerComposeProfile
     cmds:
-      - '{{ .dockerComposeCli }} --profile {{ .dockerComposeProfile }} {{ .dockerComposeStartArg }} {{ .CLI_ARGS | default "" }}'
+      - cmd: '{{ .dockerComposeCli }} --profile {{ .dockerComposeProfile }} {{ .dockerComposeStartArg }} {{ .CLI_ARGS | default "" }}'
 
   # Docker Compose Stop
   template-stop:
@@ -122,7 +122,7 @@ tasks:
       vars:
         - dockerComposeProfile
     cmds:
-      - '{{ .dockerComposeCli }} --profile {{ .dockerComposeProfile }} {{ .dockerComposeStopArg }} {{ .CLI_ARGS | default "" }}'
+      - cmd: '{{ .dockerComposeCli }} --profile {{ .dockerComposeProfile }} {{ .dockerComposeStopArg }} {{ .CLI_ARGS | default "" }}'
 
   # Docker Compose Logs
   template-logs:
@@ -132,7 +132,7 @@ tasks:
       vars:
         - dockerComposeProfile
     cmds:
-      - '{{ .dockerComposeCli }} --profile {{ .dockerComposeProfile }} {{ .dockerComposeLogsArg }} {{ .CLI_ARGS | default "" }}'
+      - cmd: '{{ .dockerComposeCli }} --profile {{ .dockerComposeProfile }} {{ .dockerComposeLogsArg }} {{ .CLI_ARGS | default "" }}'
 
   # Docker Compose Shell
   template-shell:
@@ -143,7 +143,7 @@ tasks:
       vars:
         - dockerComposeProfile
     cmds:
-      - '{{ .dockerComposeCli }} --profile {{ .dockerComposeProfile }} exec {{ .CLI_ARGS | default "rtfm-you-forgot-to-pass-service-name" }} {{ .containerShellCmd }}'
+      - cmd: '{{ .dockerComposeCli }} --profile {{ .dockerComposeProfile }} exec {{ .CLI_ARGS | default "rtfm-you-forgot-to-pass-service-name" }} {{ .containerShellCmd }}'
 
   # Docker Compose Arbitrary Command
   template-arbitrary-compose-command:
@@ -153,4 +153,4 @@ tasks:
       vars:
         - dockerComposeProfile
     cmds:
-      - '{{ .dockerComposeCli }} --profile {{ .dockerComposeProfile }} {{ .dockerComposeCmd }} {{ .CLI_ARGS | default "rtfm-you-forgot-to-pass-service-name" }}'
+      - cmd: '{{ .dockerComposeCli }} --profile {{ .dockerComposeProfile }} {{ .dockerComposeCmd }} {{ .CLI_ARGS | default "rtfm-you-forgot-to-pass-service-name" }}'

@@ -23,40 +23,40 @@ tasks:
   format:
     desc: Format all packages
     cmds:
-      - '{{ .goCli }} fmt ./...'
+      - cmd: '{{ .goCli }} fmt ./...'
 
   tidy:
     desc: Tidy go modules
     cmds:
-      - '{{ .goCli }} mod tidy'
+      - cmd: '{{ .goCli }} mod tidy'
 
   lint:
     desc: Lint all packages
     deps:
       - format
     cmds:
-      - '{{ .goLinter }} run ./... --config {{ .goLinterConfig }}'
+      - cmd: '{{ .goLinter }} run ./... --config {{ .goLinterConfig }}'
 
   test:
     desc: Run tests on all packages
     deps:
       - format
     cmds:
-      - '{{ .goCli }} test ./...'
+      - cmd: '{{ .goCli }} test ./...'
 
   test-full:
     desc: Run tests on all packages, including coverage and benchmarks
     deps:
       - format
     cmds:
-      - '{{ .goCli }} test -bench=. -benchmem -covermode=atomic -coverprofile={{ .goCoverageReport }} ./...'
+      - cmd: '{{ .goCli }} test -bench=. -benchmem -covermode=atomic -coverprofile={{ .goCoverageReport }} ./...'
 
   test-coverage:
     desc: Report coverage
     deps:
       - test_full
     cmds:
-      - '{{ .goCli }} tool cover -html={{ .goCoverageReport }} -o={{ .goCoverageHtml }}'
+      - cmd: '{{ .goCli }} tool cover -html={{ .goCoverageReport }} -o={{ .goCoverageHtml }}'
 
   prepare:
     desc: Format, tidy, lint and test
@@ -88,7 +88,7 @@ tasks:
       BUILDS_DIR_PARENT: '{{ .BUILDS_DIR_PARENT }}'
       BUILDS_DIR: cmd
     cmds:
-      - '{{ .goCli }} run render-goreleaser-config.go'
+      - cmd: '{{ .goCli }} run render-goreleaser-config.go'
 
   build:
     desc: Build the project
@@ -102,4 +102,4 @@ tasks:
           # Propagate service
           service: '{{ .service }}'
       - task: render-goreleaser-config
-      - '{{ .goreleaserCli }} --config {{ .goreleaserConfig }} build --clean --snapshot'
+      - cmd: '{{ .goreleaserCli }} --config {{ .goreleaserConfig }} release --clean --snapshot --skip announce --skip publish'

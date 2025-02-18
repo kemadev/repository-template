@@ -24,7 +24,7 @@ tasks:
   stage-all:
     desc: Stage all files
     cmds:
-      - '{{ .gitCli }} add .'
+      - cmd: '{{ .gitCli }} add .'
 
   # Docker
   lint-docker:
@@ -35,7 +35,7 @@ tasks:
       - checkout-reusable-files
     cmds:
       - defer: '{{ if not .EXIT_CODE }}exit 0{{ else }}echo docker failed with code {{ .EXIT_CODE }} >> {{ .resultsOutputFile }}{{ end }}'
-      - find . -name '*Dockerfile*' -print0 | xargs -0 -I {} sh -c 'cat {} | {{ .dockerLinter }}'
+      - cmd: find . -name '*Dockerfile*' -print0 | xargs -0 -I {} sh -c 'cat {} | {{ .dockerLinter }}'
 
   # GitHub Actions
   lint-gha:
@@ -46,7 +46,7 @@ tasks:
       - checkout-reusable-files
     cmds:
       - defer: '{{ if not .EXIT_CODE }}exit 0{{ else }}echo gha failed with code {{ .EXIT_CODE }} >> {{ .resultsOutputFile }}{{ end }}'
-      - '{{ .ghaLinter }}'
+      - cmd: '{{ .ghaLinter }}'
 
   # Secrets
   lint-secrets:
@@ -56,7 +56,7 @@ tasks:
       - stage-all
     cmds:
       - defer: '{{ if not .EXIT_CODE }}exit 0{{ else }}echo secrets failed with code {{ .EXIT_CODE }} >> {{ .resultsOutputFile }}{{ end }}'
-      # Redirect stderr to /dev/null to avoid printing the headers
+      # cmd: Redirect stderr to /dev/null to avoid printing the headers
       - '{{ .secretsLinter }} 2>/dev/null'
 
   # Static Application Security Testing (SAST)
@@ -66,7 +66,7 @@ tasks:
       - checkout-reusable-files
     cmds:
       - defer: '{{ if not .EXIT_CODE }}exit 0{{ else }}echo sast failed with code {{ .EXIT_CODE }} >> {{ .resultsOutputFile }}{{ end }}'
-      # Redirect stderr to /dev/null to avoid printing the headers
+      # cmd: Redirect stderr to /dev/null to avoid printing the headers
       - '{{ .sastLinter }} 2>/dev/null'
 
   # Go
@@ -78,7 +78,7 @@ tasks:
       - checkout-reusable-files
     cmds:
       - defer: '{{ if not .EXIT_CODE }}exit 0{{ else }}echo go failed with code {{ .EXIT_CODE }} >> {{ .resultsOutputFile }}{{ end }}'
-      - '{{ .goLinter }}'
+      - cmd: '{{ .goLinter }}'
 
   # Markdown
   lint-markdown:
@@ -89,7 +89,7 @@ tasks:
       - checkout-reusable-files
     cmds:
       - defer: '{{ if not .EXIT_CODE }}exit 0{{ else }}echo markdown failed with code {{ .EXIT_CODE }} >> {{ .resultsOutputFile }}{{ end }}'
-      - '{{ .markdownLinter }}'
+      - cmd: '{{ .markdownLinter }}'
 
   # Shell
   lint-shell:
@@ -100,7 +100,7 @@ tasks:
       - checkout-reusable-files
     cmds:
       - defer: '{{ if not .EXIT_CODE }}exit 0{{ else }}echo shell failed with code {{ .EXIT_CODE }} >> {{ .resultsOutputFile }}{{ end }}'
-      - '{{ .shellLinter }}'
+      - cmd: '{{ .shellLinter }}'
 
   # YAML
   lint-yaml:
@@ -111,7 +111,7 @@ tasks:
       - checkout-reusable-files
     cmds:
       - defer: '{{ if not .EXIT_CODE }}exit 0{{ else }}echo yaml failed with code {{ .EXIT_CODE }} >> {{ .resultsOutputFile }}{{ end }}'
-      - '{{ .yamlLinter }}'
+      - cmd: '{{ .yamlLinter }}'
 
   # Lint all
   lint-all:
@@ -120,7 +120,7 @@ tasks:
     cmds:
       - defer:
           task: report-results
-      - echo -n > {{ .resultsOutputFile }}
+      - cmd: echo -n > {{ .resultsOutputFile }}
       - task: lint-go
       - task: lint-secrets
       - task: lint-docker
@@ -141,9 +141,9 @@ tasks:
       colorRed: \033[0;31m
       colorGreen: \033[0;32m
     cmds:
-      - echo -e "\n\n"
-      - echo -n -e "{{ .colorBlack }}"
-      - echo "Results:"
-      - echo -n -e "{{ .colorYellow }}"
-      - cat {{ .resultsOutputFile }}
-      - if [ -s {{ .resultsOutputFile }} ]; then echo -n -e "{{ .colorRed }}"; echo "Linting failed"; exit 1; else echo -n -e "{{ .colorGreen }}"; echo "Linting passed"; fi
+      - cmd: echo -e "\n\n"
+      - cmd: echo -n -e "{{ .colorBlack }}"
+      - cmd: echo "Results:"
+      - cmd: echo -n -e "{{ .colorYellow }}"
+      - cmd: cat {{ .resultsOutputFile }}
+      - cmd: if [ -s {{ .resultsOutputFile }} ]; then echo -n -e "{{ .colorRed }}"; echo "Linting failed"; exit 1; else echo -n -e "{{ .colorGreen }}"; echo "Linting passed"; fi
