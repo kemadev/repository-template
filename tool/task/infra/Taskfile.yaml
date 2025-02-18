@@ -51,7 +51,7 @@ tasks:
 
   # Update infrastructure for a given stack
   update-infra:
-    desc: Update infrastructure for a given stack, necessarily append `-- <component-name>` to your command in order to specify component to use, optionally append `stack-name` to specify stack name, and `--refresh=false` to disable refresh
+    desc: Update infrastructure for a given stack, necessarily append `-- <component-name>` to your command in order to specify component to use, optionally append `stack-name` to specify stack name, and `--refresh=false` to disable refresh. Please note that you might need to run build task before this one if deploying changes to application code
     cmds:
       - task: pulumi-infra-template
         vars:
