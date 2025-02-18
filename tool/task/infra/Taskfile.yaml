@@ -58,6 +58,7 @@ tasks:
           stackName: '{{ if ne (split " " .CLI_ARGS)._1 "--refresh" }}{{ (split " " .CLI_ARGS)._1 }}{{ end }}'
           # If either arg 1 or 2 is --refresh, then refresh
           refresh: '{{ if eq (split " " .CLI_ARGS)._2 "--refresh" }}--refresh{{ else if eq (split " " .CLI_ARGS)._1 "--refresh" }}--refresh{{ end }}'
+
   # Create a new infrastructure stack
   create-infra:
     desc: Create a new infrastructure stack
