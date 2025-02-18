@@ -1,5 +1,10 @@
 # `deploy`
 
+## Note
+
+> ![NOTE]
+> Just use `task` to manage components creation and deployments, it handles everything for you!
+
 ## Directories in this directory
 
 - Should be named with a prefix that defines the order, such as `10-`, `20-`, ...
@@ -13,8 +18,8 @@
 - Are placed in subdirectories, see above
 - Are related to deployments
 - Should manage application deployment resources for applications, including different environments (e.g., `env/next`, `env/prod`, ...)
-- Should name their projects according to the URL of their directory, replacing non-alphanumeric characters with `-` (e.g., `github-com-username-repo-deploy-XX-app1` for `deploy/XX-app1`)
-- Should name their stacks according to the environment they deploy to (e.g., `env/next`, `env/prod`, ...)
+- Should name their projects according to the URL of their directory, replacing non-alphanumeric characters with `-` (e.g., `github-com-username-repo-deploy-XX-app1` for `deploy/XX-app1`).
+- Should name their stacks according to the environment they deploy to (e.g., `next`, `prod`, ...)
 - Should implement GitOps best practices
 - Should be moved to a separate repository if it can be reused across multiple projects
 - Should be as simple as possible, making it possible to use stack references to share resources across projects

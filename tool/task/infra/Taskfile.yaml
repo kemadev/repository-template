@@ -2,14 +2,17 @@ version: 3
 
 vars:
   pulumiCli: pulumi
+  pulumigoCli: go
 
   infraBaseDir: deploy
   pulumiDefaultStack: dev
+  pulumiStackTemplateDir: config/pulumi/stack-template
+  pulumiProjectConfigFile: Pulumi.yaml
 
 run: once
 
 tasks:
-  # Ensure
+  # Ensure that component directory exists
   ensure-component-exists:
     desc: Ensure that component directory exists
     vars:
@@ -18,6 +21,16 @@ tasks:
     silent: true
     cmds:
       - cmd: if [ ! -d {{ .infraBaseDir }}/{{ .componentName }} ]; then echo "Component directory '{{ .infraBaseDir }}/{{ .componentName }}' not found"; exit 1; fi
+
+  # Ensure that component directory does not exist
+  ensure-component-not-exists:
+    desc: Ensure that component directory does not exist
+    vars:
+      componentName: '{{ .componentName | default "rtfm-you-forgot-to-pass-component-name" }}'
+    internal: true
+    silent: true
+    cmds:
+      - cmd: if [ -d {{ .infraBaseDir }}/{{ .componentName }} ]; then echo "Component directory '{{ .infraBaseDir }}/{{ .componentName }}' already exists"; exit 1; fi
 
   # Pulumi infrastructure for a given stack (template)
   pulumi-infra-template:
@@ -38,7 +51,7 @@ tasks:
 
   # Update infrastructure for a given stack
   update-infra:
-    desc: Update infrastructure for a given stack, necessarily append `-- <component-name>` to your command in order to specify component to use, optionally append `stack-name` to specify stack name, and `--refresh` to refresh the state
+    desc: Update infrastructure for a given stack, necessarily append `-- <component-name>` to your command in order to specify component to use, optionally append `stack-name` to specify stack name, and `--refresh=false` to disable refresh
     cmds:
       - task: pulumi-infra-template
         vars:
@@ -49,7 +62,7 @@ tasks:
 
   # Destroy infrastructure for a given stack
   destroy-infra:
-    desc: Destroy infrastructure for a given stack, necessarily append `-- <component-name>` to your command in order to specify component to use, optionally append `stack-name` to specify stack name, and `--refresh` to refresh the state
+    desc: Destroy infrastructure for a given stack, necessarily append `-- <component-name>` to your command in order to specify component to use, optionally append `stack-name` to specify stack name, and `--refresh=false` to disable refresh
     cmds:
       - task: pulumi-infra-template
         vars:
@@ -61,10 +74,27 @@ tasks:
   # Create a new infrastructure stack
   create-infra:
     desc: Create a new infrastructure stack
+    vars:
+      componentName: '{{ .CLI_ARGS | default "rtfm-you-forgot-to-pass-component-name" }}'
+      stackDir: '{{ .infraBaseDir }}/{{ .componentName }}'
+      repoMod:
+        sh: git remote get-url origin | sed -e 's|https://||g' -e 's|.git||g'
+      repoProject:
+        sh: echo {{ .repoMod }}/{{ .stackDir }} | tr '[:upper:]' '[:lower:]' | tr '[:punct:]' '-'
     cmds:
-      - task: pulumi-infra-template
+      - cmd: if [ "rtfm-you-forgot-to-pass-component-name" = "{{ .componentName }}" ]; then echo "RTFM, component name is required"; exit 1; fi
+        silent: true
+      - task: ensure-component-not-exists
         vars:
-          pulumiCommand: stack init
-          componentName: '{{ (split " " .CLI_ARGS)._0 }}'
-          stackName: '{{ (split " " .CLI_ARGS)._1 }}'
-          refresh: '{{ if eq (split " " .CLI_ARGS)._2 "--refresh" }}--refresh{{ end }}'
+          # Propagate componentName
+          componentName: '{{ .componentName }}'
+        silent: true
+      - cmd: mkdir -p {{ .stackDir }}
+      - cmd: cd {{ .stackDir }}
+      - cmd: cd {{ .stackDir }} && {{ .goCli }} mod init {{ .repoMod }}/{{ .stackDir }}
+      - cmd: cp {{ .pulumiStackTemplateDir }}/main.go {{ .stackDir }}
+      - cmd: cd {{ .stackDir }} && {{ .goCli }} get
+      - cmd: cat {{ .pulumiStackTemplateDir }}/{{ .pulumiProjectConfigFile }} | sed -e 's|${STACK_NAME}|{{ .repoProject }}|g' -e 's|${STACK_DESCRIPTION}|{{ .componentName }}|g' > {{ .stackDir }}/{{ .pulumiProjectConfigFile }}
+      - cmd: cp {{ .pulumiStackTemplateDir }}/Pulumi.dev.yaml {{ .stackDir }}/Pulumi.dev.yaml
+      - cmd: cd {{ .stackDir }} && {{ .pulumiCli }} stack init {{ .pulumiDefaultStack }}
+      - cmd: echo -e "Component '{{ .componentName }}' created in '{{ .stackDir }}'!\n\nYou should edit its {{ .pulumiProjectConfigFile }} file to set the description and other settings."
