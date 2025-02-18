@@ -71,9 +71,9 @@ tasks:
           stackName: '{{ if ne (split " " .CLI_ARGS)._1 "--refresh" }}{{ (split " " .CLI_ARGS)._1 }}{{ end }}'
           refresh: '{{ if eq (split " " .CLI_ARGS)._2 "--refresh" }}--refresh{{ else if eq (split " " .CLI_ARGS)._1 "--refresh" }}--refresh{{ end }}'
 
-  # Create a new infrastructure stack
-  create-infra:
-    desc: Create a new infrastructure stack
+  # Bootstrap a new infrastructure component directory
+  bootstrap-infra-component:
+    desc: Bootstrap a new infrastructure component directory
     vars:
       componentName: '{{ .CLI_ARGS | default "rtfm-you-forgot-to-pass-component-name" }}'
       stackDir: '{{ .infraBaseDir }}/{{ .componentName }}'
