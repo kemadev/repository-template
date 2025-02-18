@@ -68,10 +68,12 @@ tasks:
 
   ensure-service-exists:
     desc: Ensure that sample file exists
+    vars:
+      service: '{{ .service | default "rtfm-you-forgot-to-pass-service-name" }}'
     internal: true
     silent: true
     cmds:
-      - cmd: if [ ! -d ./{{ .goCmdDir }}/{{ .service | default "rtfm-you-forgot-to-pass-service-name" }} ]; then echo "Service dir '{{ .goCmdDir }}/{{ .service | default "rtfm-you-forgot-to-pass-service-name" }}' not found"; exit 1; fi
+      - cmd: if [ ! -d ./{{ .goCmdDir }}/{{ .service }} ]; then echo "Service dir '{{ .goCmdDir }}/{{ .service }}' not found"; exit 1; fi
 
   render-goreleaser-config:
     desc: Render goreleaser config

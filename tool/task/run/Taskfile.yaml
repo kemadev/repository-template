@@ -19,9 +19,9 @@ tasks:
   generate-event:
     desc: Generate sample events for local testing using SAM CLI, necessarily append `-- <event-parameters>` to your command in order to specify event parameters
     vars:
-      CLI_ARGS: '{{ .CLI_ARGS | default "rtfm-you-forgot-to-pass-event-name" }}'
+      eventName: '{{ .CLI_ARGS | default "rtfm-you-forgot-to-pass-event-name" }}'
     cmds:
-      - '{{ .samCli }} local generate-event {{ .CLI_ARGS }}'
+      - '{{ .samCli }} local generate-event {{ .eventName }}'
 
   ensure-template-exists:
     desc: Ensure that sample file exists
