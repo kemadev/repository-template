@@ -2,7 +2,7 @@
 
 ## Note
 
-> ![NOTE]
+> [!NOTE]
 > Just use `task` to manage components creation and deployments, it handles everything for you!
 
 ## Directories in this directory
