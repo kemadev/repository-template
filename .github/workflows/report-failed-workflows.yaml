@@ -33,8 +33,19 @@ jobs:
         id: report-failed-workflows
         env:
           GH_TOKEN: ${{ github.token }}
-          URL: ${{ github.event.workflow_run.url }}
+          WORKFLOW_URL: ${{ github.event.workflow_run.workflow_url }}
+          WORKFLOW_ID: ${{ github.event.workflow_run.workflow_id }}
           NAME: ${{ github.event.workflow_run.name }}
           CONCLUSION: ${{ github.event.workflow_run.conclusion }}
           HEAD_BRANCH: ${{ github.event.workflow_run.head_branch }}
+          ACTOR: ${{ github.event.workflow_run.actor }}
+          CREATED_AT: ${{ github.event.workflow_run.created_at }}
+          HTML_URL: ${{ github.event.workflow_run.html_url }}
+          JOBS_URL: ${{ github.event.workflow_run.jobs_url }}
+          LOGS_URL: ${{ github.event.workflow_run.logs_url }}
+          NODE_ID: ${{ github.event.workflow_run.node_id }}
+          PULL_REQUESTS: ${{ github.event.workflow_run.pull_requests }}
+          RUN_NUMBER: ${{ github.event.workflow_run.run_number }}
+          TRIGGERING_ACTIOR: ${{ github.event.workflow_run.triggering_actor }}
+          UPDATED_AT: ${{ github.event.workflow_run.updated_at }}
         run: ./.github/script/reusable/report-failed-workflows/report-failed-workflows.sh
