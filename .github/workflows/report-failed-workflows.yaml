@@ -1,0 +1,40 @@
+name: Report failed workflows
+
+on:
+  workflow_run:
+    workflows:
+      - '*'
+    types:
+      - completed
+    branches:
+      - main
+  workflow_dispatch: {}
+
+defaults:
+  run:
+    shell: bash
+
+jobs:
+  report-failed-workflows:
+    name: Report failed workflows
+    permissions:
+      contents: read
+      issues: write
+    runs-on: ubuntu-latest
+    if: ${{ github.event.workflow_run.conclusion == 'failure' }}
+    steps:
+      - name: Checkout
+        id: checkout
+        uses: actions/checkout@v4
+      - name: Checkout reusable workflow scripts and configs
+        id: checkout-reusable-scripts-and-configs
+        uses: kemadev/workflows-and-actions/.github/actions/checkout-reusable-scripts-and-configs@main
+      - name: Report failed workflows
+        id: report-failed-workflows
+        env:
+          GH_TOKEN: ${{ github.token }}
+          URL: ${{ github.event.workflow_run.url }}
+          NAME: ${{ github.event.workflow_run.name }}
+          CONCLUSION: ${{ github.event.workflow_run.conclusion }}
+          HEAD_BRANCH: ${{ github.event.workflow_run.head_branch }}
+        run: ./.github/script/reusable/report-failed-workflows/report-failed-workflows.sh

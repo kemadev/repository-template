@@ -1,0 +1,17 @@
+name: foo
+
+on:
+  push:
+    branches:
+      - main
+  workflow_dispatch: {}
+
+defaults:
+  run:
+    shell: bash
+
+jobs:
+  dummy:
+    runs-on: ubuntu-latest
+    steps:
+      - run: echo 'Hello, world!'

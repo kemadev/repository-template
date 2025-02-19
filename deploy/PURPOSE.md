@@ -15,7 +15,7 @@
 
 - Are placed in subdirectories, see above
 - Are related to deployments
-- Should manage application deployment resources for applications, including different environments (e.g., `env/next`, `env/prod`, ...)
+- Should manage application deployment resources for applications, including different environments (e.g., `dev`, `next`, ...)
 - Should name their projects according to the URL of their directory, replacing non-alphanumeric characters with `-` (e.g., `github-com-username-repo-deploy-XX-app1` for `deploy/XX-app1`).
 - Should name their stacks according to the environment they deploy to (e.g., `next`, `prod`, ...)
 - Should implement GitOps best practices
