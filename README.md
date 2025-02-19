@@ -38,6 +38,7 @@
 ### Development Guidelines and Conventions
 
 - All major directories contain a `PURPOSE.md` file with a brief description of directory's content and instructions on how to use it
+- You are encouraged to create your own `README.md` files in subdirectories to provide project-specific instructions, and to document more-widely scoped topics in [docs](./doc) directory
 - Code sharing is encouraged, such code should be placed in [pkg](pkg) and [internal/pkg](internal/pkg) directories
 - Importing other applications libraries and packages is encouraged, following code sharing encouragement
 - First class code documentation (following [Go doc comment guidelines](https://go.dev/doc/comment)) as well as project documentation is encouraged
