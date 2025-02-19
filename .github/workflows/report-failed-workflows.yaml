@@ -33,20 +33,15 @@ jobs:
         id: report-failed-workflows
         env:
           GH_TOKEN: ${{ github.token }}
-          NAME: ${{ github.event.workflow_run.name }}
-          CONCLUSION: ${{ github.event.workflow_run.conclusion }}
           HEAD_BRANCH: ${{ github.event.workflow_run.head_branch }}
-          CREATED_AT: ${{ github.event.workflow_run.created_at }}
+          WORKFLOW_NAME: ${{ github.event.workflow_run.name }}
+          WORKFLOW_RUN_TITLE: ${{ github.event.workflow_run.display_title }}
+          CONCLUSION: ${{ github.event.workflow_run.conclusion }}
           HTML_URL: ${{ github.event.workflow_run.html_url }}
+          CREATED_AT: ${{ github.event.workflow_run.created_at }}
           UPDATED_AT: ${{ github.event.workflow_run.updated_at }}
-          ACTOR_LOGIN: ${{ github.event.workflow_run.actor.login }}
-          ACTOR_NAME: ${{ github.event.workflow_run.actor.name }}
           ACTOR_TYPE: ${{ github.event.workflow_run.actor.type }}
           ACTOR_HTML_URL: ${{ github.event.workflow_run.actor.html_url }}
-          TRIGGERING_ACTOR_LOGIN: ${{ github.event.workflow_run.triggering_actor.login }}
-          TRIGGERING_ACTOR_NAME: ${{ github.event.workflow_run.triggering_actor.name }}
-          # PULL_REQUESTS: ${{ fromJson(github.event.workflow_run.pull_requests) }}
           TRIGGERING_ACTOR_TYPE: ${{ github.event.workflow_run.triggering_actor.type }}
           TRIGGERING_ACTOR_HTML_URL: ${{ github.event.workflow_run.triggering_actor.html_url }}
-          DISPLAY_TITLE: ${{ github.event.workflow_run.display_title }}
         run: ./.github/script/reusable/report-failed-workflows/report-failed-workflows.sh
