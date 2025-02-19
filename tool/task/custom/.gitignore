@@ -1,4 +1,4 @@
 # Developer defined Taskfile
 *
 !.gitignore
-!README.md
+!PURPOSE.md
