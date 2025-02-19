@@ -43,7 +43,7 @@ jobs:
           ACTOR_NAME: ${{ github.event.workflow_run.actor.name }}
           ACTOR_TYPE: ${{ github.event.workflow_run.actor.type }}
           ACTOR_HTML_URL: ${{ github.event.workflow_run.actor.html_url }}
-          PULL_REQUESTS: ${{ fromJson(github.event.workflow_run.pull_requests) }}
+          # PULL_REQUESTS: ${{ fromJson(github.event.workflow_run.pull_requests) }}
           TRIGGERING_ACTOR_LOGIN: ${{ github.event.workflow_run.triggering_actor.login }}
           TRIGGERING_ACTOR_NAME: ${{ github.event.workflow_run.triggering_actor.name }}
           TRIGGERING_ACTOR_TYPE: ${{ github.event.workflow_run.triggering_actor.type }}
