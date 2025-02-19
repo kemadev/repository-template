@@ -14,6 +14,9 @@ defaults:
   run:
     shell: bash
 
+# Avoid parallel edit of the Issue
+concurrency: housekeep-report-failed-workflows
+
 jobs:
   report-failed-workflows:
     name: Report failed workflows
