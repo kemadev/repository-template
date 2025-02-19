@@ -43,6 +43,7 @@
 - Importing other applications libraries and packages is encouraged, following code sharing encouragement
 - First class code documentation (following [Go doc comment guidelines](https://go.dev/doc/comment)) as well as project documentation is encouraged
 - Following [Effective Go](https://go.dev/doc/effective_go) standards is encouraged
+- Following [locality of behaviour](https://htmx.org/essays/locality-of-behaviour/) and [principle of least astonishment](https://en.wikipedia.org/wiki/Principle_of_least_astonishment) is encouraged
 - Variables, functions, methods, ... should be named in a short and descriptive way, avoiding acronyms usage as much as possible
 
 ### Project development
