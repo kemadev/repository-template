@@ -1,4 +1,4 @@
-name: Report failed workflows
+name: Housekeep - Report failed workflows
 
 on:
   workflow_run:
