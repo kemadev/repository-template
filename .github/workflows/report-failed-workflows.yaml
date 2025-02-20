@@ -43,8 +43,8 @@ jobs:
           HTML_URL: ${{ github.event.workflow_run.html_url }}
           CREATED_AT: ${{ github.event.workflow_run.created_at }}
           UPDATED_AT: ${{ github.event.workflow_run.updated_at }}
-          ACTOR_TYPE: ${{ github.event.workflow_run.actor.type }}
-          ACTOR_HTML_URL: ${{ github.event.workflow_run.actor.html_url }}
-          TRIGGERING_ACTOR_TYPE: ${{ github.event.workflow_run.triggering_actor.type }}
-          TRIGGERING_ACTOR_HTML_URL: ${{ github.event.workflow_run.triggering_actor.html_url }}
+          ACTOR_TYPE: ${{ github.event.workflow_run.actor.type || 'unknown'}}
+          ACTOR_HTML_URL: ${{ github.event.workflow_run.actor.html_url || 'unknown'}}
+          TRIGGERING_ACTOR_TYPE: ${{ github.event.workflow_run.triggering_actor.type || 'unknown' }}
+          TRIGGERING_ACTOR_HTML_URL: ${{ github.event.workflow_run.triggering_actor.html_url || 'unknown' }}
         run: ./.github/script/reusable/report-failed-workflows/report-failed-workflows.sh
