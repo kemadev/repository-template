@@ -26,6 +26,9 @@ jobs:
     runs-on: ubuntu-latest
     if: ${{ github.event.workflow_run.conclusion == 'failure' }}
     steps:
+      - name: Checkout
+        id: checkout
+        uses: actions/checkout@v4
       - name: Checkout reusable workflow scripts and configs
         id: checkout-reusable-scripts-and-configs
         uses: kemadev/workflows-and-actions/.github/actions/checkout-reusable-scripts-and-configs@main
