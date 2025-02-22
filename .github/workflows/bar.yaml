@@ -14,4 +14,4 @@ jobs:
   dummy:
     runs-on: ubuntu-latest
     steps:
-      - run: echo 'Hello, world!' && exit 1
+      - run: echo 'Hello, world!' && exit 0
