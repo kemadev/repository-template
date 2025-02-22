@@ -1,5 +1,12 @@
 # Changelog
 
+## [0.6.1-next.19](https://github.com/kemadev/repository-template/compare/v0.6.0-next.19...v0.6.1-next.19) (2025-02-22)
+
+
+### Bug Fixes
+
+* foo ([44d76b2](https://github.com/kemadev/repository-template/commit/44d76b29cf6ff41a348f1987446f918323dc94e2))
+
 ## [0.6.0-next.19](https://github.com/kemadev/repository-template/compare/v0.5.1-next.19...v0.6.0-next.19) (2025-02-22)
 
 
