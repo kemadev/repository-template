@@ -1,5 +1,12 @@
 # Changelog
 
+## [0.7.0-next.19](https://github.com/kemadev/repository-template/compare/v0.6.1-next.19...v0.7.0-next.19) (2025-02-22)
+
+
+### Features
+
+* bar ([4d2b466](https://github.com/kemadev/repository-template/commit/4d2b466342f8ec0b0f52219206aa2388bae77f4f))
+
 ## [0.6.1-next.19](https://github.com/kemadev/repository-template/compare/v0.6.0-next.19...v0.6.1-next.19) (2025-02-22)
 
 
