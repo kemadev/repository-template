@@ -3,7 +3,7 @@ name: Go - CD
 on:
   push:
     branches:
-      # - main
+      - main
       - next
       # dev is deployed manually by developers on their local machines
   workflow_dispatch:
