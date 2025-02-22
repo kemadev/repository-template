@@ -17,6 +17,9 @@ defaults:
 # Avoid parallel edit of the Issue
 concurrency: housekeep-report-failed-workflows
 
+env:
+  HOUSEKEEP_FAILED_WORKFLOWS_SCRIPT_DIR: .github/workflows/script/reusable/housekeep-failed-workflows
+
 jobs:
   report-failed-workflows:
     name: Report failed workflows
@@ -34,6 +37,7 @@ jobs:
         uses: kemadev/workflows-and-actions/.github/actions/checkout-reusable-scripts-and-configs@main
       - name: Report failed workflows
         id: report-failed-workflows
+        working-directory: ${{ env.HOUSEKEEP_FAILED_WORKFLOWS_SCRIPT_DIR }}
         env:
           GH_TOKEN: ${{ github.token }}
           HEAD_BRANCH: ${{ github.event.workflow_run.head_branch }}
@@ -47,4 +51,5 @@ jobs:
           ACTOR_HTML_URL: ${{ github.event.workflow_run.actor.html_url }}
           TRIGGERING_ACTOR_TYPE: ${{ github.event.workflow_run.triggering_actor.type }}
           TRIGGERING_ACTOR_HTML_URL: ${{ github.event.workflow_run.triggering_actor.html_url }}
-        run: ./.github/script/reusable/report-failed-workflows/report-failed-workflows.sh
+        run: |
+          go run ./...
