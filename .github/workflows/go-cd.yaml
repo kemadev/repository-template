@@ -19,6 +19,7 @@ on:
         default: ''
         required: false
 
+
 jobs:
   go-cd:
     name: Go - CD
