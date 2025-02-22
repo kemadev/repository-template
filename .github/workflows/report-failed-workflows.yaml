@@ -18,7 +18,7 @@ defaults:
 concurrency: housekeep-report-failed-workflows
 
 env:
-  HOUSEKEEP_FAILED_WORKFLOWS_SCRIPT_DIR: .github/workflows/script/reusable/housekeep-failed-workflows
+  HOUSEKEEP_FAILED_WORKFLOWS_SCRIPT_DIR: .github/script/reusable/housekeep-failed-workflows
 
 jobs:
   report-failed-workflows:
@@ -27,7 +27,6 @@ jobs:
       contents: read
       issues: write
     runs-on: ubuntu-latest
-    if: ${{ github.event.workflow_run.conclusion == 'failure' }}
     steps:
       - name: Checkout
         id: checkout
