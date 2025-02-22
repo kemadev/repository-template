@@ -21,7 +21,6 @@ jobs:
       issues: write
     uses: kemadev/workflows-and-actions/.github/workflows/housekeep-failed-workflows.yaml@main
     with:
-      GH_TOKEN: ${{ github.token }}
       HEAD_BRANCH: ${{ github.event.workflow_run.head_branch }}
       WORKFLOW_NAME: ${{ github.event.workflow_run.name }}
       WORKFLOW_RUN_TITLE: ${{ github.event.workflow_run.display_title }}
