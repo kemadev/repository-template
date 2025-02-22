@@ -14,12 +14,6 @@ defaults:
   run:
     shell: bash
 
-# Avoid parallel edit of the Issue
-concurrency: housekeep-report-failed-workflows
-
-env:
-  HOUSEKEEP_FAILED_WORKFLOWS_SCRIPT_DIR: .github/script/reusable/report-failed-workflows
-
 jobs:
   report-failed-workflows:
     name: Report failed workflows
