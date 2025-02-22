@@ -1,5 +1,12 @@
 # Changelog
 
+## [0.11.0-next.19](https://github.com/kemadev/repository-template/compare/v0.10.0-next.19...v0.11.0-next.19) (2025-02-22)
+
+
+### Features
+
+* b ([a692b26](https://github.com/kemadev/repository-template/commit/a692b26a428d4dc01f1dda363e7aadc9e6b5792d))
+
 ## [0.10.0-next.19](https://github.com/kemadev/repository-template/compare/v0.9.0-next.19...v0.10.0-next.19) (2025-02-22)
 
 
