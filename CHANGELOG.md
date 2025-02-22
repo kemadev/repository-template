@@ -1,5 +1,12 @@
 # Changelog
 
+## [0.9.0-next.19](https://github.com/kemadev/repository-template/compare/v0.8.0-next.19...v0.9.0-next.19) (2025-02-22)
+
+
+### Features
+
+* kux ([a226728](https://github.com/kemadev/repository-template/commit/a2267288c9e28b8c715c9a478bab4d9086c04163))
+
 ## [0.8.0-next.19](https://github.com/kemadev/repository-template/compare/v0.7.0-next.19...v0.8.0-next.19) (2025-02-22)
 
 
