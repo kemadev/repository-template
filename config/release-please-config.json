@@ -9,17 +9,7 @@
 	"exclude-paths": [
 		"deploy/**"
 	],
-	"packages": {
-		"**/*.go": {
-			"release-type": "go"
-		},
-		"**/go.mod": {
-			"release-type": "go"
-		},
-		"**/go.sum": {
-			"release-type": "go"
-		}
-	},
+	"release-type": "go",
 	"prerelease-type": "pre",
 	"label": "release/pending",
 	"release-label": "release/released",
