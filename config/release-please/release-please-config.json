@@ -9,9 +9,6 @@
 	"exclude-paths": [
 		"deploy/**"
 	],
-	"packages": {
-		"cmd/main": {}
-	},
 	"release-type": "go",
 	"prerelease-type": "pre",
 	"label": "release/pending",
