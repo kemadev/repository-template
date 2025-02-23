@@ -65,7 +65,6 @@ func bootstrapGithubRepository(ctx *pulumi.Context, provider *github.Provider, a
 		Visibility: pulumi.String(args.Visibility),
 		IsTemplate: pulumi.Bool(args.IsTemplate == true),
 
-		// TODO check if enabled auto or enablable
 		AllowAutoMerge:           pulumi.Bool(true),
 		AllowMergeCommit:         pulumi.Bool(false),
 		AllowRebaseMerge:         pulumi.Bool(false),
@@ -151,7 +150,6 @@ func main() {
 			return err
 		}
 		_ = repo
-
 		return nil
 	})
 }
