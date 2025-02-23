@@ -9,7 +9,6 @@
 	"exclude-paths": [
 		"deploy/**"
 	],
-	"prerelease-type": "pre",
 	"packages": {
 		".": {}
 	},
