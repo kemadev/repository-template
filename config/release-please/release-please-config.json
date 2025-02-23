@@ -11,7 +11,9 @@
 	],
 	"commit-search-depth": 30,
 	"prerelease": false,
-	"packages": {},
+	"packages": {
+		".": {}
+	},
 	"release-type": "go",
 	"prerelease-type": "pre",
 	"label": "release/pending",
