@@ -9,8 +9,9 @@
 	"exclude-paths": [
 		"deploy/**"
 	],
+	"commit-search-depth": 30,
 	"packages": {
-		"**": {}
+		"cmd/*": {}
 	},
 	"release-type": "go",
 	"prerelease-type": "pre",
