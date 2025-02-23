@@ -10,9 +10,8 @@
 		"deploy/**"
 	],
 	"commit-search-depth": 30,
-	"packages": {
-		"**.go": {}
-	},
+	"prerelease": false,
+	"packages": {},
 	"release-type": "go",
 	"prerelease-type": "pre",
 	"label": "release/pending",
