@@ -10,7 +10,9 @@
 		"deploy/**"
 	],
 	"packages": {
-		"**/go.mod": {}
+		"**/go.mod": {
+			"release-type": "go"
+		}
 	},
 	"prerelease-type": "pre",
 	"label": "release/pending",
