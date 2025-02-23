@@ -9,14 +9,13 @@
 	"exclude-paths": [
 		"deploy/**"
 	],
-	"commit-search-depth": 30,
 	"prerelease": false,
+	"prerelease-type": "pre",
 	"initial-version": "0.1.0",
 	"packages": {
 		".": {}
 	},
 	"release-type": "go",
-	"prerelease-type": "pre",
 	"label": "release/pending",
 	"release-label": "release/tagged, release/released",
 	"pull-request-header": ":gift: New release!",
