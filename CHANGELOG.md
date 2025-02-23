@@ -1,5 +1,12 @@
 # Changelog
 
+## [0.1.3](https://github.com/kemadev/repository-template/compare/v0.1.2...v0.1.3) (2025-02-23)
+
+
+### New Features :rocket:
+
+* wtf ([5daaa1b](https://github.com/kemadev/repository-template/commit/5daaa1bb8b9398449a0010eb612306f756836220))
+
 ## [0.1.2](https://github.com/kemadev/repository-template/compare/v0.1.1...v0.1.2) (2025-02-23)
 
 
