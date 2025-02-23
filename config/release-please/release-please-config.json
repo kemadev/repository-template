@@ -13,8 +13,7 @@
 	"prerelease": false,
 	"initial-version": "0.1.0",
 	"packages": {
-		"cmd/main": {},
-		"cmd/foo": {}
+		".": {}
 	},
 	"release-type": "go",
 	"prerelease-type": "pre",
