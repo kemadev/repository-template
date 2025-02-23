@@ -11,7 +11,7 @@
 	],
 	"commit-search-depth": 30,
 	"packages": {
-		"cmd/**/*": {}
+		"cmd/**/*.go": {}
 	},
 	"release-type": "go",
 	"prerelease-type": "pre",
