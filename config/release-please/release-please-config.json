@@ -9,7 +9,7 @@
 	"exclude-paths": [
 		"deploy/**"
 	],
-	"prerelease": false,
+	"prerelease": true,
 	"prerelease-type": "pre",
 	"initial-version": "0.1.0",
 	"packages": {
