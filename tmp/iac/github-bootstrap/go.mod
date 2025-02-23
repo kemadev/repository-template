@@ -1,4 +1,4 @@
-module ${PROJECT}
+module github-com-kemadev-repository-template-tmp-iac-github-repo-bootstrap
 
 go 1.23.5
 

@@ -1,5 +1,5 @@
-name: ${STACK_NAME}
-description: ${STACK_DESCRIPTION}
+name: ${PROJECT}
+description: ${DESCRIPTION}
 runtime: go
 config:
   pulumi:disable-default-providers:
