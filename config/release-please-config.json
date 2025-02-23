@@ -9,6 +9,9 @@
 	"exclude-paths": [
 		"deploy/**"
 	],
+	"packages": {
+		"**/go.mod": {}
+	},
 	"prerelease-type": "pre",
 	"label": "release/pending",
 	"release-label": "release/released",
