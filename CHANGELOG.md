@@ -1,5 +1,15 @@
 # Changelog
 
+## [0.14.0-next.19](https://github.com/kemadev/repository-template/compare/v0.13.0-next.19...v0.14.0-next.19) (2025-02-23)
+
+
+### Features
+
+* ff ([2c3cc3b](https://github.com/kemadev/repository-template/commit/2c3cc3b7874a1b71349fcdd2cb7199c0875f8ae7))
+* foo ([c5dea41](https://github.com/kemadev/repository-template/commit/c5dea418680dc4432c79b20fcef183b7d21fe172))
+* gg ([194f9ab](https://github.com/kemadev/repository-template/commit/194f9ab2fd03423e5a1bed03bdaa7bd09404cae8))
+* jj ([d35af98](https://github.com/kemadev/repository-template/commit/d35af98273ea799deaa8c8908348786743fc1e09))
+
 ## [0.13.0-next.19](https://github.com/kemadev/repository-template/compare/v0.12.0-next.19...v0.13.0-next.19) (2025-02-22)
 
 
