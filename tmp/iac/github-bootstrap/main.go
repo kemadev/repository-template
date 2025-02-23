@@ -149,7 +149,6 @@ func main() {
 		if err != nil {
 			return err
 		}
-
 		_ = repo
 		return nil
 	})
