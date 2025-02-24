@@ -25,7 +25,7 @@ go.work
 
 # Build artifacts
 dist/*
-!dist/README.md
+!dist/PURPOSE.md
 # Air tmp files
 air/*
-!air/README.md
+!air/PURPOSE.md

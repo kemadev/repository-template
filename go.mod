@@ -1,3 +1,3 @@
-module github.com/kemadev/dummy
+module github.com/kemadev/repository-template
 
-go 1.23.5
+go 1.24.0
