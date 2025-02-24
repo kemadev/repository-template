@@ -1,4 +1,5 @@
 name: Go - CI
+description: Lint and test Go code
 
 on:
   pull_request:
@@ -10,7 +11,7 @@ on:
 
 jobs:
   go-ci:
-    # name: Go - CI
+    name: Go - CI
     uses: kemadev/workflows-and-actions/.github/workflows/go-ci.yaml@main
     permissions:
       contents: read
