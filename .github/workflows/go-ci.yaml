@@ -1,4 +1,4 @@
-name: Go - CI
+name: foo
 
 on:
   pull_request:
@@ -10,7 +10,7 @@ on:
 
 jobs:
   go-ci:
-    name: Go - CI
+    name: bar
     uses: kemadev/workflows-and-actions/.github/workflows/go-ci.yaml@main
     permissions:
       contents: read
