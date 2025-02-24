@@ -10,7 +10,7 @@ on:
 
 jobs:
   go-ci:
-    name: ''
+    name: Go - CI
     uses: kemadev/workflows-and-actions/.github/workflows/go-ci.yaml@main
     permissions:
       contents: read
