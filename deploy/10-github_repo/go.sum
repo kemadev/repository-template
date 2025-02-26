@@ -207,6 +207,14 @@ github.com/kemadev/iac-components v0.0.0-20250226203703-9ce9addff78e h1:xIHTMdk9
 github.com/kemadev/iac-components v0.0.0-20250226203703-9ce9addff78e/go.mod h1:M1OjP1nGDxL3dZb+KGc5gS+Jn4V2E0hPVEqizmYPxB8=
 github.com/kemadev/iac-components v0.0.0-20250226203804-973b239553e1 h1:8tp9SYK8Sw0fVMoSQl0jpZYim0r/IwfFl1OsnBUNGNY=
 github.com/kemadev/iac-components v0.0.0-20250226203804-973b239553e1/go.mod h1:M1OjP1nGDxL3dZb+KGc5gS+Jn4V2E0hPVEqizmYPxB8=
+github.com/kemadev/iac-components v0.0.0-20250226212935-f2f288eeb490 h1:PavKhRNj49I9UACOon8659dVI9Y95o54lgrwzGZJxTM=
+github.com/kemadev/iac-components v0.0.0-20250226212935-f2f288eeb490/go.mod h1:M1OjP1nGDxL3dZb+KGc5gS+Jn4V2E0hPVEqizmYPxB8=
+github.com/kemadev/iac-components v0.0.0-20250226213656-cfdb45d7ccf4 h1:Hq8vCTFGbgZFWJFDEgamgkPylaoab88x03CLoV7jYRo=
+github.com/kemadev/iac-components v0.0.0-20250226213656-cfdb45d7ccf4/go.mod h1:M1OjP1nGDxL3dZb+KGc5gS+Jn4V2E0hPVEqizmYPxB8=
+github.com/kemadev/iac-components v0.0.0-20250226214628-9d401619f93b h1:KyATz/s93adR3V5aWXF8prsyHNeDmGo/ESEw1BmMMzQ=
+github.com/kemadev/iac-components v0.0.0-20250226214628-9d401619f93b/go.mod h1:M1OjP1nGDxL3dZb+KGc5gS+Jn4V2E0hPVEqizmYPxB8=
+github.com/kemadev/iac-components v0.0.0-20250226214730-253ae9233628 h1:hNeOFAe3ng/HvBdA9PE55CGmg9EoJD9d/3n7sX9QKCQ=
+github.com/kemadev/iac-components v0.0.0-20250226214730-253ae9233628/go.mod h1:M1OjP1nGDxL3dZb+KGc5gS+Jn4V2E0hPVEqizmYPxB8=
 github.com/kevinburke/ssh_config v1.2.0 h1:x584FjTGwHzMwvHx18PXxbBVzfnxogHaAReU4gf13a4=
 github.com/kevinburke/ssh_config v1.2.0/go.mod h1:CT57kijsi8u/K/BOFA39wgDQJ9CxiF4nAY/ojJ6r6mM=
 github.com/kisielk/errcheck v1.2.0/go.mod h1:/BMXB+zMLi60iA8Vv6Ksmxu/1UDYcXs4uQLJ+jE2L00=
