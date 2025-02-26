@@ -1,4 +1,4 @@
-module github.com/kemadev/repository-template/deploy/10-github-repo
+module github.com/kemadev/repository-template/deploy/10-github-org
 
 go 1.24.0
 
@@ -44,7 +44,7 @@ require (
 	github.com/hashicorp/hcl/v2 v2.23.0 // indirect
 	github.com/inconshreveable/mousetrap v1.1.0 // indirect
 	github.com/jbenet/go-context v0.0.0-20150711004518-d14ea06fba99 // indirect
-	github.com/kemadev/iac-components v0.0.0-20250226161418-dab81e32a600 // indirect
+	github.com/kemadev/iac-components v0.0.0-20250226155604-6c51b350c172 // indirect
 	github.com/kevinburke/ssh_config v1.2.0 // indirect
 	github.com/lucasb-eyer/go-colorful v1.2.0 // indirect
 	github.com/mattn/go-isatty v0.0.20 // indirect
