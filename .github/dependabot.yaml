@@ -35,7 +35,7 @@ updates:
     directories:
       - /
       - /.github/script/*
-      - /.github/script/reusable*
+      - /.github/script/reusable/*
       - /deploy/*
       - /config/pulumi/*
     commit-message:
@@ -49,4 +49,3 @@ updates:
     labels: [area/dependencies, status/needs-triage, complexity/low]
     pull-request-branch-name:
       separator: '-'
-# foo
