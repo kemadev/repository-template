@@ -1,4 +1,4 @@
-name: github-com-kemadev-repository-template-tmp-iac-github-repo-bootstrap
+name: github-com-kemadev-repository-template-deploy-10-github-repo
 description: ""
 runtime: go
 config:

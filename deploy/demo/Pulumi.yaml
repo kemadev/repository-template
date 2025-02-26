@@ -1,8 +1,0 @@
-name: github-com-kemadev-repository-template-deploy-demo
-description: demo
-runtime: go
-config:
-  pulumi:disable-default-providers:
-    description: Disable default providers to enforce using configured ones
-    value:
-      - '*'
