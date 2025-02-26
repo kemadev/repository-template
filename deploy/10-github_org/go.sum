@@ -235,6 +235,8 @@ github.com/kemadev/iac-components v0.0.0-20250226221940-fd1398bcae2f h1:dCBWu1xL
 github.com/kemadev/iac-components v0.0.0-20250226221940-fd1398bcae2f/go.mod h1:M1OjP1nGDxL3dZb+KGc5gS+Jn4V2E0hPVEqizmYPxB8=
 github.com/kemadev/iac-components v0.0.0-20250226222013-39f0d99a794a h1:GFl/upfM109vAJES/3RUr1XVYO4UL7q/vunXrbwEx/U=
 github.com/kemadev/iac-components v0.0.0-20250226222013-39f0d99a794a/go.mod h1:M1OjP1nGDxL3dZb+KGc5gS+Jn4V2E0hPVEqizmYPxB8=
+github.com/kemadev/iac-components v0.0.0-20250226222410-e57931945a10 h1:/Dse4HGxHaDYWeiFKPADqd/PYJd7jOZJSG5PI98bjRA=
+github.com/kemadev/iac-components v0.0.0-20250226222410-e57931945a10/go.mod h1:M1OjP1nGDxL3dZb+KGc5gS+Jn4V2E0hPVEqizmYPxB8=
 github.com/kevinburke/ssh_config v1.2.0 h1:x584FjTGwHzMwvHx18PXxbBVzfnxogHaAReU4gf13a4=
 github.com/kevinburke/ssh_config v1.2.0/go.mod h1:CT57kijsi8u/K/BOFA39wgDQJ9CxiF4nAY/ojJ6r6mM=
 github.com/kisielk/errcheck v1.2.0/go.mod h1:/BMXB+zMLi60iA8Vv6Ksmxu/1UDYcXs4uQLJ+jE2L00=

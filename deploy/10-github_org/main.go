@@ -28,23 +28,29 @@ func main() {
 				Teams: []org.TeamArgs{
 					{
 						Name: org.AdminTeamName,
-						Members: org.TeamMemberArgs{
-							Username: "kema-dev",
-							Role:     "maintainer",
+						Members: []org.TeamMemberArgs{
+							{
+								Username: "kema-dev",
+								Role:     "maintainer",
+							},
 						},
 					},
 					{
 						Name: org.MaintainersTeamName,
-						Members: org.TeamMemberArgs{
-							Username: "kema-dev",
-							Role:     "maintainer",
+						Members: []org.TeamMemberArgs{
+							{
+								Username: "kema-dev",
+								Role:     "maintainer",
+							},
 						},
 					},
 					{
 						Name: org.DevelopersTeamName,
-						Members: org.TeamMemberArgs{
-							Username: "kema-dev",
-							Role:     "maintainer",
+						Members: []org.TeamMemberArgs{
+							{
+								Username: "kema-dev",
+								Role:     "maintainer",
+							},
 						},
 					},
 				},
