@@ -16,6 +16,39 @@ func main() {
 				Blog:         "https://www.kema.dev",
 				Location:     "France",
 			},
+			Members: org.MembersArgs{
+				Members: []org.User{
+					{
+						Username: "kema-dev",
+						Role:     "admin",
+					},
+				},
+			},
+			Teams: org.TeamsArgs{
+				Teams: []org.TeamArgs{
+					{
+						Name: org.AdminTeamName,
+						Members: org.TeamMemberArgs{
+							Username: "kema-dev",
+							Role:     "maintainer",
+						},
+					},
+					{
+						Name: org.MaintainersTeamName,
+						Members: org.TeamMemberArgs{
+							Username: "kema-dev",
+							Role:     "maintainer",
+						},
+					},
+					{
+						Name: org.DevelopersTeamName,
+						Members: org.TeamMemberArgs{
+							Username: "kema-dev",
+							Role:     "maintainer",
+						},
+					},
+				},
+			},
 		})
 		if err != nil {
 			return err
