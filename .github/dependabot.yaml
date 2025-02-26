@@ -11,8 +11,6 @@ updates:
       interval: daily
       timezone: Etc/UTC
       time: '03:00' # yamllint disable-line rule:quoted-strings
-    # assignees: ['']
-    # reviewers: ['']
     labels: [area/dependencies, status/needs-triage, complexity/low]
     pull-request-branch-name:
       separator: '-'
@@ -26,8 +24,6 @@ updates:
       interval: daily
       timezone: Etc/UTC
       time: '03:00' # yamllint disable-line rule:quoted-strings
-    # assignees: [""]
-    # reviewers: [""]
     labels: [area/dependencies, status/needs-triage, complexity/low]
     pull-request-branch-name:
       separator: '-'
@@ -44,8 +40,6 @@ updates:
       interval: daily
       timezone: Etc/UTC
       time: '03:00' # yamllint disable-line rule:quoted-strings
-    # assignees: ['']
-    # reviewers: ['']
     labels: [area/dependencies, status/needs-triage, complexity/low]
     pull-request-branch-name:
       separator: '-'
