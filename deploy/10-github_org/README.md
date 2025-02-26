@@ -63,6 +63,7 @@ Some parts of the GitHub organization are not managed by IaC, as GitHub does not
   - Configurations
     - New configuration
       - Everything > `Enable` / `Enforce` / `All repositories`
+      - Code scanning > `Disable` (we use another tool)
       - Secret scanning
         - Scan for generic passwords > `Disable` (not supported)
         - Push protection
