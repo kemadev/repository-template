@@ -6,7 +6,7 @@
 - An authenticated GitHub client with appropriate permissions. Some scopes (organization ones) are _unusual_ and require to be specifically requested when authenticating with GitHub CLI. You can use the following command to authenticate with the required scopes:
 
 ```sh
-gh auth login --scopes 'read:project gist read:org repo workflow admin:org'
+gh auth login --scopes 'read:project gist repo workflow admin:org'
 ```
 
 ## Missing IaC
