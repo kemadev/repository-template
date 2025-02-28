@@ -9,9 +9,9 @@ on:
       - unlocked
       - reopened
     paths:
-      - go.mod
-      - go.sum
-      - '**/*.go'
+      - '**go.mod'
+      - '**go.sum'
+      - '**.go'
   workflow_dispatch: {}
 
 jobs:

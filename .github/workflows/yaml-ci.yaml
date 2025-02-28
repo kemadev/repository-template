@@ -9,8 +9,8 @@ on:
       - unlocked
       - reopened
     paths:
-      - '**/*.yaml'
-      - '**/*.yml'
+      - '**.yaml'
+      - '**.yml'
   workflow_dispatch: {}
 
 defaults:

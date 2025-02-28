@@ -9,7 +9,7 @@ on:
       - unlocked
       - reopened
     paths:
-      - '**/*Dockerfile'
+      - '**Dockerfile'
   workflow_dispatch: {}
 
 defaults:

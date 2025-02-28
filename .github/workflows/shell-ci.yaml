@@ -9,7 +9,7 @@ on:
       - unlocked
       - reopened
     paths:
-      - '**/*.sh'
+      - '**.sh'
   workflow_dispatch: {}
 
 defaults:
