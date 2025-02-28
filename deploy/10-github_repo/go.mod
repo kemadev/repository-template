@@ -4,7 +4,7 @@ go 1.24.0
 
 require (
 	github.com/kemadev/iac-components v0.0.0-20250226214730-253ae9233628
-	github.com/pulumi/pulumi/sdk/v3 v3.152.0
+	github.com/pulumi/pulumi/sdk/v3 v3.153.0
 )
 
 require (
