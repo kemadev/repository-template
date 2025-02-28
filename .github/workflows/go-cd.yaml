@@ -5,18 +5,13 @@ on:
     branches:
       - main
       - next
-      # dev is deployed manually by developers on their local machines
+      - dev
     paths:
       - '**go.mod'
       - '**go.sum'
       - '**.go'
   workflow_dispatch:
     inputs:
-      force-patch:
-        description: Force new patch version, creating a new tag and release
-        type: boolean
-        default: false
-        required: false
       force-rollback:
         description: Force rollback to specified git reference (use `latest` for latest successful deploy)
         type: string
@@ -28,7 +23,6 @@ jobs:
     name: Go - CD
     uses: kemadev/workflows-and-actions/.github/workflows/go-cd.yaml@main
     with:
-      force-patch: ${{ github.event.inputs.force-patch == 'true' }}
       force-rollback: ${{ github.event.inputs.force-rollback }}
     permissions:
       contents: write
