@@ -8,6 +8,8 @@
   "changelog-path": "CHANGELOG.md",
   "packages": {
     "config/pulumi/stack-template": {},
+    "deploy/10-github_org": {},
+    "deploy/10-github_repo": {},
     ".": {}
   },
   "release-type": "go",
