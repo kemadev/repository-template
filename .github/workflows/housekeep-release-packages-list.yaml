@@ -29,5 +29,4 @@ jobs:
       directories_to_ignore: ${{ github.event.inputs.DIRECTORIES_TO_IGNORE }}
     permissions:
       contents: write
-      packages: write
       pull-requests: write
