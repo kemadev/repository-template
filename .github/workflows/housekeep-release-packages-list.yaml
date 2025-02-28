@@ -1,0 +1,33 @@
+name: Housekeep - Update release packages list
+
+on:
+  schedule:
+    # Each day at 3:00 AM
+    - cron: 0 3 * * *
+  workflow_dispatch:
+    inputs:
+      DIRECTORIES_TO_IGNORE:
+        description: Directories that should not be considered. Should be a comma-separated list.
+        type: string
+        required: false
+        default: 'deploy'
+
+
+defaults:
+  run:
+    shell: bash
+
+env:
+  RELEASE_PLEASE_CONFIG_DIR: config/release-please
+  RELEASE_PLEASE_CONFIG_FILE: release-please-config.json
+
+jobs:
+  update-release-packages-list:
+    name: Update release packages list
+    uses: kemadev/workflows-and-actions/.github/workflows/housekeep-release-packages-list.yaml@main
+    with:
+      directories_to_ignore: ${{ github.event.inputs.DIRECTORIES_TO_IGNORE }}
+    permissions:
+      contents: write
+      packages: write
+      pull-requests: write

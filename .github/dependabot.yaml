@@ -33,7 +33,6 @@ updates:
       - /.github/script/*
       - /.github/script/reusable/*
       - /deploy/*
-      - /config/pulumi/*
     commit-message:
       prefix: 'chore(deps): dependabot - go '
     schedule:
