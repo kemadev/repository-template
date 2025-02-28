@@ -8,6 +8,8 @@ on:
     branches:
       - main
       - next
+    paths:
+      - '**go.mod'
   workflow_dispatch:
     inputs:
       DIRECTORIES_TO_IGNORE:
