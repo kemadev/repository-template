@@ -16,7 +16,6 @@ on:
         required: false
         default: 'deploy'
 
-
 defaults:
   run:
     shell: bash
