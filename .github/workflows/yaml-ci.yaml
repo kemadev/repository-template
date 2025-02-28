@@ -2,6 +2,12 @@ name: YAML - CI
 
 on:
   pull_request:
+    types:
+      - opened
+      - edited
+      - synchronize
+      - unlocked
+      - reopened
     paths:
       - '**/*.yaml'
       - '**/*.yml'

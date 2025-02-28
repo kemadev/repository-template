@@ -5,9 +5,9 @@ on:
     types:
       - opened
       - edited
-      - reopened
       - synchronize
       - unlocked
+      - reopened
 
 jobs:
   check-pr-title:

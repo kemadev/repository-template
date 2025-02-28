@@ -1,7 +1,13 @@
 name: PR - Add labels
 
 on:
-  pull_request_target: {}
+  pull_request_target:
+    types:
+      - opened
+      - edited
+      - synchronize
+      - unlocked
+      - reopened
 
 jobs:
   add-label:

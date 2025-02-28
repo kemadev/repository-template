@@ -1,7 +1,13 @@
 name: Global - CI
 
 on:
-  pull_request: {}
+  pull_request:
+    types:
+      - opened
+      - edited
+      - synchronize
+      - unlocked
+      - reopened
   workflow_dispatch: {}
 
 defaults:

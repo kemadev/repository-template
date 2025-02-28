@@ -2,6 +2,12 @@ name: Shell - CI
 
 on:
   pull_request:
+    types:
+      - opened
+      - edited
+      - synchronize
+      - unlocked
+      - reopened
     paths:
       - '**/*.sh'
   workflow_dispatch: {}
