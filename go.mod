@@ -1,4 +1,4 @@
-module github.com/kemadev/repository-template
+module github.com/kemadev/repository-template/v6
 
 go 1.24.0
 
