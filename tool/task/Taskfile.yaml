@@ -28,7 +28,7 @@ includes:
   reusable:
     taskfile: reusable
     dir: '{{ .baseDir }}'
-    # HACK make these available in these namespaces
+    # Make these available in these namespaces
     aliases:
       - ci
       - go
