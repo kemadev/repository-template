@@ -24,7 +24,7 @@
 ### New Features :rocket:
 
 * add debug files ([#3](https://github.com/kemadev/repository-template/issues/3)) ([cbc70dd](https://github.com/kemadev/repository-template/commit/cbc70ddd97474e258563f243eba37b58558b548a))
-* add force-patch and force-rollback inputs to Go CD workflow ([61426a3](https://github.com/kemadev/repository-template/commit/61426a31528e02f7acd6a440a5a1daeef2b99453))
+* add force-patch and force-rollback-to inputs to Go CD workflow ([61426a3](https://github.com/kemadev/repository-template/commit/61426a31528e02f7acd6a440a5a1daeef2b99453))
 * add funding configuration for GitHub sponsorship ([c877c8a](https://github.com/kemadev/repository-template/commit/c877c8a495db8ed40a41364aabd95185b254d09a))
 * add initial Go module and hello world application ([a0b6d98](https://github.com/kemadev/repository-template/commit/a0b6d9882010739670c8ad4eb95749fae6b6a449))
 * add initial Go module and hello world application ([b9d3d66](https://github.com/kemadev/repository-template/commit/b9d3d661e3dee41e38c8e22cdcfa377f32908f85))
@@ -132,7 +132,7 @@
 ### New Features :rocket:
 
 * add debug files ([#3](https://github.com/kemadev/repository-template/issues/3)) ([cbc70dd](https://github.com/kemadev/repository-template/commit/cbc70ddd97474e258563f243eba37b58558b548a))
-* add force-patch and force-rollback inputs to Go CD workflow ([61426a3](https://github.com/kemadev/repository-template/commit/61426a31528e02f7acd6a440a5a1daeef2b99453))
+* add force-patch and force-rollback-to inputs to Go CD workflow ([61426a3](https://github.com/kemadev/repository-template/commit/61426a31528e02f7acd6a440a5a1daeef2b99453))
 * add funding configuration for GitHub sponsorship ([c877c8a](https://github.com/kemadev/repository-template/commit/c877c8a495db8ed40a41364aabd95185b254d09a))
 * add initial Go module and hello world application ([a0b6d98](https://github.com/kemadev/repository-template/commit/a0b6d9882010739670c8ad4eb95749fae6b6a449))
 * add initial Go module and hello world application ([b9d3d66](https://github.com/kemadev/repository-template/commit/b9d3d661e3dee41e38c8e22cdcfa377f32908f85))

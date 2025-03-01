@@ -12,18 +12,17 @@ on:
       - '**.go'
   workflow_dispatch:
     inputs:
-      force-rollback:
-        description: Force rollback to specified git reference (use `latest` for latest successful deploy)
-        type: string
-        default: ''
+      force-rollback-to:
+        description: Force rollback to a specific checkout target (use `latest` for latest successful deploy, default = `latest`)
         required: false
+        default: 'latest'
 
 jobs:
   go-cd:
     name: Go - CD
     uses: kemadev/workflows-and-actions/.github/workflows/go-cd.yaml@main
     with:
-      force-rollback: ${{ github.event.inputs.force-rollback }}
+      force-rollback-to: ${{ github.event.inputs.force-rollback-to }}
     permissions:
       contents: write
       packages: write
