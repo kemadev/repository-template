@@ -9,6 +9,7 @@ func main() {
 	pulumi.Run(func(ctx *pulumi.Context) error {
 		err := repo.Wrapper(ctx, repo.WrapperArgs{
 			Repository: repo.RepositoryArgs{
+				Name:        "repository-template",
 				Description: "GitHub on steroids!",
 				Visibility:  "public",
 				IsTemplate:  true,
