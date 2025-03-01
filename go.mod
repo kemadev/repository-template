@@ -1,3 +1,3 @@
-module github.com/kemadev/repository-template/v2
+module github.com/kemadev/repository-template
 
 go 1.24.0
