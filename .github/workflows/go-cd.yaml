@@ -15,7 +15,7 @@ on:
       force-rollback-to:
         description: Force rollback to a specific checkout target (use `latest` for latest successful deploy)
         required: false
-        default: 'latest'
+        default: ''
 
 jobs:
   go-cd:
