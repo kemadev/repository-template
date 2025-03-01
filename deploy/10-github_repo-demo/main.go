@@ -12,7 +12,6 @@ func main() {
 				Name:        "repo-templating-demo",
 				Description: "Yikes! This is a template repository",
 				Visibility:  "public",
-				IsTemplate:  true,
 				Topics: []string{
 					"repository-template",
 					"pulumi",
