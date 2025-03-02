@@ -1,3 +1,4 @@
+<!-- File managed by repo-as-code, do not edit manually! -->
 # `doc`
 
 ## Files in this directory
