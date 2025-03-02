@@ -1,3 +1,5 @@
+# File managed by repo-as-code, do not edit manually!
+
 # Mac OS X files
 .DS_Store
 
@@ -22,10 +24,11 @@
 
 # Go workspace file
 go.work
+go.work.sum
 
 # Build artifacts
 dist/*
-!dist/README.md
+!dist/PURPOSE.md
 # Air tmp files
 air/*
-!air/README.md
+!air/PURPOSE.md
