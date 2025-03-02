@@ -1,4 +1,6 @@
+# File managed by repo-as-code, do not edit manually!
 # Reusable GitHub Actions scripts, copied from reusable workflows repository in CI/CD pipelines
+
 *
 !.gitignore
 !PURPOSE.md
