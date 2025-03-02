@@ -1,3 +1,5 @@
+# File created by repo-as-code, however you can still modify it as you like!
+
 # Intermediate image providing go dependencies
 FROM --platform=${BUILDPLATFORM} public.ecr.aws/amazonlinux/amazonlinux:2023 AS go-deps
 
