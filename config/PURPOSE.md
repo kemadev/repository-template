@@ -1,3 +1,4 @@
+<!-- File managed by repo-as-code, do not edit manually! -->
 # `config`
 
 ## Files in this directory
