@@ -1,3 +1,4 @@
+<!-- File managed by repo-as-code, do not edit manually! -->
 # `.github/workflows`
 
 ## Files in this directory

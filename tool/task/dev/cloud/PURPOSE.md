@@ -1,3 +1,4 @@
+<!-- File managed by repo-as-code, do not edit manually! -->
 # `tool/task/dev/cloud`
 
 ## Files in this directory
