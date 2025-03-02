@@ -1,5 +1,5 @@
+# File managed by repo-as-code, do not edit manually!
 # Read more about `dependabot.yml` [here](https://docs.github.com/en/code-security/dependabot/dependabot-version-updates/configuration-options-for-the-dependabot.yml-file)
-
 version: 2
 
 updates:
@@ -10,9 +10,7 @@ updates:
     schedule:
       interval: daily
       timezone: Etc/UTC
-      time: 03:00
-    # assignees: ['']
-    # reviewers: ['']
+      time: '03:00' # yamllint disable-line rule:quoted-strings
     labels: [area/dependencies, status/needs-triage, complexity/low]
     pull-request-branch-name:
       separator: '-'
@@ -25,9 +23,7 @@ updates:
     schedule:
       interval: daily
       timezone: Etc/UTC
-      time: 03:00
-    # assignees: [""]
-    # reviewers: [""]
+      time: '03:00' # yamllint disable-line rule:quoted-strings
     labels: [area/dependencies, status/needs-triage, complexity/low]
     pull-request-branch-name:
       separator: '-'
@@ -35,17 +31,14 @@ updates:
     directories:
       - /
       - /.github/script/*
-      - /.github/script/reusable*
+      - /.github/script/reusable/*
       - /deploy/*
-      - /config/pulumi/*
     commit-message:
       prefix: 'chore(deps): dependabot - go '
     schedule:
       interval: daily
       timezone: Etc/UTC
-      time: 03:00
-    # assignees: ['']
-    # reviewers: ['']
+      time: '03:00' # yamllint disable-line rule:quoted-strings
     labels: [area/dependencies, status/needs-triage, complexity/low]
     pull-request-branch-name:
       separator: '-'
