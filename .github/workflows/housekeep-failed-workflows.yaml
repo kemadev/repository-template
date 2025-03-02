@@ -1,0 +1,35 @@
+# File managed by repo-as-code, do not edit manually!
+name: Housekeep - Report failed workflows
+
+on:
+  workflow_run:
+    workflows:
+      - '*'
+    types:
+      - completed
+    branches:
+      - main
+
+defaults:
+  run:
+    shell: bash
+
+jobs:
+  report-failed-workflows:
+    name: Report failed workflows
+    permissions:
+      contents: read
+      issues: write
+    uses: kemadev/workflows-and-actions/.github/workflows/housekeep-failed-workflows.yaml@main
+    with:
+      HEAD_BRANCH: ${{ github.event.workflow_run.head_branch }}
+      WORKFLOW_NAME: ${{ github.event.workflow_run.name }}
+      WORKFLOW_RUN_TITLE: ${{ github.event.workflow_run.display_title }}
+      CONCLUSION: ${{ github.event.workflow_run.conclusion }}
+      HTML_URL: ${{ github.event.workflow_run.html_url }}
+      CREATED_AT: ${{ github.event.workflow_run.created_at }}
+      UPDATED_AT: ${{ github.event.workflow_run.updated_at }}
+      ACTOR_TYPE: ${{ github.event.workflow_run.actor.type }}
+      ACTOR_HTML_URL: ${{ github.event.workflow_run.actor.html_url }}
+      TRIGGERING_ACTOR_TYPE: ${{ github.event.workflow_run.triggering_actor.type }}
+      TRIGGERING_ACTOR_HTML_URL: ${{ github.event.workflow_run.triggering_actor.html_url }}
