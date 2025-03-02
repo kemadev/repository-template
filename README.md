@@ -1,3 +1,4 @@
+<!-- File managed by repo-as-code, do not edit manually! -->
 # Project Name
 
 <!-- Brief description of the project -->
