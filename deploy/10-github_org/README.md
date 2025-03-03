@@ -41,7 +41,11 @@ Some parts of the GitHub organization are not managed by IaC, as GitHub does not
 - Codespaces
   - Codespaces access > `Enable for specific members or teams`
 - Planning
-  - Allow members to change project visibilities for this organization > `Disable`
+  - Projects
+    - Allow members to change project visibilities for this organization > `Disable`
+  - Issue types
+    - `Bug`: `Unexpected problem or behavior` - Orange
+    - `Feature`: `New functionality or improvement` - Blue
 - Actions
   - General
     - Runners > `All repositories`
