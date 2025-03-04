@@ -5,9 +5,6 @@ on:
     types:
       - created
 
-concurrency:
-  group: ${{ github.event.repository.full_name }}
-
 defaults:
   run:
     shell: bash
@@ -19,7 +16,7 @@ jobs:
     permissions:
       pull-requests: write
       deployments: write
-      contents: read
+      contents: write
       checks: read
       statuses: read
       packages: write
