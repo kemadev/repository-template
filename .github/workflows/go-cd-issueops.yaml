@@ -1,0 +1,24 @@
+name: Go - CD IssueOps
+
+on:
+  issue_comment:
+    types:
+      - created
+
+concurrency:
+  group: ${{ github.event.repository.full_name }}
+
+defaults:
+  run:
+    shell: bash
+
+jobs:
+  go-cd-issueopos:
+    name: Go - CD IssueOps
+    uses: kemadev/workflows-and-actions/.github/workflows/go-cd-issueops.yaml@main
+    permissions:
+      pull-requests: write
+      deployments: write
+      contents: read
+      checks: read
+      statuses: read
