@@ -1,5 +1,25 @@
 # Changelog
 
+## [0.2.1](https://github.com/kemadev/repository-template/compare/v0.2.0...v0.2.1) (2025-03-09)
+
+
+### New Features :rocket:
+
+* **codeowners:** update CODEOWNERS file ([60fae06](https://github.com/kemadev/repository-template/commit/60fae06e553ed8fbf8a73f76b9a6c802e897fe91))
+* **codeowners:** update CODEOWNERS file ([820a926](https://github.com/kemadev/repository-template/commit/820a926e8a86f19b8ee3a1fe3765fcb9dfa8cd81))
+* foo ([#57](https://github.com/kemadev/repository-template/issues/57)) ([4f36d5b](https://github.com/kemadev/repository-template/commit/4f36d5b08cbea8ecb9b7c48574f7834b78866554))
+
+
+### Miscellaneous Chores :wrench:
+
+* **deps:** dependabot - go bump github.com/pulumi/pulumi/sdk/v3 ([99f939d](https://github.com/kemadev/repository-template/commit/99f939de0ace8416ff06caee05ffcdbc3a288137))
+* **deps:** dependabot - go bump github.com/pulumi/pulumi/sdk/v3 from 3.152.0 to 3.153.1 in /deploy/10-github_org ([#51](https://github.com/kemadev/repository-template/issues/51)) ([99f939d](https://github.com/kemadev/repository-template/commit/99f939de0ace8416ff06caee05ffcdbc3a288137))
+
+
+### Tests :test_tube:
+
+* issueops ([#66](https://github.com/kemadev/repository-template/issues/66)) ([ce88819](https://github.com/kemadev/repository-template/commit/ce8881994b183c5b40290b164d9c13161fe0b75d))
+
 ## [0.2.0](https://github.com/kemadev/repository-template/compare/v0.1.3...v0.2.0) (2025-02-23)
 
 
