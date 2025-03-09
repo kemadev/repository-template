@@ -98,6 +98,7 @@
 
 ## Acknowledgments
 
+
 - **[Every contributor](/../../graphs/contributors)**, as well as the open-source community, for making this project possible!
 - **[golang-standards/project-layout](https://github.com/golang-standards/project-layout)** broadly inspired the project structure and conventions
 - **[Pulumi](https://github.com/pulumi)** inspired the full usage of GitHub's features and the need for a complete GitOps approach with full automation
