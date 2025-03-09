@@ -1,0 +1,8 @@
+name: github-com-kemadev-repository-template-deploy-mgc
+description: mgc
+runtime: go
+config:
+  pulumi:disable-default-providers:
+    description: Disable default providers to enforce using configured ones
+    value:
+      - '*'
