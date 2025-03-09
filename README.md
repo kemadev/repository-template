@@ -47,6 +47,11 @@
 - Following [locality of behaviour](https://htmx.org/essays/locality-of-behaviour/) and [principle of least astonishment](https://en.wikipedia.org/wiki/Principle_of_least_astonishment) is encouraged
 - Variables, functions, methods, ... should be named in a short and descriptive way, avoiding acronyms usage as much as possible
 
+### Project initialization (most likely already done by project's owner)
+
+- Create a new repository from this template
+- Edit
+
 ### Project development
 
 #### Prerequisites
