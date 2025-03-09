@@ -54,7 +54,7 @@
 - [Docker](https://github.com/docker/cli) and [Docker Compose](https://github.com/docker/compose) to run applications in containers. You should configure your credentials store and credential helpers for Docker to work with your container registry
 - [Go](https://github.com/golang/go) to install applications dependencies as needed
 - [Task](https://github.com/go-task/task) to run common commands such as running, testing, linting, building, ...
-- [AWS CLI](https://github.com/aws/aws-cli) configured using the company's config files available as a release asset in the company's repository
+- [AWS CLI](https://github.com/aws/aws-cli) configured with the necessary permissions to interact with AWS services
 - Very few other CLI tools such as [curl](https://github.com/curl/curl), [git](https://github.com/git/git), ... that are most likely already installed on your system
 
 #### Running the project
