@@ -15,6 +15,15 @@ func main() {
 				Visibility: "CHANGEME",
 				// Optionally set other properties such as teams, direct members, etc.
 			},
+			Codeowners: repo.CodeownersArgs{
+				Codeowners: []repo.CodeownerParam{
+					// Set codeowners
+					{
+						Path:   "CHANGEME",
+						Entity: "CHANGEME",
+					},
+				},
+			},
 		})
 		if err != nil {
 			return err

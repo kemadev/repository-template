@@ -49,10 +49,16 @@
 
 ### Project initialization (most likely already done by project's owner)
 
-- Create a new repository from [repository template](../../../repository-template)
+- Create a new repository from [repository template](../../../repository-template), clone it, and change working directory to the repository's root
+- Edit [project's repository pulumi project config file](./config/github-repo/Pulumi.yaml)'s name and description to fit your project's needs
 - Edit [project's repository boostraping config](./config/github-repo/main.go) to fit your project's needs
-- Import the repository into Pulumi by running
+- Change working directory to [project's repository boostraping directory](./config/github-repo/)
+- Initialize repository's Pulumi stack by running `pulumi stack init main`
+- Create stack's GitHub provider by running `pulumi up --target '*github-repo-provider*'`
+- Note provider's URN by running `pulumi up --show-sames --target '*github-repo-provider*'`, selecting `details` and finding the `urn` field, form like `urn:pulumi:main::github-com-<repo owner>-<repo name>-config-github-repo::pulumi:providers:github::github-com-<repo owner>-<repo name>-config-github-repo-provider`, for `pulumi:providers:github` resource, most likely at the top of the list
+- Import the repository into Pulumi by running `pulumi import github:index/repository:Repository "$(pulumi preview --non-interactive | grep -oP 'github:index:Repository \K[a-z0-9-]+')" "$(git remote get-url origin | grep -oP '.*/\K.+$')" --provider '<provider urn>'`
 - Run `pulumi up` to create the necessary resources
+- Pull changes, and you're ready to go!
 
 ### Project development
 
