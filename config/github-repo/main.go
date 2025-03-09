@@ -24,6 +24,7 @@ func main() {
 					},
 				},
 			},
+			// Optionally set other properties
 		})
 		if err != nil {
 			return err
