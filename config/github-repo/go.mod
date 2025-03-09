@@ -1,9 +1,9 @@
-module thub.com/kemadev/repository-template/config/github-repo
+module github.com/kemadev/repository-template/config/github-repo
 
 go 1.24.0
 
 require (
-	github.com/kemadev/iac-components v0.0.0-20250309110124-980cc33bd4f3
+	github.com/kemadev/iac-components v0.0.0-20250309121804-82c3f462b3e8
 	github.com/pulumi/pulumi/sdk/v3 v3.154.0
 )
 
