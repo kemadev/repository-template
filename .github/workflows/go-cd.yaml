@@ -2,15 +2,6 @@
 name: Go - CD
 
 on:
-  push:
-    branches:
-      - main
-      - next
-      - dev
-    paths:
-      - '**go.mod'
-      - '**go.sum'
-      - '**.go'
   workflow_dispatch:
     inputs:
       force-rollback-to:
