@@ -49,7 +49,7 @@
 
 ### Project initialization (most likely already done by project's owner)
 
-- Create a new repository from [repository template](../repository-template)
+- Create a new repository from [repository template](../../../repository-template)
 - Edit [project's repository boostraping config](./config/github-repo/main.go) to fit your project's needs
 - Run `pulumi up` to create the necessary resources
 
