@@ -51,6 +51,7 @@
 
 - Create a new repository from [repository template](../../../repository-template)
 - Edit [project's repository boostraping config](./config/github-repo/main.go) to fit your project's needs
+- Import the repository into Pulumi by running
 - Run `pulumi up` to create the necessary resources
 
 ### Project development
