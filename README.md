@@ -49,8 +49,9 @@
 
 ### Project initialization (most likely already done by project's owner)
 
-- Create a new repository from this template
-- Edit
+- Create a new repository from [repository template](../repository-template)
+- Edit [project's repository boostraping config](./config/github-repo/main.go) to fit your project's needs
+- Run `pulumi up` to create the necessary resources
 
 ### Project development
 
@@ -58,8 +59,9 @@
 
 - [Docker](https://github.com/docker/cli) and [Docker Compose](https://github.com/docker/compose) to run applications in containers. You should configure your credentials store and credential helpers for Docker to work with your container registry
 - [Go](https://github.com/golang/go) to install applications dependencies as needed
-- [Task](https://github.com/go-task/task) to run common commands such as running, testing, linting, building, ...
+- [Pulumi](https://github.com/pulumi/pulumi) to manage Cloud resources
 - [AWS CLI](https://github.com/aws/aws-cli) configured with the necessary permissions to interact with AWS services
+- [Task](https://github.com/go-task/task) to run common commands such as running, testing, linting, building, ...
 - Very few other CLI tools such as [curl](https://github.com/curl/curl), [git](https://github.com/git/git), ... that are most likely already installed on your system
 
 #### Running the project
