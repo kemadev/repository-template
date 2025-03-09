@@ -5,10 +5,15 @@ vars:
   pulumiCli: pulumi
   pulumigoCli: go
 
+  curlCli: "curl -H 'Pragma: no-cache'"
+
   infraBaseDir: deploy
   pulumiDefaultStack: dev
-  pulumiStackTemplateDir: config/pulumi/stack-template
+  pulumiStackTemplateRepo: kemadev/iac-components
+  pulumiStackTemplateBranch: main
+  pulumiStackTemplateDir: pkg/pulumi/stack-template
   pulumiProjectConfigFile: Pulumi.yaml
+  pulumiDefaultStackFile: Pulumi.dev.yaml
 
 run: once
 
@@ -78,6 +83,8 @@ tasks:
     vars:
       componentName: '{{ .CLI_ARGS | default "rtfm-you-forgot-to-pass-component-name" }}'
       stackDir: '{{ .infraBaseDir }}/{{ .componentName }}'
+      initialProjectName: github-com-kemadev-iac-components-pkg-pulumi-stack-template
+      initialProjectDescription: Pulumi stack template for infrastructure as code components
       repoMod:
         sh: git remote get-url origin | sed -e 's|https://||g' -e 's|.git||g'
       repoProject:
@@ -93,9 +100,9 @@ tasks:
       - cmd: mkdir -p {{ .stackDir }}
       - cmd: cd {{ .stackDir }}
       - cmd: cd {{ .stackDir }} && {{ .goCli }} mod init {{ .repoMod }}/{{ .stackDir }}
-      - cmd: cp {{ .pulumiStackTemplateDir }}/main.go {{ .stackDir }}
+      - cmd: '{{ .curlCli }} -so {{ .stackDir }}/main.go https://raw.githubusercontent.com/{{ .pulumiStackTemplateRepo }}/refs/heads/{{ .pulumiStackTemplateBranch }}/{{ .pulumiStackTemplateDir }}/main.go'
       - cmd: cd {{ .stackDir }} && {{ .goCli }} get
-      - cmd: cat {{ .pulumiStackTemplateDir }}/{{ .pulumiProjectConfigFile }} | sed -e 's|${STACK_NAME}|{{ .repoProject }}|g' -e 's|${STACK_DESCRIPTION}|{{ .componentName }}|g' > {{ .stackDir }}/{{ .pulumiProjectConfigFile }}
-      - cmd: cp {{ .pulumiStackTemplateDir }}/Pulumi.dev.yaml {{ .stackDir }}/Pulumi.dev.yaml
-      - cmd: cd {{ .stackDir }} && {{ .pulumiCli }} stack init {{ .pulumiDefaultStack }}
-      - cmd: echo -e "Component '{{ .componentName }}' created in '{{ .stackDir }}'!\n\nYou should edit its {{ .pulumiProjectConfigFile }} file to set the description and other settings."
+      - cmd: '{{ .curlCli }} -so {{ .stackDir }}/{{ .pulumiDefaultStackFile }} https://raw.githubusercontent.com/{{ .pulumiStackTemplateRepo }}/refs/heads/{{ .pulumiStackTemplateBranch }}/{{ .pulumiStackTemplateDir }}/{{ .pulumiDefaultStackFile }}'
+      - cmd: '{{ .curlCli }} -so /tmp/{{ .pulumiProjectConfigFile }} https://raw.githubusercontent.com/{{ .pulumiStackTemplateRepo }}/refs/heads/{{ .pulumiStackTemplateBranch }}/{{ .pulumiStackTemplateDir }}/{{ .pulumiProjectConfigFile }}'
+      - cmd: cat /tmp/{{ .pulumiProjectConfigFile }} | sed -e 's|{{ .initialProjectName }}|{{ .repoProject }}|g' -e 's|{{ .initialProjectDescription }}|{{ .componentName }}|g' > {{ .stackDir }}/{{ .pulumiProjectConfigFile }}
+      - cmd: echo -e "Component '{{ .componentName }}' created in '{{ .stackDir }}'!\n\nYou should edit its {{ .pulumiProjectConfigFile }} file to set the description and other settings, then run {{ .pulumiCli }} stack init {{ .pulumiDefaultStack }}"
