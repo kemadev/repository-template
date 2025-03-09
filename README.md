@@ -52,6 +52,7 @@
 - Create a new repository from [repository template](../../../repository-template), clone it, and change working directory to the repository's root
 - Edit [project's repository pulumi project config file](./config/github-repo/Pulumi.yaml)'s name and description to fit your project's needs
 - Edit [project's repository boostraping config](./config/github-repo/main.go) to fit your project's needs
+- Commit and push changes
 - Change working directory to [project's repository boostraping directory](./config/github-repo/)
 - Initialize repository's Pulumi stack by running `pulumi stack init main`
 - Create stack's GitHub provider by running `pulumi up --target '*github-repo-provider*'`
