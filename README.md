@@ -72,6 +72,11 @@
 - [Task](https://github.com/go-task/task) to run common commands such as running, testing, linting, building, ...
 - Very few other CLI tools such as [curl](https://github.com/curl/curl), [git](https://github.com/git/git), ... that are most likely already installed on your system
 
+#### Initial setup
+
+- Clone the repository
+- Change working directory to `doc/wiki`
+
 #### Running the project
 
 - Common tasks such as running, testing, creating new IaC components, updating Cloud resources, ... are done via [Task](https://github.com/go-task/task). [Taskfile.yaml](Taskfile.yaml) is the root Taskfile, and include other taskfiles located in sub-directories

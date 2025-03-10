@@ -1,0 +1,14 @@
+# File managed by repo-as-code, do not edit manually!
+version: 3
+
+vars:
+  gitCli: git
+
+run: once
+
+tasks:
+  # Initialize wiki submodule
+  init-wiki:
+    desc: Initialize wiki submodule
+    cmds:
+      - cmd: '{{ .gitCli }} submodule update --init --recursive wiki'
