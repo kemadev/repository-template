@@ -26,13 +26,13 @@ jobs:
         uses: actions/checkout@v4
         with:
           repository: ${{ github.repository }}.wiki
-          path: ${{ runner.temp }}/repo
+          path: dist/wiki
       - name: Sync wiki
         id: sync-wiki
         run: |
           git config --global user.name "github-actions[bot]"
           git config --global user.email "kemadev+github-actions[bot]@users.noreply.github.com"
-          cd ${{ runner.temp }}/repo
+          cd dist/wiki
           rm -rf *
           cp -r ${{ github.workspace }}/doc/* .
           git add .
