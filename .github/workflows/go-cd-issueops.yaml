@@ -12,7 +12,8 @@ defaults:
 jobs:
   go-cd-issueopos:
     name: Go - CD IssueOps
-    uses: kemadev/workflows-and-actions/.github/workflows/go-cd-issueops.yaml@main
+    uses: kemadev/workflows-and-actions/.github/actions/issue-command-dispatch.yaml@main
+    # uses: kemadev/workflows-and-actions/.github/workflows/go-cd-issueops.yaml@main
     permissions:
       pull-requests: write
       deployments: write
