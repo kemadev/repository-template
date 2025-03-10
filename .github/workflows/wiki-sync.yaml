@@ -1,11 +1,13 @@
+# File managed by repo-as-code, do not edit manually!
 name: Wiki - Sync
 
 on:
   push:
     branches:
       - main
-    # paths:
-    #   - 'doc/**.md'
+    paths:
+      - 'doc/**.md'
+  workflow_dispatch: {}
 
 defaults:
   run:
@@ -14,27 +16,6 @@ defaults:
 jobs:
   wiki-sync:
     name: Wiki - Sync
-    runs-on: ubuntu-latest
+    uses: kemadev/workflows-and-actions/.github/workflows/wiki-sync.yaml@main
     permissions:
       contents: write
-    steps:
-      - name: Checkout
-        id: checkout
-        uses: actions/checkout@v4
-      - name: Checkout wiki
-        id: checkout-wiki
-        uses: actions/checkout@v4
-        with:
-          repository: ${{ github.repository }}.wiki
-          path: dist/wiki
-      - name: Sync wiki
-        id: sync-wiki
-        run: |
-          git config --global user.name "github-actions[bot]"
-          git config --global user.email "kemadev+github-actions[bot]@users.noreply.github.com"
-          cd dist/wiki
-          rm -rf *
-          cp -r ${{ github.workspace }}/doc/* .
-          git add .
-          git commit -m "Sync wiki - ${{ github.sha }}"
-          git push
