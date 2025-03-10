@@ -1,5 +1,2 @@
-# H1
-
-### H3
-
-Home
+<!-- markdownlint-disable MD026 -->
+# Welcome!
