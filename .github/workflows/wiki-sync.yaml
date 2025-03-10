@@ -1,0 +1,30 @@
+name: Wiki - Sync
+
+on:
+  push:
+    branches:
+      - main
+    paths:
+      - 'doc/**.md'
+
+defaults:
+  run:
+    shell: bash
+
+jobs:
+  wiki-sync:
+    name: Wiki - Sync
+    id: wiki-sync
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write
+    run: |
+        git config user.name "github-actions[bot]"
+        git config user.email "kemadev+github-actions[bot]@users.noreply.github.com"
+        git clone https://github.com/${{ github.repository }} ${{ runner.temp }}/repo
+        cd ${{ runner.temp }}/repo
+        rm -rf *
+        cp -r ${{ github.workspace }}/* .
+        git add .
+        git commit -m "Sync wiki - ${{ github.sha }}"
+        git push
