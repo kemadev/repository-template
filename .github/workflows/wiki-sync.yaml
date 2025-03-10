@@ -21,12 +21,17 @@ jobs:
       - name: Checkout
         id: checkout
         uses: actions/checkout@v4
+      - name: Checkout wiki
+        id: checkout-wiki
+        uses: actions/checkout@v4
+        with:
+          repository: ${{ github.repository }}.wiki
+          path: ${{ runner.temp }}/repo
       - name: Sync wiki
         id: sync-wiki
         run: |
           git config --global user.name "github-actions[bot]"
           git config --global user.email "kemadev+github-actions[bot]@users.noreply.github.com"
-          git clone https://github.com/${{ github.repository }}.wiki ${{ runner.temp }}/repo
           cd ${{ runner.temp }}/repo
           rm -rf *
           cp -r ${{ github.workspace }}/doc/* .
