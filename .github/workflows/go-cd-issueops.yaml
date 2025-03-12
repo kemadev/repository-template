@@ -17,6 +17,4 @@ jobs:
       pull-requests: write
       deployments: write
       contents: write
-      checks: read
-      statuses: read
       packages: write
