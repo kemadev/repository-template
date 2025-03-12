@@ -7,5 +7,4 @@ import (
 
 func main() {
 	log.Println("Hello, World!!")
-	foo, err := os.Open("foo.txt")
 }
