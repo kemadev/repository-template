@@ -1,0 +1,35 @@
+name: Go - CD
+
+on:
+  workflow_dispatch:
+    inputs:
+      sha:
+        description: SHA to deploy
+        type: string
+        default: latest
+      environment:
+        description: Environment to deploy
+        type: string
+        default: main
+      enable_rollback:
+        description: Enable rollback
+        type: boolean
+        default: true
+defaults:
+  run:
+    shell: bash
+
+jobs:
+  go-cd-issueopos:
+    name: Go - CD IssueOps
+    permissions:
+      pull-requests: write
+      deployments: write
+      contents: write
+      packages: write
+    uses: kemadev/workflows-and-actions/.github/workflows/go-cd.yaml@main
+    with:
+      sha: ${{ github.event.inputs.sha }}
+      ref: ${{ github.event.inputs.sha }}
+      base_ref: ${{ github.event.inputs.environment }}
+      enable_rollback: ${{ github.event.inputs.enable_rollback }}
