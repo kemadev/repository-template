@@ -7,8 +7,8 @@ on:
         description: Environment to deploy
         type: string
         default: main
-      sha:
-        description: SHA to deploy, defaults to branch's HEAD
+      ref:
+        description: Git ref to deploy, defaults to branch's HEAD
         required: false
         type: string
       enable_rollback:
