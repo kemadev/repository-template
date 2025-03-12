@@ -90,8 +90,7 @@
 - You have some [IssueOps](https://issue-ops.github.io/docs/) commands available, that will run against your PRs base ref. Here are the available commands:
   - `.preview` will run a stack update preview
   - `.up` will run a stack update if PR is mergeable
-  - `.up --force` will force a stack update if PR is not mergeable. Only available to repository admins
-  - `.rollback [<ref>]` will rollback latest successful deployment, or specified ref if provided. This is especially useful if you need to rollback a failed deployment, just open a PR targetting the environment (branch) you want to rollback, and run `.rollback`
+  - `.up --force` will force a stack update, even if PR is not mergeable. Only available to repository admins
 - However, they can sometime report false positives. Here is what you can do to remediate (be as specific as possible on silences to avoid shadowing real issues):
   - `golangci-lint`: Add a `nolint:<linter>[,<linter>]` comment. See [this doc](https://golangci-lint.run/usage/false-positives/)
   - `semgrep`: Add a `nosemgrep: <rule-id>` comment. See [this doc](https://semgrep.dev/docs/ignoring-files-folders-code)
