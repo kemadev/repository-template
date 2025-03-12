@@ -12,9 +12,14 @@ on:
         type: string
         default: main
       enable_rollback:
-        description: Enable rollback
+        description: Enable rollback in case of deployment failure
         type: boolean
         default: true
+      rollback:
+        description: Wether to rollback instead of deploying
+        type: boolean
+        default: false
+
 defaults:
   run:
     shell: bash
@@ -33,3 +38,4 @@ jobs:
       ref: ${{ github.event.inputs.sha }}
       base_ref: ${{ github.event.inputs.environment }}
       enable_rollback: ${{ github.event.inputs.enable_rollback }}
+      rollback: ${{ github.event.inputs.rollback }}
