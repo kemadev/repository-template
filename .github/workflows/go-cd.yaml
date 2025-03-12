@@ -3,14 +3,14 @@ name: Go - CD
 on:
   workflow_dispatch:
     inputs:
-      sha:
-        description: SHA to deploy
-        type: string
-        default: latest
       environment:
         description: Environment to deploy
         type: string
         default: main
+      sha:
+        description: SHA to deploy, defaults to branch's HEAD
+        required: false
+        type: string
       enable_rollback:
         description: Enable rollback in case of deployment failure
         type: boolean
