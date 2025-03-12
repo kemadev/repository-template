@@ -34,8 +34,8 @@ jobs:
       packages: write
     uses: kemadev/workflows-and-actions/.github/workflows/go-cd.yaml@main
     with:
-      sha: ${{ github.event.inputs.sha != '' && github.event.inputs.sha || github.sha }}
-      ref: ${{ github.event.inputs.sha != '' && github.event.inputs.sha || github.sha }}
+      sha: ${{ github.event.inputs.ref != '' && github.event.inputs.ref || github.sha }}
+      ref: ${{ github.event.inputs.ref != '' && github.event.inputs.ref || github.sha }}
       base_ref: ${{ github.event.inputs.environment }}
       # fromJson is used to convert the string to a boolean
       enable_rollback: ${{ fromJson(github.event.inputs.enable_rollback) }}
