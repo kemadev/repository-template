@@ -37,5 +37,5 @@ jobs:
       sha: ${{ github.event.inputs.sha }}
       ref: ${{ github.event.inputs.sha }}
       base_ref: ${{ github.event.inputs.environment }}
-      enable_rollback: true
-      rollback: ${{ github.event.inputs.rollback }}
+      enable_rollback: ${{ toJson(github.event.inputs.enable_rollback) }}
+      rollback: ${{ toJson(github.event.inputs.rollback) }}
