@@ -5,7 +5,7 @@ vars:
   pulumiCli: pulumi
   pulumigoCli: go
 
-  curlCli: "curl -H 'Pragma: no-cache'"
+  curlCli: "curl -H 'Pragma: no-cache'" # yamllint disable-line rule:quoted-strings
 
   infraBaseDir: deploy
   pulumiDefaultStack: dev
