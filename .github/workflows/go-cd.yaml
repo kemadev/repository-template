@@ -8,7 +8,7 @@ on:
         type: string
         default: main
       ref:
-        description: Git ref to deploy, defaults to branch's HEAD
+        description: Git ref to deploy, defaults to *workflow branch* (selector above) HEAD
         required: false
         type: string
       enable_rollback:

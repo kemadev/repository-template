@@ -91,8 +91,8 @@
   - `.preview` will run a stack update preview
   - `.up` will run a stack update if PR is mergeable
   - `.up --force` will force a stack update, even if PR is not mergeable. Only available to repository admins
-- For emergency situations, you can use the `Go - CD` workflow to deploy a specific version of the application
-- However, they can sometime report false positives. Here is what you can do to remediate (be as specific as possible on silences to avoid shadowing real issues):
+- For emergency situations, you can use the `Go - CD` workflow to deploy a specific version of the application. You should always use workflow from `main`, and specify a `ref` if you want to deploy something else than `main`'s `HEAD`.
+- CI Pipelines can sometime report false positives. Here is what you can do to remediate (be as specific as possible on silences to avoid shadowing real issues):
   - `golangci-lint`: Add a `nolint:<linter>[,<linter>]` comment. See [this doc](https://golangci-lint.run/usage/false-positives/)
   - `semgrep`: Add a `nosemgrep: <rule-id>` comment. See [this doc](https://semgrep.dev/docs/ignoring-files-folders-code)
   - `trufflehog`: Add a `trufflehog:ignore` comment. See [this doc](https://github.com/trufflesecurity/trufflehog/blob/main/README.md#question-faq). Please note that **any leaked secret should be revoked and replaced as soon as possible**
