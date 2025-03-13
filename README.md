@@ -91,6 +91,7 @@
   - `.preview` will run a stack update preview
   - `.up` will run a stack update if PR is mergeable
   - `.up --force` will force a stack update, even if PR is not mergeable. Only available to repository admins
+- If you wonder if someone is working on an environment, you can check its deployment status in [deployments history](../../deployments) and see who is working on it
 - For emergency situations, you can use the `Go - CD` workflow to deploy a specific version of the application. You should always use workflow from `main`, and specify a `ref` if you want to deploy something else than `main`'s `HEAD`.
 - CI Pipelines can sometime report false positives. Here is what you can do to remediate (be as specific as possible on silences to avoid shadowing real issues):
   - `golangci-lint`: Add a `nolint:<linter>[,<linter>]` comment. See [this doc](https://golangci-lint.run/usage/false-positives/)
