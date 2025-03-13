@@ -7,11 +7,11 @@ on:
         description: Git ref to deploy, defaults to *workflow branch* (selector above) HEAD
         required: false
         type: string
-      enable_rollback:
       environment:
         description: Environment to deploy
         type: string
         default: main
+      enable_rollback:
         description: Enable rollback in case of deployment failure
         type: boolean
         default: true
