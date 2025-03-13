@@ -4,19 +4,21 @@ on:
   workflow_dispatch:
     inputs:
       ref:
-        description: Git ref to deploy, defaults to *workflow branch* (selector above) HEAD
+        description: Git ref to deploy, defaults to *workflow branch* (selector above)
         required: false
         type: string
       environment:
-        description: Environment to deploy
+        description: Environment to deploy, defaults to *workflow branch* (selector above)
+        required: false
         type: string
-        default: main
       enable_rollback:
         description: Enable rollback in case of deployment failure
+        required: false
         type: boolean
         default: true
       rollback:
         description: Wether to rollback instead of deploying
+        required: false
         type: boolean
         default: false
 
@@ -36,7 +38,7 @@ jobs:
     with:
       sha: ${{ github.event.inputs.ref != '' && github.event.inputs.ref || github.sha }}
       ref: ${{ github.event.inputs.ref != '' && github.event.inputs.ref || github.sha }}
-      base_ref: ${{ github.event.inputs.environment }}
+      base_ref: ${{ github.event.inputs.environment != '' && github.event.inputs.environment || github.ref_name }}
       # fromJson is used to convert the string to a boolean
       enable_rollback: ${{ fromJson(github.event.inputs.enable_rollback) }}
       # fromJson is used to convert the string to a boolean
