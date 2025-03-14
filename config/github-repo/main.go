@@ -9,18 +9,19 @@ func main() {
 	pulumi.Run(func(ctx *pulumi.Context) error {
 		err := repo.Wrapper(ctx, repo.WrapperArgs{
 			Repository: repo.RepositoryArgs{
+				Name: "repo-as-code-demo",
 				// Set description
-				Description: "CHANGEME",
+				Description: "repo-as-code-demo",
 				// Set visibility
-				Visibility: "CHANGEME",
+				Visibility: "public",
 				// Optionally set other properties such as teams, direct members, etc.
 			},
 			Codeowners: repo.CodeownersArgs{
 				Codeowners: []repo.CodeownerParam{
 					// Set codeowners
 					{
-						Path:   "CHANGEME",
-						Entity: "CHANGEME",
+						Path:   "*",
+						Entity: "@kemadev/maintainers",
 					},
 				},
 			},
