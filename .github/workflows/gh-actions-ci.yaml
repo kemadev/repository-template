@@ -29,3 +29,9 @@ jobs:
     uses: kemadev/workflows-and-actions/.github/workflows/gh-actions-ci.yaml@main
     permissions:
       contents: read
+  unsafe:
+    name: Unsafe
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v2
