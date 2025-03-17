@@ -21,6 +21,7 @@ on:
 permissions:
   contents: read
   pull-requests: write
+  checks: write
 
 jobs:
   go-ci:
@@ -29,3 +30,4 @@ jobs:
     permissions:
       contents: read
       pull-requests: write
+      checks: write
