@@ -29,4 +29,3 @@ jobs:
     uses: kemadev/workflows-and-actions/.github/workflows/shell-ci.yaml@main
     permissions:
       contents: read
-      checks: write

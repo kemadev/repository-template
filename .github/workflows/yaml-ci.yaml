@@ -21,10 +21,12 @@ defaults:
   run:
     shell: bash
 
+permissions:
+  contents: read
+
 jobs:
   yaml-ci:
     name: YAML - CI
     uses: kemadev/workflows-and-actions/.github/workflows/yaml-ci.yaml@main
     permissions:
       contents: read
-      checks: write
