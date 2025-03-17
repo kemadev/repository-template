@@ -20,10 +20,12 @@ defaults:
   run:
     shell: bash
 
+permissions:
+  contents: read
+
 jobs:
   github-actions-ci:
     name: GitHub Actions - CI
     uses: kemadev/workflows-and-actions/.github/workflows/gh-actions-ci.yaml@main
     permissions:
       contents: read
-      checks: write
