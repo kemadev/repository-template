@@ -24,3 +24,6 @@ jobs:
   docker-ci:
     name: Docker - CI
     uses: kemadev/workflows-and-actions/.github/workflows/docker-ci.yaml@main
+    permissions:
+      contents: read
+      packages: none
