@@ -10,6 +10,9 @@ on:
       - unlocked
       - reopened
 
+permissions:
+  contents: none
+
 jobs:
   check-pr-title:
     name: Check PR title
