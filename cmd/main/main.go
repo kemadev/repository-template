@@ -7,4 +7,6 @@ import (
 
 func main() {
 	log.Println("Hello, World!")
+	err := run()
+	return
 }
