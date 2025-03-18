@@ -2,14 +2,9 @@
 package main
 
 import (
-	"fmt"
-	"io/ioutil"
 	"log"
 )
 
 func main() {
 	log.Println("Hello, World!")
-	err := ioutil.WriteFile("test.txt", []byte("Hello, World!"), 0o644)
-	fmt.Println(err)
-	return
 }
