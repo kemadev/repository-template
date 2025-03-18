@@ -7,6 +7,6 @@ import (
 
 func main() {
 	log.Println("Hello, World!")
-	err := run()
+	err := runs()
 	return
 }
