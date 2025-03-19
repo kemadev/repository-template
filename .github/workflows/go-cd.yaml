@@ -45,7 +45,7 @@ jobs:
     with:
       sha: ${{ github.event.inputs.ref != '' && github.event.inputs.ref || github.sha }}
       ref: ${{ github.event.inputs.ref != '' && github.event.inputs.ref || github.sha }}
-      base_ref: ${{ github.event.inputs.environment != '' && github.event.inputs.environment || github.ref_name }}
+      environment: ${{ github.event.inputs.environment != '' && github.event.inputs.environment || github.ref_name }}
       # fromJson is used to convert the string to a boolean
       enable_rollback: ${{ fromJson(github.event.inputs.enable_rollback) }}
       # fromJson is used to convert the string to a boolean
