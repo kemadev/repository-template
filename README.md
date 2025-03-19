@@ -81,6 +81,8 @@
 
 #### CI / CD
 
+
+
 - CI / CD pipelines are fully automated and managed by GitHub Actions. You can find the workflows in [.github/workflows](.github/workflows) directory.
 - You have some [IssueOps](https://issue-ops.github.io/docs/) commands available, that will run against your PR's base ref. Here are the available commands:
   - `.preview [<env>]` will run a stack update preview against the specified environment, `dev` by default
