@@ -27,13 +27,19 @@ defaults:
   run:
     shell: bash
 
+permissions:
+  contents: write
+  pull-requests: write
+  deployments: write
+  packages: write
+
 jobs:
   go-cd:
     name: Go - CD
     permissions:
+      contents: write
       pull-requests: write
       deployments: write
-      contents: write
       packages: write
     uses: kemadev/workflows-and-actions/.github/workflows/go-cd.yaml@main
     with:

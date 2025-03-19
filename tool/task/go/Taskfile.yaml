@@ -3,7 +3,7 @@ version: 3
 
 vars:
   goCli: go
-  goLinter: golangci-lint
+  goLinterLocal: golangci-lint
   configDir: config
   reusableConfigDir: config/reusable
   distDir: dist
@@ -36,7 +36,7 @@ tasks:
     deps:
       - format
     cmds:
-      - cmd: '{{ .goLinter }} run ./... --config {{ .goLinterConfig }}'
+      - cmd: '{{ .goLinterLocal }} run ./... --config {{ .goLinterConfig }}'
 
   test:
     desc: Run tests on all packages

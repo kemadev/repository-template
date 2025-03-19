@@ -20,10 +20,12 @@ defaults:
   run:
     shell: bash
 
+permissions:
+  contents: read
+
 jobs:
   shell-ci:
     name: Shell - CI
     uses: kemadev/workflows-and-actions/.github/workflows/shell-ci.yaml@main
     permissions:
       contents: read
-      checks: write

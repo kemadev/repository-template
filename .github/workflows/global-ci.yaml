@@ -18,10 +18,12 @@ defaults:
   run:
     shell: bash
 
+permissions:
+  contents: read
+
 jobs:
   global-ci:
     name: Global - CI
     uses: kemadev/workflows-and-actions/.github/workflows/global-ci.yaml@main
     permissions:
       contents: read
-      checks: write

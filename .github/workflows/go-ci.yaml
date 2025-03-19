@@ -18,6 +18,10 @@ on:
       - '**.go'
   workflow_dispatch: {}
 
+permissions:
+  contents: read
+  pull-requests: write
+
 jobs:
   go-ci:
     name: Go - CI
@@ -25,4 +29,3 @@ jobs:
     permissions:
       contents: read
       pull-requests: write
-      checks: write
