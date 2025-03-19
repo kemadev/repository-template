@@ -79,7 +79,6 @@
 - You should run `task ci` before pushing your changes to ensure your changes are expected to pass the CI pipelines. However, please note that these tasks are meant to be run in a development environment, and might not be on-par with CI/CD pipelines
 - For specific application setup such as debugging and full-fledged development mode, please refer to `tool/docker-compose.yaml` and its profiles with associated comments
 
-
 #### CI / CD
 
 - CI / CD pipelines are fully automated and managed by GitHub Actions. You can find the workflows in [.github/workflows](.github/workflows) directory.
